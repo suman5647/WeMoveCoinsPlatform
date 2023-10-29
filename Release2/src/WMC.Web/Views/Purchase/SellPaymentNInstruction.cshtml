@@ -1,0 +1,10 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.SellPayment
+<div >
+    <div id="IbanInfo" class="beatling-box" >
+        @Html.Partial("IBAN", Model.PaymentDetails);
+    </div>
+
+    <div id="CrypPmntInfo" class="disable" ">@Html.Partial("CryptoCurrencyPaymentInstruction", Model.cryptoCurrencyPaymentInstructionModel);</div>
+    @*ng-if ng-init="vm.model.ViewName = 'QRPage'*@
+</div>

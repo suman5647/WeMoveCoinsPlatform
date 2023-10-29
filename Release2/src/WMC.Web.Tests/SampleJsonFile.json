@@ -1,0 +1,432 @@
+﻿{
+  "BitGoAccessCode": {
+    "Environment": "Test",
+    "AccessCode": "v2x7793858136dc5536ad780437e73b938ea0935611179cdf1b8dbe1b10740f2179",
+    "TOTPKey": "IHT4CGXEQERRO3XA2VBDNWK6MSDDWZCKUG3SDDDS6VFN7D34MEHQ",
+    "SessionExpiry": "2020-01-16T10:00:34"
+  },
+  "KrakenAccount": {
+    "KrakenBaseAddress": "https://api.kraken.com",
+    "KrakenApiVersion": "0",
+    "KrakenKey": "ZrCyqGer6QJhLaiWBi/sP5nGLjSECs1qyhrE1TCA3C8R6Vd2bPrA9e/x",
+    "KrakenSecret": "Wusg6XbPT/3UrvHPyyHsPbdayhGYTRDjteoJaU1bqSpP4VNhi2sGwUAxm/5nZ/mAR0Eyw2FM0Msps+NjawgL1g=="
+  },
+  "ChainalysisSettings": {
+    "UserName": "_fgm@wemovecoins.com",
+    "Password": "_fzgnjfhhum",
+    "Token": "_d799fc542c5ab7bc3990a83249c69d517c29ebbc5656d949857d253ca93a52d2",
+    "UserId": "_4239",
+    "URL": "https://api.chainalysis.com/"
+  },
+  "TwilioProdDetails": [
+    {
+      "SiteId": 1,
+      "From": "Monni",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 2,
+      "From": "123bitcoin",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 3,
+      "From": "Hafniatrading",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 4,
+      "From": "WeMoveCoins",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    }
+  ],
+  "TwilioTestDetails": [
+    {
+      "SiteId": 1,
+      "From": "WeMoveCoins",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 2,
+      "From": "123bitcoin",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 3,
+      "From": "Hafniatrading",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 5,
+      "From": "Monni",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    },
+    {
+      "SiteId": 21,
+      "From": "Localhost",
+      "FromNumber": "+4592451774",
+      "AccountSid": "ACd347c46bfc5615c707986ce13c4f1123",
+      "AuthToken": "05431c74327f0e7ef5c35aa557617340",
+      "Message": "Hi {0}. In order to process your bitcoin order, please verify yourself using the following code: \n\n{1}"
+    }
+  ],
+  "YourPayTestDetails": {
+    "Username": "fgm@wemovecoins.com",
+    "Password": "aIhwwtzAP7EaiK1SNnJ26Bz",
+    "SiteMerchantDetails": [
+      {
+        "SiteId": 4,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 3,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 1,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 2,
+        "MerchantNumber": 60007863,
+        "ApiToken": "Srp8QQy2pBdGCy2QubRqDdCh228Frk5I"
+      },
+      {
+        "SiteId": 21,
+        "MerchantNumber": 600127670
+      }
+    ],
+    "IntegrationCode": "EzPlCZ8UiIcTcUU9Qu",
+    "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+  },
+  "YourPayProdDetails": {
+    "Username": "fgm@wemovecoins.com",
+    "Password": "aIhwwtzAP7EaiK1SNnJ26Bz",
+    "SiteMerchantDetails": [
+      {
+        "SiteId": 4,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 3,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 1,
+        "MerchantNumber": 60006412,
+        "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+      },
+      {
+        "SiteId": 2,
+        "MerchantNumber": 60006412,
+        "ApiToken": "Srp8QQy2pBdGCy2QubRqDdCh228Frk5I"
+      },
+      {
+        "SiteId": 15,
+        "MerchantNumber": 60006412
+      },
+      {
+        "SiteId": 16,
+        "MerchantNumber": 60006412
+      },
+      {
+        "SiteId": 20,
+        "MerchantNumber": 600126867,
+        "ApiToken": "IHE3QMvPHpoiAsLybuNHDzvOos31W6"
+      },
+      {
+        "SiteId": 22,
+        "MerchantNumber": 600127670
+      },
+      {
+        "SiteId": 21,
+        "MerchantNumber": 600127670
+      }
+    ],
+    "IntegrationCode": "EzPlCZ8UiIcTcUU9Qu",
+    "ApiToken": "DdD0KOC4X4g6AYbQT9Wu2pXOEGOTJuUz"
+  },
+  "MailJetSettings_Prod": {
+    "APIKey": "_854dfdbbdb0572eb5bfef7d7c702b9e1",
+    "APISecret": "_9a58895bdcbd5917469f651778e267ba",
+    "Templates": [
+      {
+        "TemplateName": "OrderPaid",
+        "TemplateId": "29459",
+        "Subject": "Payment confirmation - Transaction pending"
+      },
+      {
+        "TemplateName": "OrderCompleted",
+        "TemplateId": "28699",
+        "Subject": "Payout Completed"
+      }
+    ],
+    "FromAddress": "transactions@wemovecoins.com"
+  },
+  "MailJetSettings_Test": {
+    "APIKey": "854dfdbbdb0572eb5bfef7d7c702b9e1",
+    "APISecret": "9a58895bdcbd5917469f651778e267ba",
+    "Templates": [
+      {
+        "TemplateName": "OrderPaid",
+        "TemplateId": "29459",
+        "Subject": "Payment confirmation - Transaction pending"
+      },
+      {
+        "TemplateName": "OrderCompleted",
+        "TemplateId": "28699",
+        "Subject": "Payout Completed"
+      },
+      {
+        "TemplateName": "PaymentInstructions",
+        "TemplateId": "45673",
+        "Subject": "Payment Instructions for your order at WeMoveCoins.com"
+      }
+    ],
+    "FromAddress": "transactions@wemovecoins.com"
+  },
+  "SMTPServerSettings": {
+    "ServerName": "smtp.gmail.com",
+    "ServerPort": "465",
+    "UserId": "hafniatrading@gmail.com",
+    "Password": "i]K2tEeku9L7bHPogcgUZL",
+    "Templates": [
+      {
+        "TemplateName": "OrderPaid",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/PaymentReceived.html",
+        "Subject": "Payment confirmation - Transaction pending"
+      },
+      {
+        "TemplateName": "OrderCompleted",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/OrderCompleted.html",
+        "Subject": "Payout Completed"
+      },
+      {
+        "TemplateName": "SellOrderCompleted",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/SellOrderCompleted.html",
+        "Subject": "Payout Completed"
+      },
+      {
+        "TemplateName": "PaymentInstructions",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/PaymentInstructions.html",
+        "Subject": "Payment Instructions for your order at WeMoveCoins.com"
+      },
+      {
+        "TemplateName": "OrderCancelled",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/OrderCancelled.html",
+        "Subject": "YOUR ORDER {{OrderNumber}} HAS BEEN CANCELLED"
+      },
+      {
+        "TemplateName": "KYCDeclined",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/KYC_Declined.html",
+        "Subject": "YOUR ORDER {{OrderNumber}} HAS BEEN DECLINED"
+      },
+      {
+        "TemplateName": "KYCRequest",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/KYC_Request.html",
+        "Subject": "KYC Request"
+      },
+      {
+        "TemplateName": "CryptoCurrencyPaymentInstructions",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/CryptoCurrencyPaymentInstructions.html",
+        "Subject": "Awaiting BTC transfer."
+      },
+      {
+        "TemplateName": "RequestKycDocuments",
+        "TemplateUrl": "~/Sites/{SiteName}/EmailTemplates/RequestKycDocuments.html",
+        "Subject": "Request KYC Documents"
+      }
+    ]
+  },
+  "OpenExchangeRatesAPIId": "bb98f485025944c6a0e93cdded367b55",
+  "TrustPayTestDetails_MainFile": [
+    {
+      "SiteId": "1",
+      "EntityId": "_8a8294186242c2be0162430b70380098",
+      "UserId": "_8a8294186242c2be0162430aaedd0093",
+      "Password": "_W5zEywX9r6"
+    }
+  ],
+  "TrustPayTestDetails_TestFile": [
+    {
+      "SiteId": "4",
+      "EntityId": "8a8294186242c2be0162430b70380098",
+      "UserId": "8a8294186242c2be0162430aaedd0093",
+      "Password": "W5zEywX9r6"
+    },
+    {
+      "SiteId": "3",
+      "EntityId": "8a8294186242c2be0162430b70380098",
+      "UserId": "8a8294186242c2be0162430aaedd0093",
+      "Password": "W5zEywX9r6"
+    },
+    {
+      "SiteId": "1",
+      "EntityId": "8a8294186242c2be0162430b70380098",
+      "UserId": "8a8294186242c2be0162430aaedd0093",
+      "Password": "W5zEywX9r6"
+    },
+    {
+      "SiteId": "21",
+      "EntityId": "8a8294186242c2be0162430b70380098",
+      "UserId": "8a8294186242c2be0162430aaedd0093",
+      "Password": "W5zEywX9r6"
+    },
+    {
+      "SiteId": "22",
+      "EntityId": "8a8294186242c2be0162430b70380098",
+      "UserId": "8a8294186242c2be0162430aaedd0093",
+      "Password": "W5zEywX9r6"
+    }
+  ],
+  "TrustPayProdDetails_MainFile": [
+    {
+      "SiteId": "1",
+      "EntityId": "_8acda4c96247765a016271226e351ea6",
+      "UserId": "_8acda4c96247765a0162711978221e2a",
+      "Password": "_C4gB8W8za7"
+    },
+    {
+      "SiteId": "2",
+      "EntityId": "_8acda4c762b378e50162b89c1ba33640",
+      "UserId": "_8acda4c96247765a0162711978221e2a",
+      "Password": "_C4gB8W8za7"
+    },
+    {
+      "SiteId": "20",
+      "EntityId": "_8acda4c762b378e50162b89c9a753645",
+      "UserId": "_8acda4c96247765a0162711978221e2a",
+      "Password": "_C4gB8W8za7"
+    }
+  ],
+  "TrustPayProdDetails_TestFile": "empty",
+  "reCaptchaSettings": {
+    "isEnabled": 1,
+    "Status": "Enabled",
+    "RecaptchaPublicKey": "6Lerer0UAAAAALOlelYsKmg2renozm8oKz4lDYBt",
+    "RecaptchaPrivateKey": "6Lerer0UAAAAAAaDiXb9M6vS-5Q-mQWX3yaz8FyE"
+  },
+  "QuickPayDetails_TestFile": [
+    {
+      "SiteId": 21,
+      "SiteName": "localhost",
+      "APIAgreementId": 381684,
+      "MerchantId": 106871,
+      "UserAPIKey": "f0896ba541659579a928bb04b79dc00c795c1f6e2e0f2db5741b1005cf32e2b6",
+      "PaymentWindowAgreementId": 381680,
+      "PaymentWindowAPIKey": "af9a9904a1d2c37f6c6be25550b2a9e6e76118734ed22a6224cad0050ab8ce3e",
+      "MerchantPrivateKey": "f6e4147f71a833b057ba73c5e4e9b1ced3d4ce0ee9cdb4c3449a56e49a0e6630",
+      "PaymentMethod": "visa"
+    },
+    {
+      "SiteId": 5,
+      "SiteName": "monni",
+      "MerchantId": 106871,
+      "APIAgreementId": 381684,
+      "UserAPIKey": "f0896ba541659579a928bb04b79dc00c795c1f6e2e0f2db5741b1005cf32e2b6",
+      "PaymentWindowAgreementId": 381680,
+      "PaymentWindowAPIKey": "af9a9904a1d2c37f6c6be25550b2a9e6e76118734ed22a6224cad0050ab8ce3e",
+      "MerchantPrivateKey": "f6e4147f71a833b057ba73c5e4e9b1ced3d4ce0ee9cdb4c3449a56e49a0e6630",
+      "PaymentMethod": "creditcard"
+    },
+    {
+      "SiteId": 1,
+      "SiteName": "wemovecoins",
+      "MerchantId": 106871,
+      "APIAgreementId": 381684,
+      "UserAPIKey": "f0896ba541659579a928bb04b79dc00c795c1f6e2e0f2db5741b1005cf32e2b6",
+      "PaymentWindowAgreementId": 381683,
+      "PaymentWindowAPIKey": "af9a9904a1d2c37f6c6be25550b2a9e6e76118734ed22a6224cad0050ab8ce3e",
+      "MerchantPrivateKey": "f6e4147f71a833b057ba73c5e4e9b1ced3d4ce0ee9cdb4c3449a56e49a0e6630",
+      "PaymentMethod": "creditcard"
+    },
+    {
+      "SiteId": 2,
+      "SiteName": "123bitcoin",
+      "MerchantId": 106871,
+      "APIAgreementId": 381684,
+      "UserAPIKey": "f0896ba541659579a928bb04b79dc00c795c1f6e2e0f2db5741b1005cf32e2b6",
+      "PaymentWindowAgreementId": 381689,
+      "PaymentWindowAPIKey": "af9a9904a1d2c37f6c6be25550b2a9e6e76118734ed22a6224cad0050ab8ce3e",
+      "MerchantPrivateKey": "f6e4147f71a833b057ba73c5e4e9b1ced3d4ce0ee9cdb4c3449a56e49a0e6630",
+      "PaymentMethod": "creditcard,mobilepay"
+    }
+  ],
+  "QuickPayDetails_MainFile": [
+    {
+      "SiteId": 1,
+      "SiteName": "monni",
+      "MerchantId": 106870,
+      "APIAgreementId": 381681,
+      "UserAPIKey": "8ec7a842d8ac97185ec2fea3a77de04410bf40dd48e680574d095f51eb898088",
+      "PaymentWindowAgreementId": 381680,
+      "PaymentWindowAPIKey": "b722543a7eef9450909e684ed9418596814090108412d8ef7da5ada33984095e ",
+      "MerchantPrivateKey": "d67038bb4953d548f36c550d4ee313f5f7fb99d6cfba510062822af105e82481",
+      "PaymentMethod": "creditcard"
+    },
+    {
+      "SiteId": 4,
+      "SiteName": "wemovecoins",
+      "MerchantId": 106870,
+      "APIAgreementId": 381681,
+      "UserAPIKey": "8ec7a842d8ac97185ec2fea3a77de04410bf40dd48e680574d095f51eb898088",
+      "PaymentWindowAgreementId": 381683,
+      "PaymentWindowAPIKey": "b722543a7eef9450909e684ed9418596814090108412d8ef7da5ada33984095e ",
+      "MerchantPrivateKey": "d67038bb4953d548f36c550d4ee313f5f7fb99d6cfba510062822af105e82481",
+      "PaymentMethod": "creditcard"
+    },
+    {
+      "SiteId": 2,
+      "SiteName": "123bitcoin",
+      "MerchantId": 106870,
+      "APIAgreementId": 381681,
+      "UserAPIKey": "8ec7a842d8ac97185ec2fea3a77de04410bf40dd48e680574d095f51eb898088",
+      "PaymentWindowAgreementId": 381689,
+      "PaymentWindowAPIKey": "b722543a7eef9450909e684ed9418596814090108412d8ef7da5ada33984095e ",
+      "MerchantPrivateKey": "d67038bb4953d548f36c550d4ee313f5f7fb99d6cfba510062822af105e82481",
+      "PaymentMethod": "creditcard,mobilepay"
+    }
+  ],
+  "FaceTecKeys": {
+    "KYC": "FaceTec",
+    "FaceTecDeviceKey": "dBwJfnblaqDdRjdzc8TEyxbXlbEjS4IS",
+    "FaceTecHost": "localhost",
+    "FaceTecPort": 8080,
+    "FaceTecProdKey": {
+      "domains": "test.app.monni.com,test.app.wemovecoins.com,test.app.123bitcoin.dk,app.monni.com,app.wemovecoins.com,app.123bitcoin.dk",
+      "expiryDate": "2020-11-10",
+      "key": "003044022060a3d5f5768b3d4a6e402172c1530de7e7aa76c2a4a712a866bd31e201c3b1bd02207132a4641781f3a1d6f1029552c3b9ec3c59812dbc71ab7034893bf6762de6e5"
+    }
+  }
+}
+
+//QuickPayDetails,  and TrustPayTestDetails_TestFile are different in Main and Test careful observe them

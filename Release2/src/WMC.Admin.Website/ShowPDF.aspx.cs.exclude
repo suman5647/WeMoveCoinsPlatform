@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace View_PDF
+{
+    public partial class ShowPDF : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            string path = Server.MapPath("~/App_Data/compressed.tracemonkey-pldi-09.pdf");
+            var file = File.OpenRead(path);
+            Byte[] fileByte = new byte[file.Length];
+
+            //file.Read(fileByte, 0, System.Convert.ToInt32(file.Length));
+
+            Response.Clear();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "inline; filename=dummy.pdf");
+            Response.AddHeader("content-length", fileByte.Length.ToString());
+            Response.BinaryWrite(fileByte.ToArray());
+            Response.End();
+        }
+    }
+}

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Paylike.NET</RootNamespace>
+    <AssemblyName>Paylike.NET</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Constants\Country.cs" />
+    <Compile Include="Constants\Currency.cs" />
+    <Compile Include="Entities\App.cs" />
+    <Compile Include="Entities\Bank.cs" />
+    <Compile Include="Entities\Card.cs" />
+    <Compile Include="Entities\Company.cs" />
+    <Compile Include="Entities\Destination.cs" />
+    <Compile Include="Entities\Fee.cs" />
+    <Compile Include="Entities\Line.cs" />
+    <Compile Include="Entities\Merchant.cs" />
+    <Compile Include="Entities\Source.cs" />
+    <Compile Include="Entities\Trail.cs" />
+    <Compile Include="Entities\Transfer.cs" />
+    <Compile Include="Entities\Transaction.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Interfaces\IPaylikeMerchantService.cs" />
+    <Compile Include="Interfaces\IPaylikeAppService.cs" />
+    <Compile Include="Interfaces\IPaylikeTransactionService.cs" />
+    <Compile Include="Interfaces\IPaylikeTransferService.cs" />
+    <Compile Include="PaylikeAppService.cs" />
+    <Compile Include="PaylikeMerchantService.cs" />
+    <Compile Include="PaylikeTransferService.cs" />
+    <Compile Include="PaylikeTransactionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestModels\Merchants\AddAppToMerchantRequest.cs" />
+    <Compile Include="RequestModels\Apps\CreateAppRequest.cs" />
+    <Compile Include="RequestModels\Apps\GetCurrentAppRequest.cs" />
+    <Compile Include="RequestModels\Merchants\GetMerchantAppsRequest.cs" />
+    <Compile Include="RequestModels\Merchants\GetMerchantLinesRequest.cs" />
+    <Compile Include="RequestModels\Merchants\SaveCardRequest.cs" />
+    <Compile Include="RequestModels\Merchants\GetMerchantUsersRequest.cs" />
+    <Compile Include="RequestModels\Merchants\GetMerchantsRequest.cs" />
+    <Compile Include="RequestModels\Merchants\InviteUserToMerchantRequest.cs" />
+    <Compile Include="RequestModels\Merchants\RevokeAppFromMerchantRequest.cs" />
+    <Compile Include="RequestModels\Merchants\CreateMerchantRequest.cs" />
+    <Compile Include="RequestModels\Merchants\GetMerchantRequest.cs" />
+    <Compile Include="RequestModels\Merchants\RevokeUserFromMerchantRequest.cs" />
+    <Compile Include="RequestModels\Merchants\UpdateMerchantRequest.cs" />
+    <Compile Include="RequestModels\PagedRequestBase.cs" />
+    <Compile Include="RequestModels\RequestBase.cs" />
+    <Compile Include="RequestModels\Transactions\GetTransactionRequest.cs" />
+    <Compile Include="RequestModels\Transactions\GetTransactionsRequest.cs" />
+    <Compile Include="RequestModels\Transactions\VoidTransactionRequest.cs" />
+    <Compile Include="RequestModels\Transactions\RefundTransactionRequest.cs" />
+    <Compile Include="RequestModels\Transactions\CaptureTransactionRequest.cs" />
+    <Compile Include="RequestModels\Transactions\CreateTransactionRequest.cs" />
+    <Compile Include="RequestModels\Transfer\ApproveTransferRequest.cs" />
+    <Compile Include="RequestModels\Transfer\FetchTransferRequest.cs" />
+    <Compile Include="RequestModels\Transfer\CreateTransferRequest.cs" />
+    <Compile Include="ResponseModels\ApiResponse.cs" />
+    <Compile Include="ResponseModels\Apps\GetCurrentAppResponse.cs" />
+    <Compile Include="ResponseModels\Merchants\InviteUserToMerchantResponse.cs" />
+    <Compile Include="ResponseModels\Transactions\CreateTransactionResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

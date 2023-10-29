@@ -1,0 +1,162 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+@media(max-width:767px) {
+
+    .payment-page {
+        width: 90%;
+    }
+
+    .exp-box input {
+        width: 43% !important;
+    }
+
+    .cvc-box span {
+        left: -10px;
+    }
+
+    .tabbing-pages .navbar-brand > img {
+        max-width: 160px;
+    }
+
+    .page {
+        width: 80%;
+    }
+
+    .upload-deatils {
+        width: 48%;
+    }
+}
+
+@media(max-width:600px) {
+    .button-green {
+        padding: 0px 10px;
+    }
+
+    .upload-file {
+        width: 48%;
+    }
+
+    #btn-resendpasscode, .btn-back.btn {
+        padding: 6px 17px;
+    }
+
+    .btn-back.btn {
+        margin-right: 0;
+    }
+}
+
+@media(max-width:480px) {
+
+    .payment-page {
+        width: 100%;
+    }
+
+    .progressbar li a {
+        font-size: 11px;
+    }
+
+        .progressbar li a span .fa {
+            font-size: 30px;
+        }
+
+    .progressbar li::after {
+        top: 16px;
+    }
+
+    .cvc-box .fa-question-circle {
+        font-size: 22px;
+    }
+
+    .payment-page .beatling-box {
+        padding: 20px 10px;
+    }
+
+    .cards a {
+        margin: 3px 2px;
+    }
+
+    .cvc-box {
+        width: 38%;
+    }
+
+    .form-control {
+        padding: 6px 5px !important;
+    }
+
+    .exp-box {
+        width: 62%;
+    }
+
+    .cvc-box label {
+        padding-left: 15px;
+    }
+
+    .progressbar > li {
+        font-size: 12px;
+    }
+
+    .progressbar img {
+        height: 25px;
+        max-width: 25px;
+    }
+
+    .progressbar > li {
+        font-size: 11px;
+    }
+
+    .page {
+        width: 90%;
+    }
+
+    .btn {
+        font-size: 12px !important;
+    }
+
+    .upload-file .upload-in {
+        padding: 2px 5px;
+    }
+}
+
+@media(max-width:415px) {
+    .upload-deatils {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    .upload-file {
+        margin: 0;
+        width: 100%;
+    }
+
+        .upload-file .upload-in {
+            padding: 18px 5px;
+        }
+
+    .page {
+        width: 100%;
+    }
+}
+
+@media(max-width:360px) {
+    .form-control {
+        height: 34.7px !important;
+    }
+
+    .progressbar > li {
+        font-size: 9px;
+    }
+
+    #btn-resendpasscode, .btn-back.btn {
+        width: 100%;
+        margin: 0 0 5px 0;
+    }
+
+    .btn.green-btn {
+        width: 100%;
+    }
+
+    #btn-verifypasscode {
+        max-width: 100%;
+    }
+}

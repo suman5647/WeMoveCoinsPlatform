@@ -1,0 +1,30 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.PaymentModel
+<div class="page" style="font-family: SourceSansPro, sans-serif !important;">
+    @{
+        var serverVariables = Request.ServerVariables;
+        var protocol = serverVariables["https"] == "off" ? "http" : "https";
+        var acceptURL = protocol + "://" + serverVariables["SERVER_NAME"] + ":" + serverVariables["SERVER_PORT"] + "/accept";
+        var callbackURL = protocol + "://" + serverVariables["SERVER_NAME"] + ":" + serverVariables["SERVER_PORT"] + "/receipt";
+        //var overwrite_usage = ViewBag.fSiteName + ":" + Model.TxSecret;
+        var overwrite_usage = "wmc:" + Model.TxSecret;
+        var ccrgData = Model.Type == 2 ? "&ccrg=1" : "";
+    }
+    <div id="paymentFrameLoading" style="margin-top: 100px;text-align: center;"><img src="/images/loading.gif"></div>
+    <iframe id="paymentFrame" seamless style="border:none;height: 800px;width: 100%;overflow:hidden" scrolling="no" ng-onload="initPaymentFrame()"
+            src="https://payments.yourpay.se/betalingsvindue_summary.php?MerchantNumber=@Model.MerchantNumber&ShopPlatform=@Model.ShopPlatform&accepturl=@acceptURL&callbackurl=@callbackURL&time=@Model.Time&use3d=@Model.Use3d&amount=@Model.YourPayAmount&cardholder=@Model.Cardholder&btcaddress=@Model.BTCaddress&phone=@Model.Phone&email=@Model.Email&CurrencyCode=@Model.CurrencyCode&cartid=@Model.Cartid&lang=@Model.Lang&ct=@Model.CT&comments=@Model.Comments&overwrite_usage=@overwrite_usage@ccrgData"></iframe>
+    <div id="recieptPageActions" style="display:none;margin-bottom: 50px;" class="row">
+        <div style="text-align: center;">
+            @{
+                var siteUrl = "'http://www." + ViewBag.fSiteName + "'";
+                if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+                {
+                    siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                }
+                var rateUsUrl = "'https://www.trustpilot.com/evaluate/" + ViewBag.fSiteName + "'";
+            }
+            <input type="button" class="btn btn-back" value="@Html.Resource("WMCResources", "Back")" onclick="window.location.href = @siteUrl" />
+            <input type="button" class="btn green-btn" value="@Html.Resource("WMCResources", "RateUs")" onclick="window.location.href = @rateUsUrl" />
+        </div>
+    </div>
+</div>

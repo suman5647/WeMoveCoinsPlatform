@@ -1,0 +1,1 @@
+﻿Hafniatrading.Service.exe /i

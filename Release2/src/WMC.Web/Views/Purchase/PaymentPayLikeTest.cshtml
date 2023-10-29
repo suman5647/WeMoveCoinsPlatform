@@ -1,0 +1,128 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.PayLikePaymentModel
+@using WMC.Helpers
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Paylike Test</title>
+    <meta name="theme-color" content="#ffffff">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/flaticon.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/glyphicons.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Scripts/toast/ngToast.min.css" rel="stylesheet" />
+    <link href="~/Content/build.css" rel="stylesheet">
+</head>
+
+<body id="page-top" data-spy="scroll" class="tabbing-pages" data-target=".navbar-fixed-top" ng-controller="vm.paymentController as vm" key-pressed>
+    <toast></toast>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-if="!vm.model.compact">
+        <div class="container">
+            <div class="navbar-header page-scroll custom-navbar">
+                <ul class="nav navbar-nav custom-nav">
+                    <li style="opacity: 1; margin-left: 0px;">
+                    </li>
+                </ul>
+            </div>
+            <div id="navbar-ticker" class="collapse navbar-collapse navbar-left navbar-main-collapse ticker-custom">
+                <ul class="nav navbar-nav">
+                    <li style="opacity: 1; margin-left: 0px;">
+                        <a id="ticker" class="custom-a-ticker loaded" style="opacity: 0" opacity=1>
+                            <span title="Source: Kraken Exchange" id="tickerprice" class="realtime custom-realtime">{{vm.model.btc2LocalCurrency}}</span>
+                        </a>
+                    </li>
+                    <li style="margin-left:20px">
+                        <a target="_blank" href="#">
+                            <img src="images/trustpilot-small.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section ng-class="{'tab-pages': !vm.model.compact}">
+        <div class="container">
+            <div id="tabContent" style="height: 100%;">
+                <div class="page" style="font-family: SourceSansPro, sans-serif !important;">
+                    <div id="paymentFrameLoading" class="col-md-2 col-md-offset-5" style="display:none; margin-top: 100px;"><img src="/images/loading.gif"></div>
+                    <style>
+                        div.paylike.overlay {
+                            background: rgba(0,0,0,0);
+                            height: 50%;
+                            top: 160px;
+                            overflow: initial;
+                        }
+                    </style>
+                    <script>
+                    //initPayLikePaymentFrame('@Model.MerchantNumber', '@Model.OrderNumber', '@Model.TxSecret', '@Model.CurrencyCode', '@Model.YourPayAmount', '@Model.SiteName', '@Model.OrderNumber', '@Model.Amount', '@Model.Commission', '@Model.GoogleTagManagerId');
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    @*<script src="~/Scripts/jquery.maskedinput.min.js"></script>*@
+    <script src="~/Scripts/jquery.inputmask.bundle.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/scrolling-nav.js"></script>
+    <script src="~/Scripts/BigInt.min.js"></script>
+    <script src="~/Scripts/jquery.global.min.js"></script>
+    <script src="~/Scripts/jquery.glob.all.min.js"></script>
+    <script src="~/Scripts/toast/ngToast.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/app/purchase.js"></script>
+    <script src="~/Scripts/app/kycfileupload.js"></script>
+    <script src="~/Scripts/paylike/4.js"></script>
+    <script src="~/Scripts/ng-onload.js"></script>
+    <script>
+        $('.navbar-toggle').click(function () {
+            $("#navbar-ticker").toggleClass('in');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+        Paylike('@Model.MerchantNumber').popup({
+            @*currency: '@Model.CurrencyCode',
+            amount: '0', //'@Model.YourPayAmount',*@
+            custom: { OrderNumber: '@Model.OrderNumber' },
+            descriptor: '@Model.SiteName' + ":" + '@Model.TxSecret',
+            overwrite_usage: '@Model.SiteName' + ":" + '@Model.TxSecret'
+        }, function (err, r) {
+            if (err)
+                return console.warn(err);
+            var formData = new FormData();
+            formData.append('cardid', r.card.id);
+
+            //call PayLikeAccept action method
+            var jqXHR = $.ajax({
+                url: "/PayLikeAcceptTest",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                cache: false,
+                data: formData,
+                success: function (resultData) {
+                    alert(resultData);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("textStatus:" + textStatus);
+                    console.log("errorThrown:" + errorThrown);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

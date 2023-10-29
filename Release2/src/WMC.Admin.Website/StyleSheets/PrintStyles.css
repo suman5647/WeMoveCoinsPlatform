@@ -1,0 +1,30 @@
+BODY {
+	
+}
+#outermostTable {
+	WIDTH: 100%
+}
+#header {
+	DISPLAY: none
+}
+#leftMenu {
+	DISPLAY: none
+}
+#middleArea {
+	WIDTH: 100%
+}
+#fifthElement {
+	DISPLAY: none
+}
+#productFinder {
+	DISPLAY: none
+}
+#footer {
+	DISPLAY: none
+}
+.printLogo {
+	DISPLAY: block; visible: false
+}
+.hideWhenPrinting {
+	DISPLAY: none; visible: false
+}

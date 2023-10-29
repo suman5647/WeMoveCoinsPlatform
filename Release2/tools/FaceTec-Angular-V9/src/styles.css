@@ -1,0 +1,197 @@
+* {
+    font-size: 100%;
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    color: white;
+  }
+
+  html {
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: inherit;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    touch-action: manipulation;
+  }
+
+  button {
+    border: none;
+  }
+
+  .display-none {
+    display: none;
+  }
+  .audit-trail-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+    z-index: 1000;
+  }
+
+  .audit-trail-image {
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: auto;
+  }
+  /* start of styles for overlay rect that is placed on top of the FaceTec Browser SDK, button and checkbox, and fancy background fade container */
+
+
+  #theme-transition-overlay {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    display: none;
+    pointer-events: none;
+  }
+
+  #theme-transition-overlay-img {
+    width: auto;
+    height: 100em;
+    display: block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #controls {
+    width: 640px;
+    padding: 20px 0;
+    max-width: 100%;
+    margin: 0 auto;
+    border: 2px solid rgb(65, 127, 178);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 0;
+    background-color:white
+  }
+
+  .big-button {
+    width: 40%;
+    height: 40px;
+    margin: 10px auto 0;
+    color: white;
+    background: rgb(65, 127, 178);
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .medium-button {
+    width: 40%;
+    height: 30px;
+    margin: 10px auto 0;
+    color: white;
+    background: rgb(65, 127, 178);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    outline: none;
+  }
+
+  @media (hover: hover) {
+    .big-button:hover:enabled,
+    .medium-button:hover:enabled {
+      background-color: rgb(95, 157, 208);
+      color: white !important;
+      transition: all 0.3s ease-out;
+    }
+  }
+
+  .scaler {
+    animation: scaler 3s ease infinite;
+  }
+
+  @keyframes scaler {
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .scaler {
+    animation: fadeInEnable 1s 0s 1 forwards, scaler 3s ease infinite;
+  }
+
+  .fade-in-1s { animation-delay:0.3s }
+  .fade-in-2s { animation-delay:0.6s }
+  .fade-in-3s { animation-delay:0.9s }
+  .fade-in-4s { animation-delay:1.2s }
+
+  @keyframes fadeInEnable {
+    100% {
+      opacity:1;
+      visibility: visible;
+    }
+  }
+
+  #status {
+    color: rgb(64, 127, 178);
+    margin: 20px auto 0;
+    display: none;
+    font-size: 18px;
+    background-color: rgba(65, 127, 178, 0.15);
+    width: 90%;
+    display: block;
+    border-radius: 4px;
+    padding: 8px;
+  }
+
+  .wrapping-box-container {
+    position: fixed;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    color: #fff;
+    padding: 10px;
+  }
+
+  #custom-logo-container {
+    margin: 20px auto;
+  }
+
+  #custom-logo-container img {
+    max-height: 70px;
+    width: auto;
+    height: auto;
+    text-align: center;
+    position: relative;
+    padding-right: 4px;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+    color: #ddd;
+    border-color: #ddd;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }

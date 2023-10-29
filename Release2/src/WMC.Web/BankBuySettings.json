@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Currency": "EUR",
+    "Bank": "Transferwise",
+    "Beneficiary": "Hafnia Trading ApS",
+    "IBAN": "DE17 7001 1110 6053 3879 67",
+    "BICORSWIFT": "DEKTDE7GXXX",
+    "BeneficiaryAddress": "APPLEBYS PLADS 7, KOEBENHAVN K, 1411, Denmark",
+    "AccountNumber": "",
+    "BankPaymentInstitution": "Handelsbank, Elsenheimer Str. 41, München, 80687, Germany",
+    "MandatoryReference": "",
+    "UKSortCode": "",
+    "BSBCode": "",
+    "RegNumber": ""
+  },
+  {
+    "Currency": "GBP",
+    "Bank": "Transferwise",
+    "Beneficiary": "Hafnia Trading ApS",
+    "IBAN": "",
+    "BICORSWIFT": "",
+    "BeneficiaryAddress": "",
+    "AccountNumber": "89538996",
+    "BankPaymentInstitution": "TransferWise, 56 Shoreditch High Street, London, E1 6JJ, United Kingdom",
+    "MandatoryReference": "",
+    "UKSortCode": "23-14-70",
+    "BSBCode": "",
+    "RegNumber": ""
+  },
+  {
+    "Currency": "AUD",
+    "Bank": "Transferwise",
+    "Beneficiary": "Hafnia Trading ApS",
+    "IBAN": "",
+    "BICORSWIFT": "",
+    "BeneficiaryAddress": "",
+    "AccountNumber": "494011871",
+    "BankPaymentInstitution": "TransferWise, 800 Bourke Street, Melbourne VIC 3008, Australia",
+    "MandatoryReference": "",
+    "UKSortCode": "",
+    "BSBCode": "082-182",
+    "RegNumber": ""
+  },
+  {
+    "Currency": "DKK",
+    "Bank": "Coop Bank",
+    "Beneficiary": "",
+    "IBAN": "",
+    "BICORSWIFT": "",
+    "BeneficiaryAddress": "",
+    "AccountNumber": "3494670",
+    "BankPaymentInstitution": "Coop Bank",
+    "MandatoryReference": "",
+    "UKSortCode": "",
+    "BSBCode": "",
+    "RegNumber": "6620"
+  }
+]

@@ -1,0 +1,204 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.ReceiptModel
+@{
+    var payment = Html.Angular().ModelFor("payment.model");
+}
+
+<!DOCTYPE html>
+<html data-ng-app="wmc">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@Html.Resource("WMCResources", "Title", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Sites/@ViewBag.SiteName/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="~/Sites/@ViewBag.SiteName/images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/Sites/@ViewBag.SiteName/images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="~/Sites/@ViewBag.SiteName/images/favicon/manifest.json">
+    <link rel="mask-icon" href="~/Sites/@ViewBag.SiteName/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/flaticon.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/glyphicons.css" rel="stylesheet" type="text/css">
+    <link href="~/Sites/@ViewBag.SiteName/css/style.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/theme-colors.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/responsive.css" rel="stylesheet">
+    <link href="~/Content/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Scripts/toast/ngToast.min.css" rel="stylesheet" />
+    <link href="~/Content/build.css" rel="stylesheet">
+    <style>
+        .progressbar li.active .order-img {
+            content: url('../Sites/@ViewBag.SiteName/images/order info selected.png');
+        }
+
+        .progressbar li.active .verfication-img {
+            content: url('../Sites/@ViewBag.SiteName/images/verification selected.png');
+        }
+
+        .progressbar li.active .payment-img {
+            content: url('../Sites/@ViewBag.SiteName/images/payment selected.png');
+        }
+
+        .progressbar li.active .recepit-img {
+            content: url('../Sites/@ViewBag.SiteName/images/receipt selected.png');
+        }
+    </style>
+</head>
+
+<body id="page-top" data-spy="scroll" class="tabbing-pages" data-target=".navbar-fixed-top" ng-controller="vm.paymentController as vm" key-pressed>
+    <toast></toast>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-if="!vm.model.compact">
+        <div class="container">
+            <div class="navbar-header page-scroll custom-navbar">
+                <ul class="nav navbar-nav custom-nav">
+                    <li style="opacity: 1; margin-left: 0px;">
+                        @{
+                            var siteUrl = "http://www." + ViewBag.fSiteName;
+                            if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+                            {
+                                siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                            }
+                        }
+                        <a href="@siteUrl" class="navbar-brand page-scroll custom-logo">
+                            <img src="Sites/@ViewBag.SiteName/images/logo.png" style="height:100%" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="navbar-ticker" class="collapse navbar-collapse navbar-left navbar-main-collapse ticker-custom">
+                <ul class="nav navbar-nav">
+                    <li style="opacity: 1; margin-left: 0px;">
+                        <a id="ticker" class="custom-a-ticker loaded" style="opacity: 0" opacity=1>
+                            <span title="Source: Kraken Exchange" id="tickerprice" class="realtime custom-realtime">{{vm.model.btc2LocalCurrency}}</span>
+                        </a>
+                    </li>
+                    <li style="margin-left:20px">
+                        <a target="_blank" href="#">
+                            <img src="images/trustpilot-small.png">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section ng-class="{'tab-pages': !vm.model.compact}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="progressbarContainer" ng-switch="vm.paymentMethod.name" style="display:none">
+                    <ul class="progressbar" id="progressbar" ng-if="!vm.model.skipOrderForm" ng-switch-when="CreditCard">
+                        <li id="orderInfoProgressBarItem" class="active" style="width:25%"><img class="order-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/order info.png"><br>@Html.Resource("WMCResources", "OrderInfo")</li>
+                        <li id="verificationProgressBarItem" style="width:25%"><img class="verfication-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/verification.png"><br>@Html.Resource("WMCResources", "Verification")</li>
+                        <li id="paymentProgressBarItem" style="width:25%"><img class="payment-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/payment.png"><br>@Html.Resource("WMCResources", "Payment")</li>
+                        <li id="receiptProgressBarItem" style="width:25%"><img class="recepit-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/receipt.png"><br>@Html.Resource("WMCResources", "Receipt")</li>
+                    </ul>
+                    <ul class="progressbar" id="progressbar" ng-if="vm.model.skipOrderForm" ng-switch-when="CreditCard">
+                        <li id="verificationProgressBarItem" class="active" style="width:33.33%"><img class="verfication-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/verification.png"><br>@Html.Resource("WMCResources", "Verification")</li>
+                        <li id="paymentProgressBarItem" style="width:33.33%"><img class="payment-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/payment.png"><br>@Html.Resource("WMCResources", "Payment")</li>
+                        <li id="receiptProgressBarItem" style="width:33.33%"><img class="recepit-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/receipt.png"><br>@Html.Resource("WMCResources", "Receipt")</li>
+                    </ul>
+                    <ul class="progressbar" id="progressbar" ng-switch-when="Bank">
+                        <li id="orderInfoProgressBarItem" class="active" style="width:33.33%"><img class="order-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/order info.png"><br>@Html.Resource("WMCResources", "OrderInfo")</li>
+                        <li id="verificationProgressBarItem" style="width:33.33%"><img width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/verification.png"><br>@Html.Resource("WMCResources", "Verification")</li>
+                        <li id="paymentInstructionsProgressBarItem" style="width:33.33%"><img class="recepit-img" width="50px" height="50px" src="Sites/@ViewBag.SiteName/images/receipt.png"><br>@Html.Resource("WMCResources", "PaymentInstructions")</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="tabContent" style="height: 100%;">
+                <div class="page" id="formReceipt" style="font-family: SourceSansPro, sans-serif !important;">
+                    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerId" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+                    <div class="idenfiy-box" style="color: black;margin: 10px 0 20px auto;border-radius: 5px;text-align: initial;">
+                        <div class="beatling-box" style="color: white;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;padding:5px 20px;margin: 0px;">@Html.Resource("WMCResources", "PaymentSucceeded")</div>
+                        <div style="padding: 10px 20px">
+                            <div>
+                                <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString0") @Model.CardHolderName</span><br /><br />
+                                <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString01")</span><br /><br />
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString02")</p>
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString03")</p>
+                                <p>@Html.Resource("WMCResources", "ReceiptPageHeaderString04")</p>
+                                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                                <div style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString05")</div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderAmount"):</div>
+                                    <div class="col-xs-7">@Model.Currency @Model.Amount</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "Fee"):</div>
+                                    <div class="col-xs-7">@Model.Currency @Model.Commission</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "OurFee"):</div>
+                                    <div class="col-xs-7">@Model.Currency @Model.OurFee</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "Rate"):</div>
+                                    <div class="col-xs-7">@Html.Resource("WMCResources", "PaymentInstructionsPageContentString5")</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "YourBitcoinAddress"):</div>
+                                    <div class="col-xs-7" style="word-break: break-all;">@Model.BitcoinAddress</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "CardholderName"):</div>
+                                    <div class="col-xs-7" style="word-break: keep-all;">@Model.CardHolderName</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "CreditCardNumber"):</div>
+                                    <div class="col-xs-7">@Model.CreditCardNumber</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderNumber"):</div>
+                                    <div class="col-xs-7">@Model.OrderNumber</div>
+                                </div>
+                                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                                <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString6")</p>
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageFooterString5")</p>
+                                @{
+                                    var supportEmail = Html.Resource("WMCResources", "MailToAddress").Replace("{SiteName}", ViewBag.fSiteName);
+                                }
+                                <p>@Html.Resource("WMCResources", "ReceiptPageFooterString6") <a href=@supportEmail target="_top">support@wemovecoins.com</a> @Html.Resource("WMCResources", "ReceiptPageFooterString7") <a href="@Html.Resource("WMCResources", "FullSiteName", new Dictionary<string, string> { { "{SiteName}", ViewBag.fSiteName } })" target="_blank">@Html.Resource("WMCResources", "FullSiteName", new Dictionary<string, string> { { "{SiteName}", ViewBag.fSiteName } })</a></p>
+                                <p>@Html.Resource("WMCResources", "ReceiptPageFooterString8")</p>
+                            </div>
+                            <span>@Html.Resource("WMCResources", "SellRecieptPagefooter04")</span>
+                            <p>@Html.Resource("WMCResources", "SellRecieptPagefooter05", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    @*<script src="~/Scripts/jquery.maskedinput.min.js"></script>*@
+    <script src="~/Scripts/jquery.inputmask.bundle.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/scrolling-nav.js"></script>
+    <script src="~/Scripts/BigInt.min.js"></script>
+    <script src="~/Scripts/jquery.global.min.js"></script>
+    <script src="~/Scripts/jquery.glob.all.min.js"></script>
+    <script src="~/Scripts/toast/ngToast.min.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/app/purchase.js"></script>
+    <script src="~/Scripts/app/kycfileupload.js"></script>
+    <script src="~/Scripts/paylike/4.js"></script>
+    <script src="~/Scripts/ng-onload.js"></script>
+    <script>
+        $('.navbar-toggle').click(function () {
+            $("#navbar-ticker").toggleClass('in');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+    <script>
+        window.app.constant('model', @Html.JsonFor(Model));
+    </script>
+</body>
+</html>

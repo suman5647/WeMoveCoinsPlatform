@@ -1,0 +1,279 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.QuickPayPaymentModel
+
+<meta charset="utf-8">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<link href="~/Content/quickpaycreditcard.css" rel="stylesheet" />
+<script src="~/Scripts/quickpay/quickpay.js"></script>
+<script type="text/javascript">
+    $('#checkout-form').show();
+    $("#orderInfoProgressBarItem").removeClass("active");
+    $("#verificationProgressBarItem").removeClass("active");
+    $("#paymentProgressBarItem").addClass("active");
+    var cardBrand;
+    QuickPay.Embedded.Form(document.querySelector("#checkout-form"), {
+        payment_link: '@Model.paymentLink',
+        brandChanged: function (brand) {
+            $('#showCCInvalidError').css('display', 'none');
+            $('#showCreditError').css('display', 'none');
+            $('#showCCNullError').css('display', 'none');
+            $('#imgCardLogo').attr('src', null);
+            cardBrand = brand;
+            switch (brand) {
+                case 'visa':
+                case 'visa-electron':
+                    $('#imgCardLogo').attr('src', '/images/visa.jpg');
+                    break;
+                case 'mastercard':
+                case 'amex':
+                case 'dinersclub':
+                case 'discover':
+                case 'unionpay':
+                case 'jcb':
+                case 'maestro':
+                case 'forbrugsforeningen':
+                case 'dankort':
+                case 'elo':
+                default:
+                    $('#pay-btn').prop('disabled', true);
+                    $('#showCreditError').css('display', 'inherit');
+                    $('#imgCardLogo').attr('src', null);
+                    $('#cardnumber').focus();
+                    break;
+            }
+            $('#imgCardLogo').css('visibility', 'visible');
+            //  $('#showCreditError').css('display', 'none');
+            //document.querySelector(".card-brand").innerHTML = brand;
+        },
+        beforeCreate: function (form) {
+            var button = document.querySelector("#checkout-form button");
+            button.setAttribute("disabled", "disabled");
+            $("#cardnumber").prop('disabled', true);
+            $("#expiry").prop('disabled', true);
+            $("#cvv").prop('disabled', true);
+            button.innerHTML = "Please wait...";
+            $("#loader").show();
+        },
+        validChanged: function (form, isValid, fields) {
+            if (isValid && (cardBrand == 'visa' || cardBrand == 'visa-electron')) {
+                $('#pay-btn').prop('disabled', false);
+                var inputs = document.querySelectorAll("input.error");
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].classList.remove("error");
+                }
+            } else if (fields.includes('cvd')) {
+                $('#showCVVInvalidError').css('display', 'none');
+            } else {
+                $('#pay-btn').prop('disabled', true);
+            }
+        },
+        success: function (form, data) {
+            try {
+                $.post('/QuickPayAuditLog', { message: null, data: JSON.stringify(data), orderNumber: @Model.OrderNumber, status: 6 }, function (data) {
+                });
+            }
+            catch(err){
+
+            }
+
+            return true; // Return false to prevent form submit
+        },
+        failure: function (form, type, message, data) {
+            $("#loader").hide();
+            errodata=JSON.stringify(data)
+            switch (type) {
+
+                case "validation":
+                    for (var i = 0; i < data.length; i++) {
+                        if (data.includes('cardnumber')) {
+                            $('#showCreditError').css('display', 'none');
+                        }
+                        if (data.includes('cvd')) {
+                            $('#showCVVInvalidError').css('display', 'none');
+                        }
+                    }
+                    break;
+                case "authorize":
+                    EnableCCTextBox();
+                    AuditLog(data, @Model.OrderNumber, 7, message);
+                    toastr.error(errodata.message);
+                    break;
+                default:
+                        EnableCCTextBox();
+                        AuditLog(data, @Model.OrderNumber, 8, message);
+                    toastr.error(errodata.message);
+                        break;
+            }
+        },
+        on3DsecureWindow: function (e, data) {
+              $('#myModal').modal({ backdrop: 'static', keyboard: false });
+              document.querySelector("#myModal .modal-body").appendChild(data), $('#myModal').modal('show');
+        },
+        after3DSecure: function () {
+            $('#myModal').modal('hide');
+            document.getElementById('quickpay_3dsecure_frame').remove();
+        },
+    });
+
+    function AuditLog(data, orderNumber, status, message = null) {
+        $.post('/QuickPayAuditLog', { message: JSON.stringify(message), data: JSON.stringify(data), orderNumber : orderNumber, status: status }, function (data) {
+        });
+
+    }
+    var characterCount;
+    $('#expiry').on('input', function (e) {
+        if ($(this).val().length == 2 && characterCount < $(this).val().length) {
+            $(this).val($(this).val() + '/');
+        }
+        characterCount = $(this).val().length;
+    });
+    function EnableCCTextBox() {
+        var button = document.querySelector("#checkout-form button");
+        button.innerHTML = '@Html.Resource("WMCResources", "Pay") ' + '@Model.AmountStr';
+        $("#cardnumber").prop('disabled', false);
+        $("#expiry").prop('disabled', false);
+        $("#cvv").prop('disabled', false);
+        $('#pay-btn').prop('disabled', false);
+    }
+    function validateCreditCard(cardNo) {
+        $('#showCCNullError').css('display', 'none');
+        $('#showCreditError').css('display', 'none');
+        $('#showCCInvalidError').css('display', 'none');
+        if (cardBrand === null || cardBrand === undefined) {
+            $('#pay-btn').prop('disabled', true);
+            if (cardNo.length == 0) {
+                $('#showCCNullError').css('display', 'inherit');
+            }
+            else {
+                $('#showCreditError').css('display', 'inherit');
+            }
+            $('#imgCardLogo').attr('src', null);
+        } else if(cardBrand != 'visa'){
+            $('#pay-btn').prop('disabled', true);
+            $('#showCreditError').css('display', 'inherit');
+            $('#imgCardLogo').attr('src', null);
+        }
+    }
+
+    function validateExpirationDate(expr) {
+        var currentDate = new Date();
+        var today_mm = currentDate.getMonth() + 1;
+        var today_yy = currentDate.getFullYear() % 100;
+        if (today_mm < 10) { // if today's month is less than 10
+            today_mm = '0' + today_mm; // prefix it with a '0' to make it 2 digits
+        }
+        expr = expr.split('/');
+        if ((expr[1] > today_yy && expr[0] <= 12 && expr[0] > 0)|| (expr[1] == today_yy && expr[0] >= today_mm && expr[0] <= 12 && expr[0] > 0)) {
+        }
+        else {
+          toastr.error('@Html.Resource("WMCResources", "ExpiryDateError")');
+            $('#expiry').val('');
+            $('#expiry').focus();
+        }
+    }
+    $('[data-toggle="popover"]').popover({
+        html: true,
+        title: 'CVC Code' + '<a class="close" href="#");">&times;</a>'
+    });
+    $('[data-toggle="popover"]').click(function (e) {
+        e.stopPropagation();
+    });
+    $(document).ready(function (e) {
+        if (($('.popover').has(e.target).length == 0) || $(e.target).is('.close')) {
+            $('[data-toggle="popover"]').popover('hide');
+        }
+    });
+    $('#cardnumber').on('keyup', function (e) {
+        var val = $(this).val();
+        var newval = '';
+        val = val.replace(/\s/g, '');
+        for (var i = 0; i < val.length; i++) {
+            if (i % 4 == 0 && i > 0) newval = newval.concat(' ');
+            newval = newval.concat(val[i]);
+        }
+        $(this).val(newval);
+    });
+</script>
+
+<div class="loader" id="loader">
+    <img src="~/images/loading.gif" class="preview" alt="image" />
+</div>
+<div class="page">
+    <div id="creditcard" style="font-family: SourceSansPro, sans-serif !important;">
+        <form id="checkout-form" class="form-horizontal" action="/" method="post">
+            <div class="beatling-box">
+                <div class="form-group has-feedback">
+                    <input type="hidden" class="form-control" id="PaymentId" name="PaymentId" value="@Model.paymentId" readonly>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="OrderNumber" name="OrderNumber" value="@Model.OrderNumber" readonly>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="Amount" name="Amount" value="@Model.Amount" readonly>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" class="form-control" id="PaymentProvider" name="PaymentProvider" value="QuickPay" />
+                </div>
+
+                <div class="form-group has-feedback" style="margin-top: -35px;">
+                    <label for="txtCardNumber">@Html.Resource("WMCResources", "CreditCardNumber")</label>
+                    <input type="text" class="form-control" id="cardnumber" required="" onchange="validateCreditCard(this.value)" autocomplete="off" data-quickpay="cardnumber" maxlength="19" placeholder="1234 1234 1234 1234" data-custom="cardnumber" data-cardnumber="true" autofocus="">
+                    <span style="position: absolute;top: 0;right: 0;z-index: 2;display: block;line-height: 81px;pointer-events: none;margin-right: 30px;">
+                        <img id="imgCardLogo" src="/images/visa.jpg" height="30px" style="visibility:collapse">
+                    </span>
+                    <span id="showCreditError" style="color: red;display: none;">@Html.Resource("WMCResources", "OnlyVisa")</span>
+                    <span id="showCCNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "CreditCardEmpty")</span>
+                    <span id="showCCInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "InvalidCC")</span>
+                    <div class="card-brand" style="display:none"></div>
+                </div>
+                <div>
+                    <div class="form-group has-feedback" style="width: 122px; float:left;">
+                        <label for="txtExpiryDate">@Html.Resource("WMCResources", "Expiry")</label>
+                        <input type="text" id="expiry" onchange="validateExpirationDate(this.value)" maxlength="5" class="form-control" required="" data-custom="expiry" placeholder="MM / YY" data-expiry="true" data-quickpay="expiration">
+                        <span id="showExpiryNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "ExpiryEmpty")</span>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="form-group has-feedback" style="width: 86px; float:right;">
+                        <label for="txtCVC">@Html.Resource("WMCResources", "CVV")</label>
+                        <input type="number" id="cvv" class="form-control" required="" autocomplete="off" data-quickpay="cvd" placeholder="###" data-cvc="true" onKeyPress="if(this.value.length==3) return false;">
+                        <span id="showCVVNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "CVVEmpty")</span>
+                        <span id="showCVVInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "InvalidCVV")</span>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="form-group has-feedback" style="height: 0px; float:right;">
+                        <a href="javascript:void(0);" data-toggle="popover" title="" data-placement="top"
+                           data-content='@Html.Resource("WMCResources","WhatIsCVC")'
+                           data-original-title='@Html.Resource("WMCResources","CVCCode")' style="margin: 51px; line-height: 82px;">
+                            <img id="imgquestion" src="/images/question.png" height="20px">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button id="pay-btn" class="btn btn-primary btn-login green-btn float-right" type="submit" disabled="disabled">  @Html.Resource("WMCResources", "Pay") @Model.AmountStr</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal" id="myModal">
+            <div class="modal-dialog" style="height:96%; margin-bottom:10px; margin-top:10px">
+                <div class="modal-content" style="height:100%;">
+
+                    <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                        <h4 class="modal-title">3DSecure</h4>
+                    </div>
+
+                    <div class="modal-body" style="height:90%; background: rgba(10, 184, 158, 0.19);color: black;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

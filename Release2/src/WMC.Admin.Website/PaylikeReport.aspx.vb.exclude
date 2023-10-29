@@ -1,0 +1,173 @@
+﻿Imports System.Collections.Generic
+Imports System.Threading
+Imports Paylike.NET
+Imports Paylike.NET.Entities
+Imports System.Linq
+Imports Jitbit.Utils
+
+Partial Class PaylikeReport
+    Inherits System.Web.UI.Page
+    Protected Sub ButtonSearch_Click(sender As Object, e As EventArgs)
+        Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("en-US")
+
+        Dim SearchResults = FetchMerchantData(Date.Parse(txtStartDate.Text), Date.Parse(txtEndDate.Text))
+
+        GridView1.DataSource = SearchResults.Select(Function(q)
+                                                        Dim transaction = FetchTransactionData(q.TransactionId)
+                                                        Return New With {
+                                                                Key .OrderNumber = transaction.OrderNumber,
+                                                                Key .Id = q.Id,
+                                                                Key .Created = q.Created,
+                                                                Key .MerchantId = q.MerchantId,
+                                                                Key .TransactionId = q.TransactionId,
+                                                                Key .Amount = If(q.Amount Is Nothing, 0, q.Amount.Amount),
+                                                                Key .Currency = If(q.Amount Is Nothing, "", q.Amount.Currency),
+                                                                Key .Balance = q.Balance,
+                                                                Key .Captured = transaction.Captured,
+                                                                Key .Capture = q.Capture,
+                                                                Key .Fee = q.Fee
+                                                            }
+                                                    End Function).ToList()
+        GridView1.DataBind()
+    End Sub
+
+    Private Function FetchMerchantData(startdate As DateTime, enddate As DateTime, Optional lastId As String = Nothing) As List(Of Line)
+        Dim AppID As String = DropDownListSite.SelectedValue.Split(";").GetValue(0).ToString
+        Dim MerchantID As String = DropDownListSite.SelectedValue.Split(";").GetValue(1).ToString
+
+        Dim merchantLinesRequest As Paylike.NET.RequestModels.Merchants.GetMerchantLinesRequest = New Paylike.NET.RequestModels.Merchants.GetMerchantLinesRequest()
+        merchantLinesRequest.MerchantId = MerchantID  '123bitcoin:5886faaa5224fd5d2efc9a8d
+        merchantLinesRequest.Limit = 1000
+        merchantLinesRequest.Before = lastId
+        Dim result = New PaylikeMerchantService(AppID).GetMerchantLines(merchantLinesRequest)    '"f29e3f49-4de6-4137-9f1e-01d8b63da8ea"
+        If Not result.IsError Then
+            If Not result.Content.Count = 0 Then
+                If startdate > result.Content.First().Created OrElse startdate > enddate Then
+                    'do nothing and return blank
+                    Return New List(Of Line)()
+                ElseIf startdate <= result.Content.First().Created.Date AndAlso startdate > result.Content.Last().Created.Date Then
+                    Return result.Content.Where(Function(q) q.Created <= enddate.AddDays(1) AndAlso q.Created >= startdate).ToList()
+                ElseIf startdate <= result.Content.First().Created.Date AndAlso startdate <= result.Content.Last().Created.Date Then
+                    Dim newResult = FetchMerchantData(startdate, enddate, result.Content.Last().Id)
+                    result.Content.AddRange(newResult)
+                    Return result.Content.Where(Function(q) q.Created <= enddate.AddDays(1) AndAlso q.Created >= startdate).ToList()
+                    'ElseIf startdate < result.Content.First().Created AndAlso enddate > result.Content.First().Created Then
+                    '    If startdate > result.Content.Last().Created Then
+                    '        Return result.Content.Where(Function(q) q.Created <= enddate AndAlso q.Created >= startdate).ToList()
+                    '    ElseIf startdate < result.Content.Last().Created Then
+                    '        'Fetch next 100
+                    '        Dim newResult = FetchMerchantData(startdate, enddate, result.Content.Last().Id)
+
+                    '        'Combine result set
+                    '        result.Content.AddRange(newResult)
+
+                    '        Return result.Content
+                    '    Else   
+                    '        Return New List(Of Line)()
+                    '    End If
+                    'ElseIf startdate < result.Content.First().Created AndAlso enddate < result.Content.First().Created Then
+                    '    If startdate > result.Content.Last().Created Then
+                    '        Return result.Content.Where(Function(q) q.Created <= enddate AndAlso q.Created >= startdate).ToList()
+                    '    ElseIf startdate < result.Content.Last().Created Then
+                    '        'Fetch next 100
+                    '        Dim newResult = FetchMerchantData(startdate, enddate, result.Content.Last().Id)
+
+                    '        'Combine result set
+                    '        result.Content.AddRange(newResult)
+
+                    '        Return result.Content
+                    '    Else
+                    '        Return New List(Of Line)()
+                    '        'Fetch next 100
+                    '        'Combine result set
+                    '    End If
+                Else
+                    Return New List(Of Line)()
+                End If
+            Else
+                Return New List(Of Line)()
+        End If
+        Else
+            Throw New Exception(result.ErrorMessage)
+        End If
+    End Function
+
+    Private Function FetchTransactionData(TransactionId As String) As Transaction
+        Dim AppID As String = DropDownListSite.SelectedValue.Split(";").GetValue(0).ToString
+
+        Dim transactionRequest As Paylike.NET.RequestModels.Transactions.GetTransactionRequest = New Paylike.NET.RequestModels.Transactions.GetTransactionRequest()
+        transactionRequest.TransactionId = TransactionId
+        Dim result = New PaylikeTransactionService(AppID, 0).GetTransaction(transactionRequest)
+        If Not result.IsError Then
+            Dim orderNumber = ""
+            If result.Content IsNot Nothing And result.Content.[Custom] IsNot Nothing Then
+                If result.Content.[Custom].ContainsKey("OrderNumber") Then
+                    orderNumber = result.Content.[Custom]("OrderNumber")
+                End If
+                Dim transaction As Transaction = New Transaction()
+                transaction.OrderNumber = orderNumber
+                transaction.Captured = result.Content.CapturedAmount
+                Return transaction
+            Else
+                Return New Transaction()
+            End If
+        Else
+            Return New Transaction()
+        End If
+    End Function
+
+    Private Class Transaction
+        Public Property Captured() As Integer
+            Get
+                Return m_Captured
+            End Get
+            Set
+                m_Captured = Value
+            End Set
+        End Property
+        Private m_Captured As Integer
+        Public Property OrderNumber() As String
+            Get
+                Return m_OrderNumber
+            End Get
+            Set
+                m_OrderNumber = Value
+            End Set
+        End Property
+        Private m_OrderNumber As String
+    End Class
+
+    Protected Sub ButtonExport_Click(sender As Object, e As EventArgs)
+        Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("en-US")
+        Thread.CurrentThread.CurrentCulture = New System.Globalization.CultureInfo("en-US")
+
+        Dim SearchResults = FetchMerchantData(DateTime.Parse(txtStartDate.Text), DateTime.Parse(txtEndDate.Text))
+        Dim csvexport = New CsvExport(",", False)
+        csvexport.IncludeHeaders = True
+        If SearchResults.Count > 0 Then
+            csvexport.AddRows(SearchResults.[Select](Function(q)
+                                                         Dim transaction = FetchTransactionData(q.TransactionId)
+                                                         Return New With {
+                                                             Key .OrderNumber = transaction.OrderNumber,
+                                                             Key .Id = q.Id,
+                                                             Key .Created = q.Created,
+                                                             Key .MerchantId = q.MerchantId,
+                                                             Key .TransactionId = q.TransactionId,
+                                                             Key .Amount = If(q.Amount Is Nothing, 0, q.Amount.Amount),
+                                                             Key .Currency = If(q.Amount Is Nothing, "", q.Amount.Currency),
+                                                             Key .Balance = q.Balance,
+                                                             Key .Captured = transaction.Captured,
+                                                             Key .Capture = q.Capture,
+                                                             Key .Fee = q.Fee
+                                                         }
+
+                                                     End Function).ToList())
+        End If
+        Dim Content As Byte() = Encoding.[Default].GetBytes(csvexport.Export())
+        Response.ContentType = "text/csv"
+        Response.AddHeader("content-disposition", "attachment; filename=" + "Paylike export " + txtStartDate.Text + " to " + txtEndDate.Text + ".csv")
+        Response.BufferOutput = True
+        Response.OutputStream.Write(Content, 0, Content.Length)
+        Response.[End]()
+    End Sub
+End Class

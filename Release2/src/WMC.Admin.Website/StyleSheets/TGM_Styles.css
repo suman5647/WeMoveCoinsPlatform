@@ -1,0 +1,357 @@
+OL {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana
+}
+UL {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana
+}
+TABLE {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana
+}
+TR {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana
+}
+TD {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana;
+    margin-left: 80px;
+}
+INPUT
+{
+    FONT: 10px verdana,tahoma,arial;
+    /*COLOR: #cc6600;*/
+    TEXT-DECORATION: none;
+    }
+
+.HomeHead
+{
+    color: #000080;
+    font-family: Verdana, Arial;
+    font-size: 20px;
+    font-weight: bold;
+    HEIGHT: 35px
+}
+    
+#outermostTable {
+	WIDTH: 1000px; COLOR: #333333; HEIGHT: 620px
+}
+#header {
+	WIDTH: 1000px; COLOR: #333333; HEIGHT: 56px
+}
+#leftMenu {
+	WIDTH: 158px; COLOR: #333333; HEIGHT: 553px
+}
+#middleArea {
+	WIDTH: 1000px; COLOR: #333333; HEIGHT: 554px
+}
+#middleAreaProductCatalogues {
+	WIDTH: 1000px; COLOR: #333333; HEIGHT: 730px
+}
+#contentAreaNoNavigation {
+	WIDTH: 978px; COLOR: #333333
+}
+#contentAreaWithLeftNavigation {
+	WIDTH: 840px; COLOR: #333333; HEIGHT: 553px
+}
+#fifthElement {
+	WIDTH: 243px; COLOR: #333333; HEIGHT: 553px
+}
+#fifthElementWidth {
+	WIDTH: 243px; COLOR: #333333
+}
+#productFinder {
+	WIDTH: 243px; COLOR: #333333; HEIGHT: 553px
+}
+#footer {
+	WIDTH: 1000px; COLOR: #333333; HEIGHT: 26px
+}
+.headerTexts {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topMenuText {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.searchTextBox {
+	BORDER-RIGHT: #bbbbbb 1px solid; BORDER-TOP: #bbbbbb 1px solid; FONT-SIZE: 10px; BORDER-LEFT: #bbbbbb 1px solid; WIDTH: 100px; COLOR: #333333; BORDER-BOTTOM: #bbbbbb 1px solid; FONT-FAMILY: tahoma; HEIGHT: 15px; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.disclaimer {
+	FONT-SIZE: 10px; COLOR: #666666; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.disclaimerLink {
+	FONT-SIZE: 10px; COLOR: #666666; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.breadcrumbNoLeftNav {
+	WIDTH: 162px; visible: false
+}
+.breadcrumbNoLeftNavMargin {
+	WIDTH: 178px; visible: false
+}
+.marginHeight24 {
+	HEIGHT: 24px; visible: false
+}
+.marginHeight20 {
+	HEIGHT: 20px; visible: false
+}
+.marginHeight18 {
+	HEIGHT: 18px; visible: false
+}
+.marginHeight14 {
+	HEIGHT: 14px; visible: false
+}
+.marginHeight12 {
+	HEIGHT: 12px; visible: false
+}
+.marginHeight7 {
+	HEIGHT: 7px; visible: false
+}
+.marginHeight6 {
+	HEIGHT: 6px; visible: false
+}
+.marginHeight4 {
+	HEIGHT: 4px; visible: false
+}
+.marginHeight2 {
+	HEIGHT: 2px; visible: false
+}
+.marginWidth24 {
+	WIDTH: 24px; visible: false
+}
+.marginWidth22 {
+	WIDTH: 22px; visible: false
+}
+.marginWidth20 {
+	WIDTH: 20px; visible: false
+}
+.marginWidth18 {
+	WIDTH: 18px; visible: false
+}
+.marginWidth12 {
+	WIDTH: 12px; visible: false
+}
+.marginWidth6 {
+	WIDTH: 6px; visible: false
+}
+.marginWidth5 {
+	WIDTH: 5px; visible: false
+}
+.marginWidth2 {
+	WIDTH: 2px; visible: false
+}
+.horizontalDots {
+	BACKGROUND-IMAGE: url(~/images/HorizontalDot1.GIF)
+}
+.verticalDots {
+	BACKGROUND-IMAGE: url(/DanfossBrand/images/VerticalDot1.GIF); WIDTH: 1px; visible: false
+}
+.linkarrow {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: arial; TEXT-DECORATION: none; visible: false
+}
+.linkarrowproductsearch {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: red; FONT-FAMILY: arial; TEXT-DECORATION: none; visible: false
+}
+.linkarrowWithoutPadding {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: arial; TEXT-DECORATION: none; visible: false
+}
+.linkarrowLeftMenuItem {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 4px; FONT-WEIGHT: bold; FONT-SIZE: 11px; WIDTH: 18px; COLOR: red; FONT-FAMILY: arial; TEXT-DECORATION: none; visible: false
+}
+.defaultButton {
+	BORDER-RIGHT: #666666 1px solid; BORDER-TOP: #666666 1px solid; FONT-SIZE: 20px; BORDER-LEFT: #666666 1px solid; CURSOR: hand; COLOR: red; BORDER-BOTTOM: #666666 1px solid; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #d5d5d5; visible: false
+}
+.verdana13 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; caption: Heading
+}
+.verdana10 {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; caption: Content(Regular)
+}
+.verdana10Bold {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; caption: Content(Bold)
+}
+.verdana10Link {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; caption: Links
+}
+.verdana10LinkNoArrow {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; visible: false
+}
+.verdana10BreadCrumb {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; visible: false
+}
+.verdana {
+	COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: none; visible: false
+}
+.imageWithRightMargin24 {
+	MARGIN-RIGHT: 24px; visible: false
+}
+.imageWithBottomMargin24 {
+	MARGIN-BOTTOM: 14px; visible: false
+}
+.imageHand {
+	CURSOR: hand; visible: false
+}
+.topNavigationItem {
+	FONT-SIZE: 17px; COLOR: red; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+topNavigationItemX {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topNavigationItem:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.topLanguageItem {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topLanguageItem:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.topNavigationItemSelected {
+	FONT-SIZE: 11px; COLOR: red; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topNavigationItemSelected:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.topNavigationSubMenu {
+	BORDER-RIGHT: #bbbbbb 1px solid; BORDER-TOP: #bbbbbb 1px solid; BORDER-LEFT: #bbbbbb 1px solid; BORDER-BOTTOM: #bbbbbb 1px solid; WHITE-SPACE: nowrap; BACKGROUND-COLOR: #e2e2e2; visible: false
+}
+.topNavigationSubMenuHidden {
+	BORDER-RIGHT: #bbbbbb 1px solid; BORDER-TOP: #bbbbbb 1px solid; BORDER-LEFT: #bbbbbb 1px solid; BORDER-BOTTOM: #bbbbbb 1px solid; WHITE-SPACE: nowrap; BACKGROUND-COLOR: #ffff66; visible: false
+}
+.leftNavigation {
+	WIDTH: 100%; BACKGROUND-COLOR: #cccccc; visible: false
+}
+.leftNavigationItemText {
+	PADDING-RIGHT: 2px; DISPLAY: block; FONT-SIZE: 10px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-ALIGN: left; TEXT-DECORATION: none; visible: false
+}
+.leftNavigationItemTextSelected {
+	PADDING-RIGHT: 2px; DISPLAY: block; FONT-SIZE: 10px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: red; FONT-FAMILY: tahoma; TEXT-ALIGN: left; TEXT-DECORATION: none; visible: false
+}
+.leftNavigationItem {
+	BORDER-TOP: white 1px solid; FONT-SIZE: 10px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #333333; PADDING-TOP: 2px; FONT-FAMILY: tahoma; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: left; TEXT-DECORATION: none; visible: false
+}
+.leftNavigationItemHidden {
+	BORDER-TOP: white 1px solid; FONT-SIZE: 10px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #ffff66; PADDING-TOP: 2px; FONT-FAMILY: tahoma; BACKGROUND-COLOR: #ffff66; TEXT-ALIGN: left; TEXT-DECORATION: none; visible: false
+}
+.leftNavigationItem:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.leftNavigationItemSelected {
+	BORDER-TOP: white 1px solid; FONT-SIZE: 10px; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: red; PADDING-TOP: 2px; FONT-FAMILY: tahoma; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: left; TEXT-DECORATION: none; visible: false
+}
+.leftNavigationItemSelected:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.leftNavigationSubMenu {
+	WIDTH: 100%; WHITE-SPACE: nowrap; BACKGROUND-COLOR: #e2e2e2; visible: false
+}
+.leftNavigationSubMenuHidden {
+	BACKGROUND-COLOR: #ffff66
+}
+.topSubMenuItem {
+	FONT-SIZE: 10px; WIDTH: 100%; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topSubMenuItemHidden {
+	FONT-SIZE: 10px; WIDTH: 100%; COLOR: #ffff66; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topSubMenuItem:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.topSubMenuItemSelected {
+	FONT-SIZE: 10px; WIDTH: 100%; COLOR: red; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.topSubMenuItemSelected:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.leftSubMenuItem {
+	DISPLAY: block; PADDING-LEFT: 18px; FONT-SIZE: 10px; WIDTH: 100%; COLOR: #333333; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.leftSubMenuItem:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.leftSubMenuItemSelected {
+	DISPLAY: block; PADDING-LEFT: 18px; FONT-SIZE: 10px; WIDTH: 100%; COLOR: red; FONT-FAMILY: tahoma; TEXT-DECORATION: none; visible: false
+}
+.leftSubMenuItemSelected:hover {
+	COLOR: red; BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.lightGrayCell {
+	BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.selectbox3Col {
+	FONT-SIZE: 10px; WIDTH: 145px; COLOR: #333333; FONT-FAMILY: verdana; HEIGHT: 30px; visible: false
+}
+.selectbox2Col {
+	FONT-SIZE: 10px; WIDTH: 240px; COLOR: #333333; FONT-FAMILY: verdana; HEIGHT: 30px; visible: false
+}
+.selectbox2ColWidth {
+	WIDTH: 240px; visible: false
+}
+.selectboxWidthStyle {
+	FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; HEIGHT: 30px; visible: false
+}
+.prodfindselect {
+	FONT-SIZE: 10px; WIDTH: 160px; COLOR: #333333; FONT-FAMILY: verdana; HEIGHT: 20px; visible: false
+}
+.prodfindselectBig {
+	FONT-SIZE: 10px; WIDTH: 203px; COLOR: #333333; FONT-FAMILY: verdana; HEIGHT: 20px; visible: false
+}
+.DataGrid {
+	BACKGROUND-COLOR: #f0f0f0; visible: false
+}
+.AlternatingItemStyle {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; COLOR: #333333; FONT-FAMILY: verdana; BACKGROUND-COLOR: #ffffff; visible: false
+}
+.printLogo {
+	DISPLAY: none; visible: false
+}
+.resultsLabelWidth {
+	WIDTH: 100px; visible: false
+}
+.resultsDataWidthShort {
+	WIDTH: 380px; visible: false
+}
+.resultsDataWidth {
+	WIDTH: 425px; visible: false
+}
+.DropdownList
+{
+    background-color: #FFE0C0;  font-size: 10px;  FONT-FAMILY: verdana
+}
+.LinkButtonMenu
+{
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    background-color: #3770AC;
+    color: white;
+    font-family: tahoma;
+    font-weight: normal;
+    FONT-SIZE: 11px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-right: darkgray thin solid;
+    border-top: darkgray thin solid;
+    border-left: darkgray thin solid;
+}
+.LinkButtonMenuFocus
+{
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 8px;
+    background-color: #285A8F;
+    color: white;
+    font-family: tahoma;
+    font-weight: bold;
+    FONT-SIZE: 11px;
+    margin-left: 1px;
+    margin-right: 1px;
+    border-right: black thin solid;
+    border-top: black thin solid;
+    border-left: black thin solid;
+}
+A:visited {
+    color: blue;
+    font-family: verdana;
+}
+A {
+    color:blue;
+    font-family: verdana;
+}

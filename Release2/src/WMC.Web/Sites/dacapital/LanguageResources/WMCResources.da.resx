@@ -1,0 +1,663 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Amount" xml:space="preserve">
+    <value>Beløb</value>
+  </data>
+  <data name="AmountCannotBeEmpty" xml:space="preserve">
+    <value>Beløb skal udfyldes</value>
+  </data>
+  <data name="AmountShouldBeBetween" xml:space="preserve">
+    <value>Beløb skal være imellem</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>TILBAGE</value>
+  </data>
+  <data name="BitcoinAddress" xml:space="preserve">
+    <value>BITCOIN ADRESSE</value>
+  </data>
+  <data name="BitcoinAddressCannotBeEmpty" xml:space="preserve">
+    <value>Bitcoinadressen skal udfyldes</value>
+  </data>
+  <data name="BitcoinAddressInvalid" xml:space="preserve">
+    <value>Bitcoinadressen er ikke korrekt</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>KØB</value>
+  </data>
+  <data name="CardholderName" xml:space="preserve">
+    <value>Navn på kreditkort</value>
+  </data>
+  <data name="CodeNotReceiving" xml:space="preserve">
+    <value>Modtog ingen kode? Genstart din mobiltelefon</value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Kommission</value>
+  </data>
+  <data name="ConfirmTermsAndConditions" xml:space="preserve">
+    <value>Jeg bekræfter hermed at have læst og accepteret</value>
+  </data>
+  <data name="CreditCardNumber" xml:space="preserve">
+    <value>Kortnummer</value>
+  </data>
+  <data name="DragAndDropFile" xml:space="preserve">
+    <value>Drag &amp; Drop Filer</value>
+  </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>REDIGER ORDREN</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-MAIL</value>
+  </data>
+  <data name="EmailEmptyMessage" xml:space="preserve">
+    <value>E-mail adressen skal udfyldes</value>
+  </data>
+  <data name="EmailInvalidMessage" xml:space="preserve">
+    <value>E-mail adressen er ikke korrekt</value>
+  </data>
+  <data name="ExactRateMessage" xml:space="preserve">
+    <value>Den præcise kurs bliver beregnet når ordren gennemføres, hvilket vi garanterer er indenfor 12 timer</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Gebyr</value>
+  </data>
+  <data name="FirstNameSurNameEmptyMessage" xml:space="preserve">
+    <value>Indsæt venligst for- og efternavn</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>FOR</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>FULDE NAVN</value>
+  </data>
+  <data name="FullNameEmptyMessage" xml:space="preserve">
+    <value>Navn skal udfyldes</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>GÅ TILBAGE</value>
+  </data>
+  <data name="IsThisYourBitcoinAddressString" xml:space="preserve">
+    <value>Er du sikker på dette er en korrekt bitcoin-adresse?</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>MOBIL</value>
+  </data>
+  <data name="MobileEmptyMessage" xml:space="preserve">
+    <value>Mobilnummer skal udfyldes</value>
+  </data>
+  <data name="MobileNumberHelpContent" xml:space="preserve">
+    <value>For at forhindre svindel, vil vi i købsprocessen bede dig bekræfte dit mobilnummer. Læs venligst vores handelsbetingelser for yderligere information.</value>
+  </data>
+  <data name="NoGoBack" xml:space="preserve">
+    <value>NEJ, GÅ TILBAGE</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Ordrenummer</value>
+  </data>
+  <data name="OrderSize" xml:space="preserve">
+    <value>ORDRESTØRRELSE</value>
+  </data>
+  <data name="PaymentSucceeded" xml:space="preserve">
+    <value>BETALING GENNEMFØRT</value>
+  </data>
+  <data name="PhoneNumberVerifiedSuccessfully" xml:space="preserve">
+    <value>Mobilnummer er nu verificeret</value>
+  </data>
+  <data name="PhotoIDString1" xml:space="preserve">
+    <value>Pas eller Kørekort</value>
+  </data>
+  <data name="PhotoIDString2" xml:space="preserve">
+    <value>- Selfie m. ID ved siden af dit ansigt</value>
+  </data>
+  <data name="PlaceOrder" xml:space="preserve">
+    <value>LÆG ORDRE</value>
+  </data>
+  <data name="PleaseInputSixDigitCode" xml:space="preserve">
+    <value>Indtast venligt det 6-cifrede nummer vi har sendt dig</value>
+  </data>
+  <data name="ProofOfResidencyString1" xml:space="preserve">
+    <value>Sygesikringsbevis eller fx</value>
+  </data>
+  <data name="ProofOfResidencyString2" xml:space="preserve">
+    <value>Kvittering med navn og adresse</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Kurs</value>
+  </data>
+  <data name="ResendCode" xml:space="preserve">
+    <value>FREMSEND NY KODE</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Kilde</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>SEND</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>{SiteName}: Køb Bitcoin</value>
+  </data>
+  <data name="UploadYourFile" xml:space="preserve">
+    <value>Upload din fil</value>
+  </data>
+  <data name="Using" xml:space="preserve">
+    <value>ANVENDER</value>
+  </data>
+  <data name="VerificationCodeIncorrect" xml:space="preserve">
+    <value>Verifikationskoden er ikke korrekt</value>
+  </data>
+  <data name="VerificationCodeSent" xml:space="preserve">
+    <value>Verifikationskoden er sendt</value>
+  </data>
+  <data name="VerificationOfIdentity" xml:space="preserve">
+    <value>VERIFIKATION AF DIN IDENTITET</value>
+  </data>
+  <data name="VerificationOfMobileNumber" xml:space="preserve">
+    <value>VERIFICER DIT MOBILNUMMER</value>
+  </data>
+  <data name="VerifyMe" xml:space="preserve">
+    <value>VERIFICER MIG</value>
+  </data>
+  <data name="WhatIsABitcoinAddress" xml:space="preserve">
+    <value>Hvad er en bitcoinadresse?</value>
+  </data>
+  <data name="WhyMyMobileNumber" xml:space="preserve">
+    <value>Hvorfor mit mobilnummer?</value>
+  </data>
+  <data name="YesThatIsCorrect" xml:space="preserve">
+    <value>JA, DET ER KORREKT</value>
+  </data>
+  <data name="YouPay" xml:space="preserve">
+    <value>Du betaler</value>
+  </data>
+  <data name="YourBitcoinAddress" xml:space="preserve">
+    <value>Din bitcoinadresse</value>
+  </data>
+  <data name="YouReceive" xml:space="preserve">
+    <value>Du modtager</value>
+  </data>
+  <data name="YourOrderHasBeenSelectedForIDControl" xml:space="preserve">
+    <value>Din ordre er blevet udtrukket til ID-kontrol.</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>ACCEPTER</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>og</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>LUK</value>
+  </data>
+  <data name="MobileNumber" xml:space="preserve">
+    <value>MOBIL Nummer</value>
+  </data>
+  <data name="OrderInfo" xml:space="preserve">
+    <value>Ordreinformation</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Betaling</value>
+  </data>
+  <data name="RateUs" xml:space="preserve">
+    <value>BEDØM OS PÅ TRUSTPILOT</value>
+  </data>
+  <data name="Receipt" xml:space="preserve">
+    <value>Kvittering</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Handelsbetingelserne</value>
+  </data>
+  <data name="Verification" xml:space="preserve">
+    <value>Verifikation</value>
+  </data>
+  <data name="VerificationOfIdentityMessageString1" xml:space="preserve">
+    <value>Din ordre er udvalgt til ID-kontrol</value>
+  </data>
+  <data name="VerificationOfIdentityMessageString2" xml:space="preserve">
+    <value>Vi gør dette for at forhindre, at vores platform bliver brugt til falske eller ulovlige aktiviteter, hvilket er et krav der er fremsat af vores bankpartnere og generel lovgivning.</value>
+  </data>
+  <data name="VerificationOfIdentityMessageString3" xml:space="preserve">
+    <value>Vi vil bede dig uploade nedenstående personlige oplysninger og kopier af dokumenter (max 1MB pr. fil)</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString1" xml:space="preserve">
+    <value>En bitcoinadresse genereres automatisk af af din bitcoin-wallet. Hvis du allerede har en bitcoin-wallet, så skal du gå ind i menuen "modtag bitcoins" og kopiere og indsætte adressen i dette felt.</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString2" xml:space="preserve">
+    <value>Her ser du et eksempel på en bitcoinadresse: 13fyJo4nCkMBs7fd984kw9DBZjVVwwCn4v</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString3" xml:space="preserve">
+    <value>Hvis du endnu ikke har en bitcoin-wallet, så se vores guides omkring opsætning.</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString4" xml:space="preserve">
+    <value>Her er en liste med vores anbefalinger til forskellige bitcoin-wallets til forskellige platforme:</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString5" xml:space="preserve">
+    <value>iPhone og iOS</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString6" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString7" xml:space="preserve">
+    <value>Laptop og desktop computere</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString8" xml:space="preserve">
+    <value>Avanceret wallet</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>kontakte os</value>
+  </data>
+  <data name="ReceiptPageFooterString1" xml:space="preserve">
+    <value>Hvis du har spørgsmål, er du velkommen til at kontakte os</value>
+  </data>
+  <data name="ReceiptPageFooterString2" xml:space="preserve">
+    <value>Vi vender tilbage!</value>
+  </data>
+  <data name="ReceiptPageFooterString3" xml:space="preserve">
+    <value>Med venlig hilsen</value>
+  </data>
+  <data name="ReceiptPageFooterString4" xml:space="preserve">
+    <value>{SiteName}-teamet</value>
+  </data>
+  <data name="ReceiptPageHeaderString1" xml:space="preserve">
+    <value>Tak fordi du anvendte {SiteName}!</value>
+  </data>
+  <data name="ReceiptPageHeaderString2" xml:space="preserve">
+    <value>Din ordre og betaling er modtaget</value>
+  </data>
+  <data name="ReceiptPageHeaderString3" xml:space="preserve">
+    <value>Vi arbejder hurtigts muligt med at behandle din ordre. Vi sender en e-mail til dig så snart vi er klar.</value>
+  </data>
+  <data name="ReceiptPageHeaderString4" xml:space="preserve">
+    <value>Dine ordredetaljer: (e-email er også fremsendt)</value>
+  </data>
+  <data name="BitcoinAddressHelpContentBreadwalletSiteUrl" xml:space="preserve">
+    <value>https://{SiteName}/resources/tutorials/breadwallet-tutorial/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentElectrumSiteUrl" xml:space="preserve">
+    <value>https://{SiteName}/resources/tutorials/Electrum-tutorial/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentJaxxSiteUrl" xml:space="preserve">
+    <value>https://{SiteName}/resources/tutorials/jaxx-tutorial/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentMycelium" xml:space="preserve">
+    <value>https://{SiteName}/tutorials/mycelium-tutorial/</value>
+  </data>
+  <data name="MailToAddress" xml:space="preserve">
+    <value>mailto:support@{SiteName}/</value>
+  </data>
+  <data name="AccountholderName" xml:space="preserve">
+    <value>Navn på kontoindehaver</value>
+  </data>
+  <data name="AccountNumber" xml:space="preserve">
+    <value>Kontonummer</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Bank</value>
+  </data>
+  <data name="DomesticInstantTransfer" xml:space="preserve">
+    <value>Straksoverførsel</value>
+  </data>
+  <data name="MessageToReceiver" xml:space="preserve">
+    <value>Besked til modtager</value>
+  </data>
+  <data name="PaymentInformation" xml:space="preserve">
+    <value>BETALINGSINFORMATION</value>
+  </data>
+  <data name="PaymentInstructions" xml:space="preserve">
+    <value>BETALINGSINSTRUKTION</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString1" xml:space="preserve">
+    <value>Tak for din ordre, {UserName}!</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString2" xml:space="preserve">
+    <value>Overfør venligst beløbet til vores konto ved at anvende følgende information</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString3" xml:space="preserve">
+    <value>Vi garanterer at sende dig dine bitcoins senest 12 timer efter vi har modtaget din betaling</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString4" xml:space="preserve">
+    <value>Hvis nogen af de angivne detaljer ikke er korrekte, tryk da blot på "TILBAGE" knappen og opret en ny ordre. Hvis alt derimod er korrekt, beder vi dig overføre det angivne beløb til til vores bankkonto ved hjælp af nedenstående detaljer</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString5" xml:space="preserve">
+    <value>Markedskursen ved ordrekørslen</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString6" xml:space="preserve">
+    <value>For mere information henviser vi til vores handelsbetingelser</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString7" xml:space="preserve">
+    <value>Hvis du har spørgsmål, så er du velkommen til at besvare denne email eller kontakte os på vores hjemmeside. Vi vil meget gerne hjælpe!</value>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>Reg. Nr.</value>
+  </data>
+  <data name="TransferType" xml:space="preserve">
+    <value>Transfer Type</value>
+  </data>
+  <data name="EmailTooLongMessage" xml:space="preserve">
+    <value>Email adressen er for lang. Anvend højest 50 tegn</value>
+  </data>
+  <data name="FirstNameSurNameTooLongMessage" xml:space="preserve">
+    <value>Det anvendte navn er for langt. Anvend højest 50 tegn</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Kreditkort</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>Email adresse</value>
+  </data>
+  <data name="NamePlaceholder" xml:space="preserve">
+    <value>Fornavn Efternavn</value>
+  </data>
+  <data name="PhoneNumberOverlay" xml:space="preserve">
+    <value>11 11 11 11</value>
+  </data>
+  <data name="MobileInvalidMessage" xml:space="preserve">
+    <value>Mobilnummer er ikke korrekt</value>
+  </data>
+  <data name="PhoneNumberVerificationMessage" xml:space="preserve">
+    <value>Hej {0}. Du er ved at købe bitcoins! Hvis du vil fortsætte bedes du anvende følgende kode: {1}</value>
+  </data>
+  <data name="PleaseVerifyYourCreditCard" xml:space="preserve">
+    <value>Hej {Name}, venligst verificere dit kreditkort</value>
+  </data>
+  <data name="UploadDocumentsInstead" xml:space="preserve">
+    <value>Har du ikke koden? Upload i stedet dokumenter for manuel godkendelse...</value>
+  </data>
+  <data name="WhatToD0Line1" xml:space="preserve">
+    <value>HVAD SKAL JEG GØRE NU?</value>
+  </data>
+  <data name="WhatToD0Line2" xml:space="preserve">
+    <value>- Åben din netbank som dit kreditkort er tilknyttet</value>
+  </data>
+  <data name="WhatToD0Line3" xml:space="preserve">
+    <value>- Find {OrderCompleted}, hvor der er hævet {OrderAmount} {OrderCurrency} på dette kreditkort: {CreditCard}</value>
+  </data>
+  <data name="WhatToD0Line4" xml:space="preserve">
+    <value>- I descriptoren (teksten ved siden af beløbet) aflæses den 4-cifrede kode som indsættes i boksen herunder. Klik VERIFICER MIG</value>
+  </data>
+  <data name="DrivingLicenseOrPassport" xml:space="preserve">
+    <value>Pas eller Kørekort</value>
+  </data>
+  <data name="PhotoOfCreditCard" xml:space="preserve">
+    <value>- Foto af kreditkort</value>
+  </data>
+  <data name="Return" xml:space="preserve">
+    <value>GÅ TILBAGE</value>
+  </data>
+  <data name="SelfieWithCreditCard" xml:space="preserve">
+    <value>- Selfie med kreditkort ved siden af dit ansigt</value>
+  </data>
+  <data name="SelfieWithIDNextToYourFace" xml:space="preserve">
+    <value>-Selfie m. ID ved siden af dit ansigt</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>SEND</value>
+  </data>
+  <data name="UploadDocumentsIdentifyingYourselfAndTheCreditCard" xml:space="preserve">
+    <value>Upload dokumenter for at verificere dit kreditkort</value>
+  </data>
+  <data name="UploadPersonalInformationAndCopiesOfDocuments" xml:space="preserve">
+    <value>Vi vil bede dig uploade nedenstående filer (max  5 MB pr. fil)</value>
+  </data>
+  <data name="CancelOrder" xml:space="preserve">
+    <value>ANNULLER ORDREN</value>
+  </data>
+  <data name="CancelOrderModelWindowText" xml:space="preserve">
+    <value>Er du sikker på at du vil annullere din ordre?</value>
+  </data>
+  <data name="DocumentUploadModelWindowText" xml:space="preserve">
+    <value>Tak for dine uploadede dokumenter. Vores compliance-team vil snarest muligt lave en manuel gennemgang.</value>
+  </data>
+  <data name="IncorrectTxsecretCode" xml:space="preserve">
+    <value>Vi beklager men den indtastede kode er ikke korrekt.</value>
+  </data>
+  <data name="KYCFileTypeErrorModalWindowText" xml:space="preserve">
+    <value>KYC File type er ikke tilgængelig</value>
+  </data>
+  <data name="SusseccfullVerifyModalContentText" xml:space="preserve">
+    <value>Mange tak - koden er korrekt!. Vi vil fortsætte processeringen af din ordre.</value>
+  </data>
+  <data name="TxAttemptExceedLimit" xml:space="preserve">
+    <value>Den indtastede kode er desværre ikke korrekt. Du har {TxAttempt} forsøg tilbage. Kontakt venligst vores kundesupport hvis du mener at der er sket en fejl.</value>
+  </data>
+  <data name="UploadDocuments" xml:space="preserve">
+    <value>UPLOAD DOKUMENTER</value>
+  </data>
+  <data name="TxAttemptMaxReached" xml:space="preserve">
+    <value>Vi beklager, men du har overskredet dine forsøg. Kontakt venligst vores kundesupport, hvis du har spørgsmål.</value>
+  </data>
+  <data name="MinersFee" xml:space="preserve">
+    <value>Miners Fee</value>
+  </data>
+  <data name="NoCustomerResponsePendingForOrder" xml:space="preserve">
+    <value>Der er intet kundesvar der afventes på ordren.</value>
+  </data>
+  <data name="ConfirmationOfNoticeString1" xml:space="preserve">
+    <value>Du er ved at købe digital valuta. Disse vil automatisk blive sendt til den wallet på det websted, som du kom fra.</value>
+  </data>
+  <data name="ConfirmationOfNoticeString2" xml:space="preserve">
+    <value>Ved at fortsætte accepterer du at have læst og accepteret vores 0, og at vi har lov til at opkræve beløbet på dit kort, som er i overensstemmelse med den viste ordrebeskrivelse.</value>
+  </data>
+  <data name="Notice" xml:space="preserve">
+    <value>BEMÆRK!</value>
+  </data>
+  <data name="SeeOrderSummaryHere" xml:space="preserve">
+    <value>SE ORDREBESKRIVELSE HER</value>
+  </data>
+  <data name="YesIAccept" xml:space="preserve">
+    <value>JA, JEG ACCEPTERER</value>
+  </data>
+    <data name="Sell" xml:space="preserve">
+    <value>SELL</value>
+  </data>
+  <data name="SellReceiptPageHeaderString1" xml:space="preserve">
+    <value>Tak for din ordre!</value>
+  </data>
+  <data name="SellReceiptPageHeaderString2" xml:space="preserve">
+    <value>Vi har registreret følgende indbetaling fra dig:</value>
+  </data>
+  <data name="SellReceiptPageHeaderString3" xml:space="preserve">
+    <value>Når transaktionen har nået et minimum af seks bekræftelser på Blockchainen, gennemfører vi ordren. Vi sender dig også en bekræftelse med ordredetaljerne på e-mail.</value>
+  </data>
+  <data name="SellReceiptPageHeaderString4" xml:space="preserve">
+    <value>Vi arbejder på højtryk for at gennemføre din ordre. Vi henviser til vores Handelsbetingelser og “Sådan gør du din transaktion hurtigere”.</value>
+  </data>
+  <data name="SellReceiptPageFooterString1" xml:space="preserve">
+    <value>Hvis du har yderligere spørgsmål, kontakt venligst</value>
+  </data>
+  <data name="SellReceiptPageFooterString2" xml:space="preserve">
+    <value>Du hører nærmere fra os. Mange tak!</value>
+  </data>
+  <data name="SellReceiptPageFooterString3" xml:space="preserve">
+    <value>Med venlig hilsen</value>
+  </data>
+  <data name="SellReceiptPageFooterString4" xml:space="preserve">
+    <value>Teamet </value>
+  </data>
+  <data name="IBANEmptyMessage" xml:space="preserve">
+    <value>IBAN må ikke være tomt.</value>
+  </data>
+  <data name="USCardError" xml:space="preserve">
+    <value>Vi modtager desværre ikke amerikanske kreditkort. Benyt venligst et andet kreditkort.</value>
+  </data>
+  <data name="YourBankAccountIBAN" xml:space="preserve">
+    <value>Din bankkonto (IBAN)</value>
+  </data>
+  <data name="IBANInvalidMessage" xml:space="preserve">
+    <value>IBAN-nummer er ikke gyldigt.</value>
+  </data>
+  <data name="IBANTooLongMessage" xml:space="preserve">
+    <value>IBAN-nummer er for langt.</value>
+  </data>
+  <data name="Reg" xml:space="preserve">
+    <value>Reg.</value>
+  </data>
+  <data name="RegEmptyMessage" xml:space="preserve">
+    <value>Reg.nr. må ikke være tomt.</value>
+  </data>
+  <data name="RegInvalidMessage" xml:space="preserve">
+    <value>Reg.nr. er ikke gyldigt.</value>
+  </data>
+  <data name="RegTooLongMessage" xml:space="preserve">
+    <value>Reg.nr. er for langt.</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Konto</value>
+  </data>
+  <data name="AccountEmptyMessage" xml:space="preserve">
+    <value>Kontonummer må ikke være tomt</value>
+  </data>
+  <data name="AccountInvalidMessage" xml:space="preserve">
+    <value>Kontonummer er ikke gyldigt</value>
+  </data>
+  <data name="AccountTooLongMessage" xml:space="preserve">
+    <value>Kontonummer er for langt</value>
+  </data>
+  <data name="PayBitCoin" xml:space="preserve">
+    <value>Send bitcoins</value>
+  </data>
+  <data name="CryptoCurrencyRateInstruction1" xml:space="preserve">
+    <value>Den kurs vi tilbyder, er den aktuelle kurs på tidspunktet for overførslen af bitcoins til os.</value>
+  </data>
+  <data name="CryptoCurrencyRateInstruction2" xml:space="preserve">
+    <value>Så snart vi har modtaget et minimum af 6 bekræftelser på din transaktion, gennemfører vi ordren. Pengene vil normalt være på din konto indenfor 48 timer.</value>
+  </data>
+  <data name="WaitingForPayment " xml:space="preserve">
+    <value>Venter på betaling</value>
+  </data>
+  <data name="Pay " xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>Or</value>
+  </data>
+  <data name="SellPhoneNumberVerificationMessage" xml:space="preserve">
+    <value>Hej {0}. Du er ved at sælge en crypto valuta! Hvis du ønsker at fortsætte skal du anvende følgende kode: {1}</value>
+  </data>
+  <data name="Worth" xml:space="preserve">
+    <value>TIL VÆRDI AF</value>
+  </data>
+      <data name="RecieveNewsletters" xml:space="preserve">
+    <value>Ja tak, jeg vil gerne modtage diverse tilbud og nyheder på e-mail</value>
+  </data>
+      <data name="AlertMessage1" xml:space="preserve">
+    <value>Vi har skiftet til en ny kortindløser og modtager derfor i øjeblikket kun DKK. Vi arbejder på at inkludere USD, EUR and GBP til listen.</value>
+  </data>
+</root>

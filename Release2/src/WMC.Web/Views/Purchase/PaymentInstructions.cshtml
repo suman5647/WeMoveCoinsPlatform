@@ -1,0 +1,144 @@
+﻿@using WMC.Helpers
+@using WMC.Web.Utilities.Humanizer
+@model WMC.Web.Models.PaymentInstructionsModel
+<div class="page" id="formPaymentInstructions" style="font-family: SourceSansPro, sans-serif !important;">
+    <div style="color: black;margin: 10px 0 20px auto;border: 1px solid #0ab89e;border-radius: 5px;">
+        <div style="background:#0ab89e;color: white;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;padding:5px 20px;">@Html.Resource("WMCResources", "PaymentInstructions")</div>
+        <div style="padding: 10px 20px">
+            <span>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString1", new Dictionary<string, string> { { "{UserName}", @Model.User } })</span><br /><br />
+            <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString2")</p>
+            <hr style="margin-top: 5px;margin-bottom: 5px;border-top: 1px solid #0ab89e;" />
+            <p><u>@Html.Resource("WMCResources", "PaymentInformation")</u></p>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "TransferType"):</div>
+                <div class="col-xs-7" style="text-align: right">@Html.Resource("WMCResources", "DomesticInstantTransfer")</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "Amount"):</div>
+                <div class="col-xs-7" style="text-align: right">@Model.Amount @Model.Currency</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "MessageToReceiver"):</div>
+                <div class="col-xs-7" style="text-align: right">@Model.MessageToReciever</div>
+            </div>
+            @*<div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "Bank"):</div>
+                    <div class="col-xs-7">@Model.Bank</div>
+                </div>*@
+            @if (@Model.PaymentDetails != null)
+            {
+                foreach (var item in @Model.PaymentDetails)
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", @item.Key):</div>
+                        <div class="col-xs-7" style="text-align: right">@item.Value</div>
+                    </div>
+                }
+            }
+            else
+            {
+                if (ViewBag.SiteName.ToLower() != "wemovecoins")
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "RegistrationNumber"):</div>
+                        <div class="col-xs-7" style="text-align: right">8411</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "AccountNumber"):</div>
+                        <div class="col-xs-7" style="text-align: right">0004180970</div>
+                    </div>}
+                else
+                {
+                    <div class="row">
+                        <div class="col-xs-5">IBAN kontonummer:</div>
+                        <div class="col-xs-7" style="text-align: right">DK9084110004180970</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">SWIFT-adresse/BIC:</div>
+                        <div class="col-xs-7" style="text-align: right">FAELDKK1</div>
+                    </div>
+                }
+            }
+            <hr style="margin-top: 5px;margin-bottom: 5px;border-top: 1px solid #0ab89e;" />
+            <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString3")</p>
+            <hr style="margin-top: 5px;margin-bottom: 5px;border-top: 1px solid #0ab89e;" />
+            <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString4")</p>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "AccountholderName"):</div>
+                <div class="col-xs-7" style="text-align: right">@Model.User</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "BitcoinAddress").ToLower().Humanize(LetterCasing.Title):</div>
+                <div class="col-xs-7" style="text-align: right">@Model.BitcoinAddress</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "Amount"):</div>
+                <div class="col-xs-7" style="text-align: right">@Model.Amount @Model.Currency</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-5">@Html.Resource("WMCResources", "Rate"):</div>
+                <div class="col-xs-7" style="text-align: right">@Html.Resource("WMCResources", "PaymentInstructionsPageContentString5")</div>
+            </div>
+            <hr style="margin-top: 5px;margin-bottom: 5px;border-top: 1px solid #0ab89e;" />
+            <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString7")</p>
+            <p>@Html.Resource("WMCResources", "ReceiptPageFooterString3")</p>
+            <p>@Html.Resource("WMCResources", "ReceiptPageFooterString4", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</p>
+        </div>
+    </div>
+    <div id="paymentInstructionsPageActions" class="row">
+        <div style="text-align: center;">
+            @{
+                var siteUrl = "'http://www." + ViewBag.fSiteName + "'";
+                if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+                {
+                    siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                    if (!String.IsNullOrEmpty(@Model.ReferenceId))
+                    {
+                        <script>
+                            document.getElementById("info").style.display = "block";
+                        </script>
+                        siteUrl = "'" + Session["ReturnUrl"].ToString() + "?OrderId=" + @Model.ReferenceId + "&ReferenceId=" + @Model.OrderId + "&Amount=" + @Model.OrderAmount + "&BuyCurrency=" + @Model.Currency + "&OrderStatus=" + @Model.OrderStatus + "&Date=" + @Model.OrderDate + "&MerchantCode=Monni" + "'";
+                        <script>
+                            $(document).ready(
+                                setTimeout(
+                                    function () {
+                                        document.getElementById("backButton").click();
+                                    }, 30000));
+                        </script>
+                    }
+                }
+
+                var rateUsUrl = "'https://www.trustpilot.com/evaluate/" + ViewBag.fSiteName + "'";
+            }
+            <p id="info" style="display: none; color:black">@Html.Resource("WMCResources", "MerchantInfo")</p>
+            <input type="button" id="backButton" class="btn btn-back" value="@Html.Resource("WMCResources", "Back")" onclick="window.location.href = @siteUrl" />
+            @*<input type="button" class="btn green-btn" value="@Html.Resource("WMCResources", "RateUs")" onclick="window.location.href = @rateUsUrl" />*@
+        </div>
+    </div>
+    <br />
+    <br />
+</div>
+<script>
+    function updateDataLayerPaymentInstructions(orderNumber, amount, currencyCode, type, paymentMethod) {
+        dataLayer.push({
+            'virtualPage': '/' + userLang + '/funnel/paymentInstructions',
+            'event': 'transactionComplete',
+            'ecommerce': {
+                'purchase': {
+                    'actionField': {
+                        'Id': orderNumber,
+                        'Amount': amount,
+                        'Currency': currencyCode,
+                        'Products': [{
+                            'name': 'BTC',
+                            'amount': amount,
+                            'type': type,
+                            'payment method': paymentMethod
+                        }]
+                    }
+                }
+            }
+        });
+    }
+    updateDataLayerPaymentInstructions('@Model.MessageToReciever', '@Model.Amount', '@Model.Currency', 'Buy', 'Bank');
+</script>

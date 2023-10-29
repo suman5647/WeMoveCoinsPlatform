@@ -1,0 +1,25 @@
+<service>
+	<id>bitgojstest.exe</id>
+	<name>BitGoJsTest</name>
+	<description>This is BitGo as a service</description>
+	<executable>C:\Program Files\nodejs\node.exe</executable>
+	<logmode>rotate</logmode>
+	<argument>--harmony</argument>
+	<argument>C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js</argument>
+	<argument>--file</argument>
+	<argument>C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express</argument>
+	<argument>--log</argument>
+	<argument>BitGoJsTest wrapper</argument>
+	<argument>--grow</argument>
+	<argument>0.25</argument>
+	<argument>--wait</argument>
+	<argument>1</argument>
+	<argument>--maxrestarts</argument>
+	<argument>3</argument>
+	<argument>--abortonerror</argument>
+	<argument>n</argument>
+	<argument>--stopparentfirst</argument>
+	<argument>undefined</argument>
+	<stoptimeout>30sec</stoptimeout>
+	<workingdirectory>C:\Apps\Bitgo\BitGoJS-masterTest\bin</workingdirectory>
+</service>

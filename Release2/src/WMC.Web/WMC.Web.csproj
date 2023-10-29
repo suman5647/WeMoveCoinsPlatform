@@ -1,0 +1,615 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WMC.Web</RootNamespace>
+    <AssemblyName>WMC.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44333</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\Dlls\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentScheduler, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b76503528a14ebd1, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentScheduler.4.1.1\lib\net40\FluentScheduler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlTags, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlTags.4.0.0-beta-33\lib\net451\HtmlTags.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Jayrock.Json">
+      <HintPath>..\Dlls\Jayrock.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="MailJetClient, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dlls\MailJetClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.0.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.0.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.0.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.0.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.0.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.0.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.7\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MvcThrottle, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcThrottle.2.1.3\lib\net45\MvcThrottle.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.6.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Twilio.Api, Version=3.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.4.7.2\lib\3.5\Twilio.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionResults\BetterJsonResult.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\KycController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="GZip\DeflateCompressionAttribute.cs" />
+    <Compile Include="Helpers\ResourceExtensions.cs" />
+    <Compile Include="MaxJSONLength\CustomJsonValueProviderFactory.cs" />
+    <Compile Include="Models\BitGoWebhook.cs" />
+    <Compile Include="Models\CouponModel.cs" />
+    <Compile Include="Models\CryptoCurrencyPaymentInstructionModel.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\GoogleCaptchaModel.cs" />
+    <Compile Include="Models\PayLikePaymentModel.cs" />
+    <Compile Include="Models\PaymentInstructionsModel.cs" />
+    <Compile Include="Models\QuickPayPaymentModel.cs" />
+    <Compile Include="Models\RequestObjectModel.cs" />
+    <Compile Include="Models\SellPayment.cs" />
+    <Compile Include="Models\ThresholdSettings.cs" />
+    <Compile Include="Models\TxSecretModel.cs" />
+    <Compile Include="Models\UserSettings.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AngularHelper.cs" />
+    <Compile Include="Helpers\AngularModelHelper.cs" />
+    <Compile Include="Helpers\AngularNgRepeatHelper.cs" />
+    <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\JsonHtmlHelpers.cs" />
+    <Compile Include="Helpers\ValidationConfig.cs" />
+    <Compile Include="Helpers\ValidationTypes.cs" />
+    <Compile Include="ModelBinders\KYCFileInfoArrayBinder.cs" />
+    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\PaymentModel.cs" />
+    <Compile Include="Models\ReceiptModel.cs" />
+    <Compile Include="Models\UserIdentityModel.cs" />
+    <Compile Include="Models\VerificationModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReverseProxy\FaceTecHttpProxy.cs" />
+    <Compile Include="Utilities\BtcAddressUtil\Base58.cs" />
+    <Compile Include="Utilities\BtcAddressUtil\BtcAddressUtil.cs" />
+    <Compile Include="Utilities\ExceptionUtility.cs" />
+    <Compile Include="Utilities\JsonUtility.cs" />
+    <Compile Include="Utilities\TwilioService.cs" />
+    <Compile Include="Filters\AllowCrossSiteAttribute.cs" />
+    <Compile Include="Filters\AuthorizeUserAttribute.cs" />
+    <Compile Include="Utilities\DateExtensions.cs" />
+    <Compile Include="Utilities\Helpers.cs" />
+    <Compile Include="Utilities\HttpBuildQueryHelper.cs" />
+    <Compile Include="Utilities\Humanizer\LetterCasing.cs" />
+    <Compile Include="Utilities\Humanizer\RegexOptionsUtil.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\IStringTransformer.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\To.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\ToLowerCase.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\ToSentenceCase.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\ToTitleCase.cs" />
+    <Compile Include="Utilities\Humanizer\Transformer\ToUpperCase.cs" />
+    <Compile Include="Utilities\IPInfoService.cs" />
+    <Compile Include="Utilities\JsonExtensions.cs" />
+    <Compile Include="Utilities\StringExtensions.cs" />
+    <Compile Include="Utilities\Humanizer\StringHumanizeExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\Config.js" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\FaceTecSDK.js" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\resources\011c90516755d702cfb4205ca9d93e21fe6683b8.js" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\resources\3a4b797006cfdb1c6b9d47dc24c4ffbe38684c82.js" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\ThirdPartyLicenses.txt" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_branding_logo_id_check.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_camera.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_cancel.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_enter_fullscreen.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_ideal.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_id_back_checkmark.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_id_card_placeholder_back.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_id_card_placeholder_front.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_id_front_checkmark.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_passport_checkmark.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_passport_placeholder.png" />
+    <Content Include="assets\core-sdk\FaceTec_images\FaceTec_your_app_logo.png" />
+    <Content Include="assets\images\facetec_logo.png" />
+    <Content Include="assets\images\favicon.ico" />
+    <Content Include="assets\sample-app-resources\js\third-party\jquery-3.3.1.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css">
+      <DependentUpon>bootstrap.css</DependentUpon>
+    </Content>
+    <Content Include="Content\bootstrapValidator.min.css" />
+    <Content Include="Content\build.css" />
+    <Content Include="Content\kycfileupload.css" />
+    <Content Include="Content\quickpaycreditcard.css" />
+    <Content Include="images\camera.png" />
+    <Content Include="images\card-document.png" />
+    <Content Include="images\cards.jpg" />
+    <Content Include="images\close.png" />
+    <Content Include="images\ID-card-selfie.png" />
+    <Content Include="images\ID-card.png" />
+    <Content Include="images\ID-selfie.png" />
+    <Content Include="images\mobilepay.jpg" />
+    <Content Include="images\loading.gif" />
+    <Content Include="images\person-with-cards.jpg" />
+    <Content Include="images\person-with-cards.png" />
+    <Content Include="images\proof-document.png" />
+    <Content Include="images\question.png" />
+    <Content Include="images\trustpilot-small.png" />
+    <Content Include="images\trustpilot.png" />
+    <Content Include="images\upload.png" />
+    <Content Include="images\Uploaded.png" />
+    <Content Include="images\visa.jpg" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-recaptcha.js" />
+    <Content Include="Scripts\angular-recaptcha.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\app\creditcard-verification.js" />
+    <Content Include="Scripts\app\creditcard-verification.min.js">
+      <DependentUpon>creditcard-verification.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\creditcardkycfileupload.js" />
+    <Content Include="Scripts\app\creditcardkycfileupload.min.js">
+      <DependentUpon>creditcardkycfileupload.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\purchase.js" />
+    <Content Include="Scripts\app\purchase.min.js">
+      <DependentUpon>purchase.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\BigInt.js" />
+    <Content Include="Scripts\BigInt.min.js">
+      <DependentUpon>BigInt.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bitcoin-validator.js" />
+    <Content Include="Scripts\bitcoin-validator.min.js">
+      <DependentUpon>bitcoin-validator.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\bootstrapValidator.min.js" />
+    <Content Include="Content\flaticon.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\glyphicons.css" />
+    <Content Include="Content\scrolling-nav.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\ai.0.22.9-build00167.js" />
+    <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\SourceSansPro-Regular.otf" />
+    <Content Include="BankBuySettings.json" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\resources\011c90516755d702cfb4205ca9d93e21fe6683b8.data" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\resources\011c90516755d702cfb4205ca9d93e21fe6683b8.wasm" />
+    <Content Include="assets\core-sdk\FaceTecSDK.js\resources\011c90516755d702cfb4205ca9d93e21fe6683b8_cache.wasm" />
+    <None Include="bundleconfig.json" />
+    <Content Include="libman.json" />
+    <None Include="Properties\PublishProfiles\WMC Publish.pubxml" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\facetec\facetec-element.js" />
+    <Content Include="Scripts\iban.js" />
+    <Content Include="Scripts\jquery.glob.all.js" />
+    <Content Include="Scripts\jquery.glob.all.min.js">
+      <DependentUpon>jquery.glob.all.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.global.js" />
+    <Content Include="Scripts\jquery.global.min.js">
+      <DependentUpon>jquery.global.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\jquery.inputmask.bundle.js" />
+    <Content Include="Scripts\jquery.payment.js" />
+    <Content Include="Scripts\jquery.payment.min.js" />
+    <Content Include="Scripts\app\kycfileupload.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\jquery.easing.1.3.js" />
+    <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.maskedinput.js" />
+    <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\app\kycfileupload.min.js">
+      <DependentUpon>kycfileupload.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ng-onload.js" />
+    <Content Include="Scripts\ng-onload.min.js" />
+    <Content Include="Scripts\paylike\4.js" />
+    <Content Include="Scripts\quickpay\quickpay.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Rtf2Html.js" />
+    <Content Include="Scripts\scrolling-nav.js" />
+    <Content Include="Scripts\sha256.js" />
+    <Content Include="Scripts\sha256.min.js">
+      <DependentUpon>sha256.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\toast\ngToast.css" />
+    <Content Include="Scripts\toast\ngToast.js" />
+    <Content Include="Scripts\toast\ngToast.min.css" />
+    <Content Include="Scripts\toast\ngToast.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\Purchase\OrderInfo.cshtml" />
+    <Content Include="Views\Purchase\Verification.cshtml" />
+    <Content Include="Views\Purchase\Payment.cshtml" />
+    <Content Include="Views\Purchase\Receipt.cshtml" />
+    <Content Include="Views\Purchase\PaymentInstructions.cshtml" />
+    <Content Include="Views\Purchase\PaymentPayLike.cshtml" />
+    <Content Include="Views\Purchase\CreditCardVerification.cshtml" />
+    <Content Include="Views\Purchase\Error.cshtml" />
+    <Content Include="Views\Purchase\IBAN.cshtml" />
+    <Content Include="Views\Purchase\CryptoCurrencyPaymentInstruction.cshtml" />
+    <Content Include="Views\Purchase\DenyUsCard.cshtml" />
+    <Content Include="Views\Purchase\YourPayRedirect.cshtml" />
+    <Content Include="Views\Purchase\PaymentPayLikeTest.cshtml" />
+    <Content Include="Views\Purchase\PaymentTrustPay.cshtml" />
+    <Content Include="Views\Purchase\TrustPayRedirect.cshtml" />
+    <Content Include="Views\Purchase\SellPaymentNInstruction.cshtml" />
+    <Content Include="Views\Purchase\PaymentQuickPay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Core\Compression\Snappy\lib\win\" />
+    <Folder Include="Core\Compression\Zstandard\lib\win\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Paylike.NET\Paylike.NET.csproj">
+      <Project>{7bd40db5-f525-4c01-8fac-abe34138de5e}</Project>
+      <Name>Paylike.NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BitGoSharp\BitGoSharp.csproj">
+      <Project>{5a111ea6-ce2c-4613-8d1f-cf314def011e}</Project>
+      <Name>BitGoSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMC.Common\WMC.Common.csproj">
+      <Project>{2936553c-c768-481f-8c2a-dda4d52d09ae}</Project>
+      <Name>WMC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMC.Data\WMC.Data.csproj">
+      <Project>{c6d2fa2e-afaf-4f08-8717-37840d2dfd66}</Project>
+      <Name>WMC.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMC.FaceTec\WMC.FaceTec.csproj">
+      <Project>{D0F5F689-653E-4EA3-99C5-B843908B0127}</Project>
+      <Name>WMC.FaceTec</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WMC.Logic\WMC.Logic.csproj">
+      <Project>{f53c2af7-ea19-41d6-93de-01695e003aaa}</Project>
+      <Name>WMC.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\angular-sample-controller.ts" />
+    <TypeScriptCompile Include="assets\Config.d.ts" />
+    <None Include="assets\core-sdk\FaceTecSDK.js\FaceTecCustomization.d.ts" />
+    <None Include="assets\core-sdk\FaceTecSDK.js\FaceTecLogging.d.ts" />
+    <None Include="assets\core-sdk\FaceTecSDK.js\FaceTecPublicApi.d.ts" />
+    <None Include="assets\core-sdk\FaceTecSDK.js\FaceTecSDK.d.ts" />
+    <TypeScriptCompile Include="assets\core-sdk\FaceTecSDK.js\FaceTecSession.d.ts" />
+    <TypeScriptCompile Include="assets\processors\LivenessCheckProcessor.ts" />
+    <TypeScriptCompile Include="assets\processors\PhotoIDMatchProcessor.ts" />
+    <TypeScriptCompile Include="assets\utilities\SampleAppUtilities.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51726</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44333/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

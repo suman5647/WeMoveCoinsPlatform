@@ -1,0 +1,906 @@
+﻿@using WMC.Helpers
+@using WMC.Web.Utilities.Humanizer
+@model WMC.Web.Models.VerificationModel
+<style>
+    .loader {
+        display: none;
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transform: -webkit-translate(-50%, -50%);
+        transform: -moz-translate(-50%, -50%);
+        transform: -ms-translate(-50%, -50%);
+        color: darkred;
+    }
+
+    .file-upload-border {
+        border: 2px dashed #92AAB0;
+        margin: 25px;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+
+<div class="loader" id="loader">
+    <img src="/images/loading.gif" class="preview" alt="image" />
+</div>
+<div class="page">
+    <div id="address-box" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;" ng-if="vm.model.skipOrderForm">
+        <div style="color:black; padding: 15px;">
+            <h4 style="margin: 0 0 10px;">@Html.Resource("WMCResources", "Notice")</h4>
+            <h4 ng-show="(vm.model.type==1 && vm.paymentMethod.name == 'Bank') || (vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')">@Html.Resource("WMCResources", "ConfirmationOfNoticeStringSellBank")</h4>
+            <h4 ng-hide="(vm.model.type==1 && vm.paymentMethod.name == 'Bank') || (vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')">@Html.Resource("WMCResources", "ConfirmationOfNoticeStringSellCC")</h4>
+            <p style="text-decoration: underline;margin: 0 0 5px;cursor: pointer;" ng-click="showBuyAmountDetail = true;">@Html.Resource("WMCResources", "SeeOrderSummaryHere")</p>
+            <div class="col-xs-12 col-sm-12" ng-if="showBuyAmountDetail">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "YouPay"):</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.youPayBuyAmount}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "OurFee") ({{(vm.paymentMethodCommision * (1-vm.discountPercentage/100)).toFixed(2)}}%)</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.commision}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-hide="(vm.model.type==1 && vm.paymentMethod.name == 'Bank') || (vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "Fee") ({{vm.paymentMethodFee}}%)</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.fee}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-show="(vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')?true:false">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "FixedFee")</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.fixedFeeLocalCurrency}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-hide="vm.model.type==2">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "MinersFee")</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.minersFee}}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr style="border-color: #0ab89e;margin: 2px;">
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "YouReceive") *</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.youReceiveBitcoins}}</span>
+                    </div>
+                </div>
+                <div class="row" ng-hide="vm.model.type==2">
+                    <div class="col-xs-6">
+                        <span>@Html.Resource("WMCResources", "BitcoinAddress").ToLower().Humanize(LetterCasing.Title)</span>
+                    </div>
+                    <div class="col-xs-5">
+                        <span style="float:right">{{vm.model.bitcoinAddress}}</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12" style="padding-bottom: 24px;padding-left: initial;padding-right: initial;">* @Html.Resource("WMCResources", "ExactRateMessage")</div>
+            </div>
+            <br />
+            <p>
+                @Html.Resource("WMCResources", "ConfirmationOfNoticeStringSellTNC")
+                <a data-toggle="modal" data-target="#myModal" style="text-decoration: underline;cursor: pointer;">@Html.Resource("WMCResources", "TermsAndConditions")</a>
+                <span ng-hide="(vm.model.type==1 && vm.paymentMethod.name == 'Bank') || (vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')">@Html.Resource("WMCResources", "ConfirmationOfNoticeString2")</span>
+                @*<span ng-hide="(vm.model.type==1 && vm.paymentMethod.name == 'Bank') || (vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')" >@Html.Resource("WMCResources", "ConfirmationOfNoticeString2").Split('0')[1]</span>*@
+            </p>
+            <!-- Terms and Conditions Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">@Html.Resource("WMCResources", "TermsAndConditions")</h4>
+                        </div>
+                        <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                            <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.TC_url"></iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                            <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                @{
+                    var siteUrl = "'http://www." + ViewBag.fSiteName + "'";
+                    if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+                    {
+                        siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                    }
+                }
+                <input type="button" class="btn btn-back" value="@Html.Resource("WMCResources", "NoGoBack")" onclick="window.location.href = @siteUrl" />
+                <button type="button" class="btn green-btn" autofocus ng-click="vm.submitOrder(false)">@Html.Resource("WMCResources", "YesIAccept")</button>
+            </p>
+        </div>
+    </div>
+
+    <div ng-if="vm.model.type==1">
+        <div id="address-box" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;" ng-if="!vm.model.skipOrderForm">
+            <div style="padding: 15px;">
+                <h4 style="color:black;margin: 0px 0 13px;">@Html.Resource("WMCResources", "IsThisYourBitcoinAddressString")</h4>
+                <p style="color:black">@Html.Resource("WMCResources", "IsThisYourBitcoinAddressString1")</p>
+                <p style="color: #0ab89e; word-wrap: break-word;font-size:20px;padding-bottom:5px;padding-top:5px;text-transform:none;">{{vm.model.bitcoinAddress}}</p>
+                <p>
+                    @*@{
+                        TempData["ReferenceId"] = TempData["ReferenceId"];
+                        TempData["MerchantCode"] = TempData["MerchantCode"];
+                    }*@
+                    <button type="button" class="btn btn-back" ng-click="vm.backToOrder()">@Html.Resource("WMCResources", "NoGoBack")</button>
+                    <button type="button" class="btn green-btn" autofocus ng-click="vm.confirmBitcoinAddress()">@Html.Resource("WMCResources", "YesThatIsCorrect")</button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="confrm-box" class="disable" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;">
+        <div style="padding: 15px;">
+            <h4 style="color:black">@Html.Resource("WMCResources", "VerificationOfMobileNumber")</h4>
+            <p style="color:black">@Html.Resource("WMCResources", "PleaseInputSixDigitCode")</p>
+            <div class="tel-box">
+                <input id="txt-verifypasscode" type="number" class="form-control" maxlength="6" autocomplete="off" ng-model="vm.verificationCode" style="text-align: center;font-size: 20px;">
+            </div>
+            <p class="big-butn">
+                <button id="btn-verifypasscode" type="button" class="btn green-btn" ng-click="vm.verifyPhoneNumber()">@Html.Resource("WMCResources", "VerifyMe")</button>
+            </p>
+            <div>
+                <button id="btn-mobile-verification-goback" type="button" class="btn btn-back" ng-click="vm.model.type==2 ? vm.backToOrder() :vm.backtoBitcoinAddressConfirmation()">@Html.Resource("WMCResources", "GoBack")</button>
+                <button id="btn-resendpasscode" type="button" class="btn btn-back" ng-click="vm.resendVerificationCode()">@Html.Resource("WMCResources", "ResendCode")</button>
+            </div>
+            <p style="color: #000;padding-top: 10px;">@Html.Resource("WMCResources", "CodeNotReceiving")</p>
+        </div>
+    </div>
+
+    @if (ViewBag.FaceTecKYC == "FaceTec" && (Model.KycRequirement != "ProofOfRecidency" && Model.KycRequirement != "NONE"))
+    {
+
+        <div id="id-box" class="disable hii" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;">
+            <div style="padding: 15px;">
+                <h2 style="color:black" id="automated-id1">@Html.Resource("WMCResources", "AutomatedVerification")</h2>
+                <p style="color:black; font-size: 20px" id="automated-id2">@Html.Resource("WMCResources", "AutomatedVerification1")</p>
+                <script type="text/javascript" src="~/Scripts/facetec/facetec-element.js"></script>
+                <script>
+                    var kyc = '@Model.KycRequirement';
+                    getKycRequirement(kyc);
+                </script>
+
+                <div class="checkbox" style="align-self: center;" id="checkboxTC">
+                    <input id="checkboxFaceTec" class="styled" type="checkbox" onchange="validateFaceTecTC()" ng-model="vm.acceptedTAndCVerificationPage" tc required>
+                    <label for="checkbox" id="checkboxFaceTec" style="color: black;text-transform: none; font-size: 15px">@Html.Resource("WMCResources", "FaceTecButton1")</label>
+                </div>
+                <div class="butn-align bottom-butns">
+                    <button id="go-back" type="button" class="btn btn-back" style="margin-bottom: 15px;" ng-click="vm.backtoPhoneNumberVerification()">@Html.Resource("WMCResources", "GoBack")</button>
+                    <facetec-element id="facetec" device-key="@ViewBag.FaceTecDeviceKey" prod-key="@ViewBag.FaceTecProdKey" button-heading='@Html.HtmlStringResource("WMCResources","FaceTecButton")'></facetec-element>                    
+                </div>
+                
+                <p style="color:black" id="privacy-policy">
+                    @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1")
+                    <a data-toggle="modal" data-target="#myModal2" style="text-decoration: underline;">@Html.Resource("WMCResources", "PrivacyPolicy")</a>. @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1_Link")
+                </p>
+                <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Privacy Policy</h4>
+                            </div>
+                            <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                                <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.PP_url"></iframe>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                                <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* On FaceTec success display the below for proofofResidency*@
+                <h4 style="color:black; display:none" id="verification1">@Html.Resource("WMCResources", "VerificationOfIdentity")</h4>
+                <br />
+                <br />
+
+                <p style="color:black; display:none" id="verification2">@Html.Resource("WMCResources", "DocumentsHeading")</p>
+                <div id="proofOfRes" style="display:none;">
+                    <div id="idProofTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                        <div class="col-sm-8">
+                            <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">@Html.Resource("WMCResources", "ProofofAddress")</h5>
+                            <p style="color:black;margin-bottom: 0px;">
+                                @Html.Resource("WMCResources", "TypeofDocuments")
+                            </p>
+                            <div style="margin-bottom: 15px;">
+                                <span style="font-style: italic;margin-right: 5px;">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "ElectricityBill")
+                                </span>
+                                <span style="font-style: italic;margin-right: 5px;">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "PhoneBill")
+                                </span>
+                                <span style="font-style: italic;">
+                                    <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "GovernmentCard")
+                                </span>
+                            </div>
+                            <div class="row" id="uploaderContainerProof">
+                                <div class="col-sm-12 text-center">
+                                    <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                        <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                        <p style="margin-bottom: 0px;color: darkgrey;">
+                                            @Html.Resource("WMCResources", "png")<br />
+                                            @Html.Resource("WMCResources", "Maximumsize")<br />
+                                            @Html.Resource("WMCResources", " Highquality")
+                                        </p>
+                                    </div>
+                                    <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                        <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');">
+                                        <button class="btn green-btn" style="padding: 3px 14px;">
+                                            @Html.Resource("WMCResources", "UploadDocuments")
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% ">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4" style="position: relative;text-align: center;">
+                            <img src="/images/proof-document.png" style="height: 150px;margin-bottom: auto;margin-top: 10%;">
+                        </div>
+                    </div>
+
+                    <p style="display:none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString1")</p>
+                    <p style="display:none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString2.1")</p>
+                    <img src="images/ID-selfie.png" alt="" style="display:none;height:200px">
+
+                    <div class="modal fade" id="myModal2" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Privacy Policy</h4>
+                                </div>
+                                <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                                    <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.PP_url"></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                                    <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="color:black" id="privacy-policy1">
+                        @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1")
+                        <a data-toggle="modal" data-target="#myModal2" style="text-decoration: underline;">@Html.Resource("WMCResources", "PrivacyPolicy")</a>. @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1_Link")
+                    </p>
+                    <div class="checkbox" id="checkboxTC1">
+                        <input id="checkboxFileUpload" class="styled" type="checkbox" onchange="validateKYCForm()" ng-model="vm.acceptedTAndCVerificationPage" tc required>
+                        <label for="checkbox" id="checkboxFaceTec" style="color: black;text-transform: none;">@Html.Resource("WMCResources", "FileUploadTermsAndConditions1")</label>
+                    </div>
+                    <script>
+                        var kyc = '@Model.KycRequirement';
+                        initkycFileUpload(kyc)
+                    </script>
+                    <div class="butn-align bottom-butns">
+                        <button type="button" class="btn btn-back" ng-click="vm.backtoPhoneNumberVerification()">@Html.Resource("WMCResources", "GoBack")</button> 
+                        <button id="btn-submit" type="submit" class="btn green-btn" ng-click="vm.submitIdentityVerification(true)" disabled>@Html.Resource("WMCResources", "Submit")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        if (Model.KycRequirement != "NONE" && Model.KycRequirement != "NA")
+        {
+            <div id="id-box" class="disable hii" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;">
+                <div style="padding: 15px;">
+                    <h4 style="color:black">@Html.Resource("WMCResources", "VerificationOfIdentity")</h4>
+
+                    <p style="color:black">@Html.Resource("WMCResources", "DocumentsHeading")</p>
+                    @if (Model.KycRequirement == "PhotoID")
+                    {
+                        <!--Document Upload start-->
+                        <div id="idDocumentTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                           
+                            <div class="col-sm-8">
+                               
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "High_resolutionPhoto")</p>
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "Ensure_adequate")</p>
+                                <p>- @Html.Resource("WMCResources", "CheckAll_details")</p>
+                                <div class="row" id="uploaderContainerDocument">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="photoIDUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">
+                                    @Html.Resource("WMCResources", "Closeupof_ID")
+                                </h5>
+                                <p style="color:black;margin-bottom: 0px;">
+                                    @Html.Resource("WMCResources", "Weaccept")
+                                </p>
+                                <div style="margin-bottom: 15px;">
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Passport")
+                                    </span>
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Drivers")
+                                    </span>
+                                    <span style="font-style: italic;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "National_ID")
+                                    </span>
+                                </div>
+                                <img src="/images/card-document.png" style="width: 100%; margin-bottom: auto;">
+                            </div>
+                        </div>
+                        <!--Document Upload End-->
+                    }
+                    @if (Model.KycRequirement == "SelfieID")
+                    {
+                        <!--Selfie Upload start-->
+                        <div class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;" id="idSelfieTab">
+                            <div class="col-sm-8">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 8px;font-size: 17px;">
+                                    @Html.Resource("WMCResources", "IDSelfieNote")
+                                </h5>
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "TextOnPaper") </p>
+                                <p style="margin-bottom: 0px;font-weight: 600;font-size: 15px;margin-left: 75px;text-align: center;">@Html.HtmlStringResourceFormated("WMCResources", "CryptoTxTextWithSiteDate", (object)ViewBag.fSiteName, (object)DateTime.Now)</p>
+                                <p>- @Html.Resource("WMCResources", "HoldOfID")</p>
+                                <div class="row" id="uploaderContainerSelfie">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfileDocument" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadDocumentID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileDocument'), 'SelfieID');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="documentIDUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;text-align: center;">
+                                <img src="/images/person-with-cards.png" style="width: 100%; margin-bottom: auto;">
+                            </div>
+                        </div>
+                        <!--Selfie Upload End-->
+
+                    }
+                    @if (Model.KycRequirement == "PhotoID&SelfieID")
+                    {
+                        <!--Document Upload start-->
+                        <div id="idDocumentTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                            
+                            <div class="col-sm-8">
+                                
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "High_resolutionPhoto")</p>
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "Ensure_adequate")</p>
+                                <p>- @Html.Resource("WMCResources", "CheckAll_details")</p>
+                                <div class="row" id="uploaderContainerDocument">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="photoIDUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">
+                                    @Html.Resource("WMCResources", "Closeupof_ID")
+                                </h5>
+                                <p style="color:black;margin-bottom: 0px;">
+                                    @Html.Resource("WMCResources", "Weaccept")
+                                </p>
+                                <div style="margin-bottom: 15px;">
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Passport")
+                                    </span>
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Drivers")
+                                    </span>
+                                    <span style="font-style: italic;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "National_ID")
+                                    </span>
+                                </div>
+                                <img src="/images/card-document.png" style="width: 100%; margin-bottom: auto;">
+                            </div>
+                        </div>
+                        <!--Document Upload End-->
+                        <!--Selfie Upload start-->
+                        <div class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;" id="idSelfieTab">
+                            <div class="col-sm-8">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 8px;font-size: 17px;">
+                                    @Html.Resource("WMCResources", "IDSelfieNote")
+                                </h5>
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "TextOnPaper") </p>
+                                <p style="margin-bottom: 0px;font-weight: 600;font-size: 15px;margin-left: 75px;text-align: center;">@Html.HtmlStringResourceFormated("WMCResources", "CryptoTxTextWithSiteDate", (object)ViewBag.fSiteName, (object)DateTime.Now)</p>
+                                <p>- @Html.Resource("WMCResources", "HoldOfID")</p>
+                                <div class="row" id="uploaderContainerSelfie">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfileDocument" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadDocumentID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileDocument'), 'SelfieID');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="documentIDUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;text-align: center;">
+                                <img src="/images/person-with-cards.png" style="width: 100%; margin-bottom: auto;">
+                            </div>
+                        </div>
+                        <!--Selfie Upload End-->
+                    }
+
+                    @if (Model.KycRequirement == "PhotoID&ProofOfRecidency")
+                    {
+                        <!--Document Upload start-->
+                        <div id="idDocumentTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                            
+                            <div class="col-sm-8">
+                                
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "High_resolutionPhoto")</p>
+                                <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "Ensure_adequate")</p>
+                                <p>- @Html.Resource("WMCResources", "CheckAll_details")</p>
+                                <div class="row" id="uploaderContainerDocument">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileDocument'), 'PhotoID');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="photoIDUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">
+                                    @Html.Resource("WMCResources", "Closeupof_ID")
+                                </h5>
+                                <p style="color:black;margin-bottom: 0px;">
+                                    @Html.Resource("WMCResources", "Weaccept")
+                                </p>
+                                <div style="margin-bottom: 15px;">
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Passport")
+                                    </span>
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "Drivers")
+                                    </span>
+                                    <span style="font-style: italic;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>
+                                        @Html.Resource("WMCResources", "National_ID")
+                                    </span>
+                                </div>
+                                <img src="/images/card-document.png" style="width: 100%; margin-bottom: auto;">
+                            </div>
+                        </div>
+                        <!--Document Upload End-->
+                        <!--Proof Upload start-->
+                        <div id="idProofTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                            <div class="col-sm-8">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">@Html.Resource("WMCResources", "ProofofAddress")</h5>
+                                <p style="color:black;margin-bottom: 0px;">
+                                    @Html.Resource("WMCResources", "TypeofDocuments")
+                                </p>
+                                <div style="margin-bottom: 15px;">
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "ElectricityBill")
+                                    </span>
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "PhoneBill")
+                                    </span>
+                                    <span style="font-style: italic;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "GovernmentCard")
+                                    </span>
+                                </div>
+                                <div class="row" id="uploaderContainerProof">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;text-align: center;">
+                                <img src="/images/proof-document.png" style="height: 150px;margin-bottom: auto;margin-top: 10%;">
+                            </div>
+                        </div>
+                        <!--Proof Upload End-->
+                    }
+                    @if (Model.KycRequirement == "ProofOfRecidency")
+                    {
+                        <div id="idProofTab" class="row" style="color: black;border: 1px dashed #000;text-align: left;padding: 15px 0px;margin: 10px -5px;">
+                            <div class="col-sm-8">
+                                <h5 style="color:black;font-weight: 600;margin-bottom: 5px;font-size: 17px;">@Html.Resource("WMCResources", "ProofofAddress")</h5>
+                                <p style="color:black;margin-bottom: 0px;">
+                                    @Html.Resource("WMCResources", "TypeofDocuments")
+                                </p>
+                                <div style="margin-bottom: 15px;">
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "ElectricityBill")
+                                    </span>
+                                    <span style="font-style: italic;margin-right: 5px;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "PhoneBill")
+                                    </span>
+                                    <span style="font-style: italic;">
+                                        <i class="fa fa-check" aria-hidden="true" style="color: #0AB89E;"></i>@Html.Resource("WMCResources", "GovernmentCard")
+                                    </span>
+                                </div>
+                                <div class="row" id="uploaderContainerProof">
+                                    <div class="col-sm-12 text-center">
+                                        <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                            <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin-bottom: 0px;color: darkgrey;">
+                                                @Html.Resource("WMCResources", "png")<br />
+                                                @Html.Resource("WMCResources", "Maximumsize")<br />
+                                                @Html.Resource("WMCResources", " Highquality")
+                                            </p>
+                                        </div>
+                                        <div class="button-green" style="margin-top: 0px;padding: 0px;">
+                                            <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');">
+                                            <button class="btn green-btn" style="padding: 3px 14px;">
+                                                @Html.Resource("WMCResources", "UploadDocuments")
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" style="position: relative;text-align: center;">
+                                <img src="/images/proof-document.png" style="height: 150px;margin-bottom: auto;margin-top: 10%;">
+                            </div>
+                        </div>
+                    }
+
+                    <p style="display:none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString1")</p>
+                    <p style="display:none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString2.1")</p>
+                    <img src="images/ID-selfie.png" alt="" style="display:none;height:200px">
+                    <p style="color:black">
+                        @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1")
+                        <a data-toggle="modal" data-target="#myModal2" style="text-decoration: underline;">@Html.Resource("WMCResources", "PrivacyPolicy")</a>. @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1_Link")
+                    </p>
+                    <div class="modal fade" id="myModal2" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Privacy Policy</h4>
+                                </div>
+                                <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                                    <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.PP_url"></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                                    <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none;color: black;text-align: -webkit-center;margin: 0;" class="row">
+                        @if (Model.KycRequirement == "PhotoID")
+                        {
+                            <div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);float: none;" class="col-xs-6">
+                                <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                                <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString1")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString2")</p>
+                                </div>
+                                <div class="button-green">
+                                    <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');">
+                                    <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                </div>
+                                <div id="photoIDUploadedFiles"  style="height: 104px;width: 90% "></div>
+                            </div>
+                        }
+                        else if (Model.KycRequirement == "ProofOfRecidency")
+                        {
+                            <div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);float: none;" class="col-xs-6">
+                                <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                                <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString1")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString2")</p>
+                                </div>
+                                <div class="button-green">
+                                    <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');">
+                                    <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                </div>
+                                <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% "></div>
+                            </div>
+                        }
+                        else if (Model.KycRequirement == "PhotoID&ProofOfRecidency")
+                        {
+                            <div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-6">
+                                <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                                <div @*droppable-area*@ id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString1")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString2")</p>
+                                </div>
+                                <div class="button-green">
+                                    <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID')" /> @*onchange="angular.element(this).scope().handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');"*@
+                                    <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                </div>
+                                <div id="photoIDUploadedFiles" style="border: 2px dashed #92AAB0;margin: 25px;text-align: center;padding: 10px;  height: 104px;width: 28% "></div>
+                            </div>
+                            <div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-6">
+                                <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                                <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString1")</p>
+                                    <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString2")</p>
+                                </div>
+                                <div class="button-green">
+                                    <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');" />
+                                    <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                </div>
+                                <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% "></div>
+                            </div>
+                        }
+                    </div>
+                    <div class="checkbox">
+                        <input id="checkboxFileUpload" class="styled" type="checkbox" onchange="validateKYCForm()" ng-model="vm.acceptedTAndCVerificationPage" tc required>
+                        <label for="checkbox" style="color: black;text-transform: none;">@Html.Resource("WMCResources", "FileUploadTermsAndConditions1")</label>
+                    </div>
+                    <script>
+                    initkycFileUpload('@Model.KycRequirement')
+                    </script>
+                    <div class="butn-align bottom-butns">
+                        <button type="button" class="btn btn-back" ng-click="vm.backtoPhoneNumberVerification()">@Html.Resource("WMCResources", "GoBack")</button> @*onClick="goBack('confrm-box')"*@
+                        <button id="btn-submit" type="submit" class="btn green-btn" ng-click="vm.submitIdentityVerification(true)" disabled>@Html.Resource("WMCResources", "Submit")</button>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.KycRequirement == "NA")
+        {
+            <div id="id-box" class="disable hello" ng-if="vm.KycRequirement != 'NONE'" style="        width: 100%;
+        border: 1px #0ab89e solid;
+        text-align: center;
+        margin-bottom: 20px;">
+                <div style="padding: 15px;">
+                    <h4 style="color:black">@Html.Resource("WMCResources", "VerificationOfIdentity")</h4>
+
+                    <p style="color:black">@Html.Resource("WMCResources", "DocumentsHeading")</p>
+
+                    <div style="color: black;border: 1px dashed #000;text-align: left;">
+                        <h5 style="color:black;font-weight: 600;margin-bottom: 5px;">
+                            @Html.Resource("WMCResources", "Closeupof_ID")
+                        </h5>
+                        <p style="color:black">
+                            @Html.Resource("WMCResources", "Weaccept")"
+                        </p>
+                        <span>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            @Html.Resource("WMCResources", "Passport")
+                        </span>
+                        <span>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            @Html.Resource("WMCResources", "Drivers")
+                        </span>
+                        <span>
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            @Html.Resource("WMCResources", "National_ID")
+                        </span>
+                        <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "High_resolutionPhoto")</p>
+                        <p style="margin-bottom: 0px;">- @Html.Resource("WMCResources", "Ensure_adequate")</p>
+                        <p>- @Html.Resource("WMCResources", "CheckAll_details")</p>
+                        <img src="~/images/ID-selfie.png" />
+                    </div>
+
+                    <p style="display: none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString1")</p>
+                    <p style="display: none;color:black">@Html.Resource("WMCResources", "VerificationOfIdentityMessageString2.1")</p>
+                    <img src="images/ID-selfie.png" alt="" style="display: none;height:200px">
+                    <p style="color:black">
+                        @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1")
+                        <a data-toggle="modal" data-target="#myModal2" style="text-decoration: underline;">@Html.Resource("WMCResources", "PrivacyPolicy")</a>. @Html.Resource("WMCResources", "VerificationOfIdentityMessageString3.1_Link")
+                    </p>
+
+                    <div class="modal fade" id="myModal2" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Privacy Policy</h4>
+                                </div>
+                                <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                                    <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.PP_url"></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                                    <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: none;color: black;text-align: -webkit-center;margin: 0;" class="row">
+                        <div ng-if="vm.KycRequirement == 'PhotoID'" style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);float: none;" class="col-xs-6">
+                            <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                            <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString1")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString2")</p>
+                            </div>
+                            <div class="button-green">
+                                <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');">
+                                <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                            </div>
+                            <div id="photoIDUploadedFiles" style="height: 104px;width: 90% "></div>
+                        </div>
+                        <div ng-if="vm.KycRequirement == 'ProofOfRecidency'" style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);float: none;" class="col-xs-6">
+                            <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                            <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString1")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString2")</p>
+                            </div>
+                            <div class="button-green">
+                                <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');">
+                                <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                            </div>
+                            <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% "></div>
+                        </div>
+                        <div ng-if="vm.KycRequirement == 'PhotoID&ProofOfRecidency'" style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-6">
+                            <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                            <div @*droppable-area*@ id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString1")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoIDString2")</p>
+                            </div>
+                            <div class="button-green">
+                                <input id="fileUploadPhotoID" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID')" /> @*onchange="angular.element(this).scope().handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID');"*@
+                                <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                            </div>
+                            <div id="photoIDUploadedFiles" style="height: 104px;width: 90% "></div>
+                        </div>
+                        <div ng-if="vm.KycRequirement == 'PhotoID&ProofOfRecidency'" style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-6">
+                            <span style="color:blue">@Html.Resource("WMCResources", "Maxfilesize")</span>
+                            <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString1")</p>
+                                <p style="margin: 0;">@Html.Resource("WMCResources", "ProofOfResidencyString2")</p>
+                            </div>
+                            <div class="button-green">
+                                <input id="fileUploadProofOfRecidency" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency');" />
+                                <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                            </div>
+                            <div id="proofOfRecidencyUploadedFiles" style="height: 104px;width: 90% "></div>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <input id="checkboxFileUpload" class="styled" type="checkbox" onchange="validateKYCForm()" ng-model="vm.acceptedTAndCVerificationPage" tc required>
+                        <label for="checkbox" style="color: black;text-transform: none;">@Html.Resource("WMCResources", "FileUploadTermsAndConditions1")</label>
+                    </div>
+                    <script>
+                        initkycFileUpload('vm.KycRequirement')
+                    </script>
+                    <div class="butn-align bottom-butns">
+                        <button id="btn-goback" type="button" class="btn btn-back" ng-click="vm.backtoPhoneNumberVerification()">@Html.Resource("WMCResources", "GoBack")</button> @*onClick="goBack('confrm-box')"*@
+                        <button id="btn-submit" type="submit" class="btn green-btn" ng-click="vm.submitIdentityVerification(true)" disabled>@Html.Resource("WMCResources", "Submit")</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

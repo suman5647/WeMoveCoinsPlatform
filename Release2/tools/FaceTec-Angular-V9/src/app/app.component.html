@@ -1,0 +1,7 @@
+<!-- Button that will begin a Liveness Check -->
+<!-- <button id="liveness-button" disabled (click)="onLivenessCheckPressed()" class="big-button">3D Liveness Check</button> -->
+<!-- Button that will begin a Photo ID Match -->
+<button id="photo-id-match-button" disabled (click)="onPhotoIdMatchPressed()"
+  class="btn green-btn" style="margin-bottom: 15px;">{{buttonHeading}}</button>
+<!-- The status container that will be updated appropriately based on current state of FaceTecSDK -->
+<p id="status" style="display:none;">Initializing...</p>

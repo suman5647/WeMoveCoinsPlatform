@@ -1,0 +1,21 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.PayLikePaymentModel
+<div class="page" style="font-family: SourceSansPro, sans-serif !important;">
+    <div id="paymentFrameLoading" class="col-md-2 col-md-offset-5" style="display:none; margin-top: 100px;"><img src="/images/loading.gif"></div>
+    <style>
+        div.paylike.overlay {
+            background: rgba(0,0,0,0);
+            height: 50%;
+            top: 160px;
+            overflow: initial;
+        }
+    </style>
+    <script>
+        var userLang = navigator.language.substr(0, 2);
+        dataLayer.push({
+            'virtualPage': '/' + userLang + '/funnel/payment',
+            'event': 'virtualPageview'
+        });
+        initPayLikePaymentFrame('@Model.MerchantNumber', '@Model.OrderNumber', '@Model.TxSecret', '@Model.CurrencyCode', '@Model.YourPayAmount', '@Model.SiteName', '@Model.OrderNumber', '@Model.Amount', '@Model.Commission', '@Model.GoogleTagManagerId');
+</script>
+</div>

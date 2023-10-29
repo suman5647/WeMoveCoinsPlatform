@@ -1,0 +1,85 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Web", "..\WMC.Web\WMC.Web.csproj", "{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitGoSharp", "..\BitGoSharp\BitGoSharp.csproj", "{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paylike.NET", "..\Paylike.NET\Paylike.NET.csproj", "{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Service", "..\WMC.Service\WMC.Service.csproj", "{9B39372B-1D2B-40F4-A934-AC5927E341E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Logic", "..\WMC.Logic\WMC.Logic.csproj", "{F53C2AF7-EA19-41D6-93DE-01695E003AAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Data", "..\WMC.Data\WMC.Data.csproj", "{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WMC.Admin.Web", "..\WMC.Admin.Web\WMC.Admin.Web.vbproj", "{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBC107DD-A4C0-47B6-B9B9-A8CA006175A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B39372B-1D2B-40F4-A934-AC5927E341E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B39372B-1D2B-40F4-A934-AC5927E341E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B39372B-1D2B-40F4-A934-AC5927E341E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B39372B-1D2B-40F4-A934-AC5927E341E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8E53D2-B177-494B-AE08-1CEEF98E43D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.wemovecoins.com:8080/tfs/wmcprojectcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\WMC.Web\\WMC.Web.csproj
+		SccProjectName1 = ../WMC.Web
+		SccLocalPath1 = ..\\WMC.Web
+		SccProjectUniqueName2 = ..\\BitGoSharp\\BitGoSharp.csproj
+		SccProjectName2 = ../BitGoSharp
+		SccLocalPath2 = ..\\BitGoSharp
+		SccProjectUniqueName3 = ..\\Paylike.NET\\Paylike.NET.csproj
+		SccProjectName3 = ../Paylike.NET
+		SccLocalPath3 = ..\\Paylike.NET
+		SccProjectUniqueName4 = ..\\WMC.Service\\WMC.Service.csproj
+		SccProjectName4 = ../WMC.Service
+		SccLocalPath4 = ..\\WMC.Service
+		SccProjectUniqueName5 = ..\\WMC.Logic\\WMC.Logic.csproj
+		SccProjectName5 = ../WMC.Logic
+		SccLocalPath5 = ..\\WMC.Logic
+		SccProjectUniqueName6 = ..\\WMC.Data\\WMC.Data.csproj
+		SccProjectName6 = ../WMC.Data
+		SccLocalPath6 = ..\\WMC.Data
+		SccProjectUniqueName7 = ..\\WMC.Admin.Web\\WMC.Admin.Web.vbproj
+		SccProjectName7 = ../WMC.Admin.Web
+		SccLocalPath7 = ..\\WMC.Admin.Web
+	EndGlobalSection
+EndGlobal

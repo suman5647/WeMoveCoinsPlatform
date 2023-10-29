@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WMC.Admin.Website", "..\WMC.Admin.Website", "{A27F6593-9622-495A-AC72-0FF5225F91A2}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6.1"
+		ProjectReferences = "{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}|WMC.Data.dll;{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}|BitGoSharp.dll;{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}|Paylike.NET.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_53428"
+		Debug.AspNetCompiler.PhysicalPath = "..\WMC.Admin.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53428\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_53428"
+		Release.AspNetCompiler.PhysicalPath = "..\WMC.Admin.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_53428\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53428"
+		SlnRelativePath = "..\WMC.Admin.Website\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Data", "..\WMC.Data\WMC.Data.csproj", "{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WMC.Logic", "..\WMC.Logic\WMC.Logic.csproj", "{F53C2AF7-EA19-41D6-93DE-01695E003AAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitGoSharp", "..\BitGoSharp\BitGoSharp.csproj", "{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paylike.NET", "..\Paylike.NET\Paylike.NET.csproj", "{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A27F6593-9622-495A-AC72-0FF5225F91A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27F6593-9622-495A-AC72-0FF5225F91A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27F6593-9622-495A-AC72-0FF5225F91A2}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27F6593-9622-495A-AC72-0FF5225F91A2}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D2FA2E-AFAF-4F08-8717-37840D2DFD66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53C2AF7-EA19-41D6-93DE-01695E003AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A111EA6-CE2C-4613-8D1F-CF314DEF011E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BD40DB5-F525-4C01-8FAC-ABE34138DE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0E2B307-7834-4104-A441-A5DB1D99590F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfs.wemovecoins.com:8080/tfs/wmcprojectcollection
+		SccLocalPath0 = .
+		SccWebProject1 = true
+		SccProjectUniqueName1 = ..\\WMC.Admin.Website
+		SccProjectName1 = ../WMC.Admin.Website
+		SccLocalPath1 = ..\\WMC.Admin.Website
+		SccProjectEnlistmentChoice1 = 2
+		SccProjectUniqueName2 = ..\\WMC.Data\\WMC.Data.csproj
+		SccProjectName2 = ../WMC.Data
+		SccLocalPath2 = ..\\WMC.Data
+		SccProjectUniqueName3 = ..\\WMC.Logic\\WMC.Logic.csproj
+		SccProjectName3 = ../WMC.Logic
+		SccLocalPath3 = ..\\WMC.Logic
+		SccProjectUniqueName4 = ..\\BitGoSharp\\BitGoSharp.csproj
+		SccProjectName4 = ../BitGoSharp
+		SccLocalPath4 = ..\\BitGoSharp
+		SccProjectUniqueName5 = ..\\Paylike.NET\\Paylike.NET.csproj
+		SccProjectName5 = ../Paylike.NET
+		SccLocalPath5 = ..\\Paylike.NET
+	EndGlobalSection
+EndGlobal

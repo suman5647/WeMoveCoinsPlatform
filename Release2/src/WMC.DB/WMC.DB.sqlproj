@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>WMC.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{4b55ab74-dde8-49d8-b88d-c31c44611c71}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>WMC.DB</RootNamespace>
+    <AssemblyName>WMC.DB</AssemblyName>
+    <ModelCollation>1030,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <DefaultCollation>Danish_Norwegian_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\test" />
+    <Folder Include="auth" />
+    <Folder Include="Security\Schemas" />
+    <Folder Include="auth\Tables" />
+    <Folder Include="20200504_prod" />
+    <Folder Include="20200618_prod" />
+    <Folder Include="20200724-prod" />
+    <Folder Include="20210315_currency_minorUnits" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\AuditTrailLevel.sql" />
+    <Build Include="dbo\Tables\Account.sql" />
+    <Build Include="dbo\Tables\AuditTrail.sql" />
+    <Build Include="dbo\Tables\AuditTrailStatus.sql" />
+    <Build Include="dbo\Tables\Country.sql" />
+    <Build Include="dbo\Tables\Currency.sql" />
+    <Build Include="dbo\Tables\CurrencyType.sql" />
+    <Build Include="dbo\Tables\KycFile.sql" />
+    <Build Include="dbo\Tables\KycType.sql" />
+    <Build Include="dbo\Tables\Language.sql" />
+    <Build Include="dbo\Tables\OrderStatus.sql" />
+    <Build Include="dbo\Tables\OrderType.sql" />
+    <Build Include="dbo\Tables\AppSettings.sql" />
+    <Build Include="dbo\Tables\PaymentType.sql" />
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\Site.sql" />
+    <Build Include="dbo\Tables\TransactionMethod.sql" />
+    <Build Include="dbo\Tables\TransactionType.sql" />
+    <Build Include="dbo\Tables\UserType.sql" />
+    <Build Include="dbo\Tables\UserRole.sql" />
+    <Build Include="dbo\Tables\Order.sql" />
+    <Build Include="dbo\Tables\Transaction.sql" />
+    <Build Include="dbo\Tables\Coupon.sql" />
+    <Build Include="dbo\Tables\OrderKycfile.sql" />
+    <Build Include="dbo\Tables\RiskScoreParameter.sql" />
+    <Build Include="dbo\Views\TransactionDetail.sql" />
+    <Build Include="dbo\Views\TransactionList.sql" />
+    <Build Include="dbo\Views\TransactionList2.sql" />
+    <None Include="Scripts\users_data.sql" />
+    <None Include="Scripts\factory_data.sql" />
+    <None Include="Scripts\coupon_data.sql">
+      <CopyToOutputDirectory>DoNotCopy</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\appsettings_data.sql" />
+    <None Include="Scripts\site_data.sql" />
+    <Build Include="dbo\Tables\LanguageResources.sql" />
+    <None Include="Scripts\languageresource_data.sql" />
+    <None Include="Scripts\test\factory_data.sql" />
+    <None Include="Scripts\test\appsettings_data.sql" />
+    <None Include="Scripts\test\coupon_data.sql">
+      <CopyToOutputDirectory>DoNotCopy</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\test\languageresource_data.sql" />
+    <None Include="Scripts\test\site_data.sql" />
+    <Build Include="Scripts\test\data2.sql" />
+    <None Include="Scripts\test\users_data.sql" />
+    <None Include="Scripts\test\currency_data.sql">
+      <CopyToOutputDirectory>DoNotCopy</CopyToOutputDirectory>
+    </None>
+    <Build Include="Security\Schemas\auth.sql" />
+    <Build Include="auth\Tables\Application.sql" />
+    <Build Include="auth\Tables\Claim.sql" />
+    <Build Include="auth\Tables\Role.sql" />
+    <Build Include="auth\Tables\RoleClaim.sql" />
+    <Build Include="auth\Tables\Token.sql" />
+    <Build Include="auth\Tables\User.sql" />
+    <Build Include="Scripts\publish_baseline.sql" />
+    <None Include="Scripts\test\auth_factory.sql" />
+    <None Include="Scripts\auth_factory.sql" />
+    <None Include="Scripts\currency_data.sql">
+      <CopyToOutputDirectory>DoNotCopy</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\auth_users.sql" />
+    <None Include="Scripts\test\auth_users.sql" />
+    <Build Include="dbo\Tables\UserRiskLevelType.sql" />
+    <Build Include="dbo\Tables\SanctionsList.sql" />
+    <None Include="20200504_prod\20200504_data_LanguageResources.sql" />
+    <None Include="20200504_prod\20200504_schema.sql" />
+    <None Include="20200504_prod\20200504_data_CountryScript.sql" />
+    <None Include="20200504_prod\20200504_data_CurrencyScript.sql" />
+    <None Include="20200504_prod\20200504_data_UserUpdateScript.sql" />
+    <None Include="20200618_prod\20200618_AppSettings.sql" />
+    <None Include="20200618_prod\20200618_LanguageResource.sql" />
+    <None Include="20200618_prod\20200618_Schema.sql" />
+    <None Include="20200618_prod\20200618_Update script_CC_Orders.sql" />
+    <None Include="20200618_prod\20200618_UserUpdate.sql" />
+    <None Include="20200618_prod\2020618_Factory_data.sql" />
+    <None Include="20200724-prod\AuditTrailLevel_Table_Update.sql" />
+    <None Include="20200724-prod\CreateIndexesOnAuditTrail.sql" />
+    <Build Include="dbo\Tables\Merchant.sql" />
+    <Build Include="20210315_currency_minorUnits\20210315_CurrencyTable_NewColumn.sql" />
+    <Build Include="20210315_currency_minorUnits\20210315_UpdateMinorUnits.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WMC.DB.publish.xml" />
+    <None Include="WMC.DB.Staging.publish.xml" />
+    <None Include="WMC_1.DB.publish.xml" />
+    <None Include="WMC_2.DB.publish.xml" />
+    <None Include="20200504_prod\20200504_data_AppSettings.sql" />
+    <None Include="20200504_prod\20200504_data_Site.sql" />
+    <None Include="20200504_prod\20200504_data_AuditTrialStatus.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
+  </ItemGroup>
+</Project>

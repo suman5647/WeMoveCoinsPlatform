@@ -1,0 +1,372 @@
+﻿Option Strict Off
+Imports BitGoSharp
+Imports RestSharp
+Imports System
+Imports System.Net
+Imports System.IO
+Imports System.Data
+Imports System.Data.SqlClient
+
+Partial Class ApproveBank2
+    Inherits System.Web.UI.Page
+
+    Dim client As BitGoClient
+    Protected Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load
+        If Not (IsNumeric(Session("UserId")) And Session("UserRole") = "Admin") Then Response.Redirect("Default.aspx")
+        Dim bitGoAccessCodeJson As String = eQuote.ExecuteScalar("SELECT ConfigValue FROM AppSettings WHERE ConfigKey = 'BitGoAccessCode'")
+        Dim bitGoAccessCode = SimpleJson.DeserializeObject(bitGoAccessCodeJson)
+        client = New BitGoClient(bitGoAccessCode.Environment, bitGoAccessCode.AccessCode)
+    End Sub
+
+    Protected Sub SqlDataSourceOrderChildNote_Updated(sender As Object, e As SqlDataSourceStatusEventArgs) Handles SqlDataSourceOrderChildNote.Updated
+        GridViewOrder.SelectedIndex = -1
+        GridViewOrder.DataBind()
+        GridViewSubOrders.SelectedIndex = -1
+        GridViewSubOrders.DataBind()
+    End Sub
+
+    Protected Sub GridViewOrder_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridViewOrder.RowCommand
+        Dim OrderId As Integer = GridViewOrder.DataKeys(Convert.ToInt32(e.CommandArgument)).Value
+        If e.CommandName = "Approve" Then
+            If WMC.IsOrderStatus("Quoted", OrderId) Then
+                Dim tid As Object = eQuote.ExecuteScalar("SELECT [Transaction].Id FROM [Transaction] INNER JOIN TransactionMethod ON [Transaction].MethodId = TransactionMethod.Id WHERE  ([Transaction].OrderId = " + OrderId.ToString + ") AND  (TransactionMethod.Text = N'Bank')")
+                If IsNumeric(tid) Then
+                    Dim s As Integer = eQuote.ExecuteScalar("SELECT Id FROM OrderStatus WHERE Text = N'Payout approved'")
+                    WMC.AddStatusChange(OrderId, "Quoted", s, Session("UserId"))
+                    eQuote.ExecuteNonQuery("UPDATE [Order] SET Approved = { fn NOW() }, ApprovedBy = " + Session("UserId").ToString + ", Status = " + s.ToString + " WHERE (Id = " + OrderId.ToString + ")")
+                    eQuote.ExecuteNonQuery("UPDATE [Transaction] SET Completed = { fn NOW() } WHERE (Id = " + tid.ToString + ")")
+                    PanelTrustCalculation.Visible = False
+                    PanelNote.Visible = False
+                    GridViewOrder.SelectedIndex = -1
+                    GridViewOrder.DataBind()
+                End If
+            End If
+        ElseIf e.CommandName = "ReviewKYC" Then
+            If WMC.IsOrderStatus("Quoted", OrderId) Then
+                Dim s As Integer = eQuote.ExecuteScalar("SELECT Id FROM OrderStatus WHERE Text = N'Quoted'")
+                WMC.AddStatusChange(OrderId, "Quoted", s, Session("UserId"))
+                Dim nUserId As Integer = eQuote.ExecuteScalar("SELECT UserId FROM  [Order] WHERE Id=" + OrderId.ToString)
+                eQuote.ExecuteNonQuery("INSERT INTO KycFile (UserId, Type, UniqueFilename, OriginalFilename) VALUES (" + nUserId.ToString + ", 1, N'EnforceKYC', N'EnforceKYC')")
+                Dim dr As SqlDataReader = eQuote.GetDataReader("SELECT [Order].Id, [Order].SiteId, [Site].[Text], [Order].CreditCardUserIdentity, [Order].Number, [Order].Amount, Currency.Code, [Order].Quoted, [Order].Name, [Order].Email, [Order].bccAddress, [Order].CardNumber, [Order].TxSecret FROM Currency INNER JOIN [Order] ON Currency.Id = [Order].CurrencyId INNER JOIN [User] ON [Order].UserId = [User].Id INNER JOIN [Site] ON [Order].SiteId = [Site].Id WHERE [Order].Id =" + OrderId.ToString)
+                If dr.HasRows Then
+                    While dr.Read()
+                        WMC.SendEmail("RequestKycDocuments.htm", dr!SiteId, dr!Name, dr!Email, "YOUR ORDER #" + dr!Number + " IS NOW PAUSED", dr!Number)
+                        s = eQuote.ExecuteScalar("SELECT Id FROM AuditTrailStatus WHERE Text = N'SentEmail'")
+                        Dim m As String = "RequestKycDocuments.htm" + vbCrLf + "Number:" + dr!Number
+                        eQuote.ExecuteNonQuery("INSERT INTO AuditTrail(OrderId, Status, Message, Created) VALUES (" + dr!Id.ToString + ", " + s.ToString + ", N'" + m + "', { fn NOW() })")
+                        GridViewAuditTrail.DataBind()
+                    End While
+                End If
+            End If
+        ElseIf e.CommandName = "Select" Then
+            PanelNote.Visible = True
+
+            Dim tl = New WMC.Logic.TrustLogic.TrustLogic
+            ImageDoc.Visible = False
+            PanelNote.Visible = True
+            PanelKeyIndicators.Visible = False
+            PanelTrustCalculation.Visible = True
+            Dim dr As SqlDataReader = eQuote.GetDataReader("SELECT [Order].UserId, [Order].CryptoAddress, [Order].CardNumber, [Order].IP, [Order].Id, [User].Email, [User].Phone, [Order].CreditCardUserIdentity FROM [Order] INNER JOIN [User] ON [Order].UserId = [User].Id WHERE [Order].Id =" + OrderId.ToString)
+            dr.Read()
+            Dim UserId As Integer = dr!UserId
+            Dim PhoneNumber As String = dr!Phone
+            Dim CardNumber As String = dr!CardNumber
+            Dim IP As String = dr!IP
+            Dim Email As String = dr!Email
+            Dim CryptoAddress As String = dr!CryptoAddress
+            Dim CreditCardUserIdentity As String = dr!CreditCardUserIdentity.ToString
+            dr.Close()
+            Dim TxLimitEUR As Integer = 150
+            Dim OrderSumTotalCardEUR As Decimal = tl.GetOrderSumTotalEUR(OrderId, CardNumber)
+            Dim OrderSumEUR As Decimal = tl.GetOrderSumEUR(OrderId)
+            Dim OrderSumTotalEUR As Decimal = WMC.GetOrderSumTotalEUR(OrderId)
+            Dim CardApproved As Boolean = tl.IsCardApproved(OrderId)
+            Dim IsPhoneVitual As Boolean = tl.IsPhoneVitual(OrderId)
+            'Dim SpeedAlert As Boolean = tl.CrossedSpeedLimit(OrderId)
+            Dim CardUsedElsewhere As Integer = tl.GetCardUsedElsewhere(OrderId)
+            Dim EmailUsedElsewhere As Integer = tl.GetEmailUsedElsewhere(OrderId)
+            Dim IpUsedElsewhere As Integer = tl.GetIpUsedElsewhere(OrderId).ToString
+            Dim OrdersByStatus As Integer = WMC.GetOrdersByStatus(UserId, OrderId, "Completed")
+            Dim OrderSpan As Integer = CInt(WMC.GetOrderSpan(OrderId))
+            Dim OrderSpanCard As Integer = CInt(WMC.GetOrderSpan(OrderId, CardNumber))
+            Dim IsUserTrusted As Boolean = tl.IsUserTrusted(OrderId)
+            Dim IsKycApproved As Boolean = tl.IsKycApproved(OrderId)
+            Dim PhoneCountry As String = WMC.GetPhoneCountry(OrderId)
+            'Dim PhoneCountry As String = tl.GetPhoneCountry(OrderId)
+            Dim CardCountry As String = tl.GetCardCountry(OrderId)
+            Dim IpCountry As String
+            Try
+                IpCountry = tl.GetIpCountry(OrderId)
+            Catch ex As Exception
+                IpCountry = "?"
+            End Try
+
+            'Dim CountryTrust As String = tl.GetCountryTrustLevel(OrderId)
+            Dim CountryTrust As String = WMC.GetCountryTrustLevel(OrderId)
+            Dim SiteTrust As String = tl.GetSiteTrustLevel(OrderId)
+
+
+            '--------------Trust Level Calculation
+
+            LabelCardApproved.Text = CardApproved : If CardApproved Then LabelCardApproved.BackColor = Drawing.Color.FromName("#66FF66")
+            LabelTxLimit.Text = CInt(TxLimitEUR * CountryTrust * SiteTrust).ToString
+            LabelCardTotal.Text = CInt(OrderSumTotalCardEUR + OrderSumEUR).ToString  ' Removed + OrderSumTotalEUR
+
+            If CInt(OrderSumTotalCardEUR + OrderSumTotalCardEUR) > CInt(TxLimitEUR * CountryTrust * SiteTrust) And Not CardApproved Then
+                LabelCardTotal.BackColor = Drawing.Color.FromName("#FFFF66")
+            Else
+                LabelCardTotal.BackColor = Drawing.Color.FromName("#66FF66")
+            End If
+            LabelPhoneVirtual.Text = IsPhoneVitual : If IsPhoneVitual Then LabelPhoneVirtual.BackColor = Drawing.Color.FromName("#FFA8C5")
+            'LabelSpeedAlert.Text = SpeedAlert : If SpeedAlert Then LabelSpeedAlert.BackColor = Drawing.Color.FromName("#FFA8C5")
+
+            LinkButtonCreditCardUsedElsewhere.Text = CardUsedElsewhere.ToString : If CardUsedElsewhere > 0 Then LinkButtonCreditCardUsedElsewhere.CommandArgument = CardNumber : LinkButtonCreditCardUsedElsewhere.BackColor = Drawing.Color.FromName("#FFFF66")
+            LinkButtonEmailUsedElsewhere.Text = EmailUsedElsewhere.ToString : If EmailUsedElsewhere > 0 Then LinkButtonEmailUsedElsewhere.CommandArgument = Email : LinkButtonEmailUsedElsewhere.BackColor = Drawing.Color.FromName("#FFFF66")
+            LinkButtonIpUsedElsewhere.Text = IpUsedElsewhere.ToString : If IpUsedElsewhere > 0 Then LinkButtonIpUsedElsewhere.CommandArgument = IP : LinkButtonIpUsedElsewhere.BackColor = Drawing.Color.FromName("#FFFF66")
+
+            'LinkButtonIpUsedElsewhere.Text = WMC.GetIpUsedElsewhere(OrderId, LinkButtonIpUsedElsewhere)
+            'LinkButtonIpUsedElsewhere.Text = tl.GetIpUsedElsewhere(OrderId).ToString
+
+            'LabelCardUS.Text = WMC.IsCardUS(OrderId, LabelCardUS)
+
+            LabelCompleted.Text = WMC.GetOrdersByStatus(UserId, OrderId, "Completed")
+
+            WMC.GetChainalysisWithdrawalAddress(CryptoAddress, UserId, OrderId, LabelChainalysis)
+
+            LabelOrderSpan.Text = OrderSpan.ToString
+            'LabelOrderSpan.Text = CInt(tl.).ToString
+
+            If OrderSpan >= 45 Then CheckBoxIsUserTrusted.BackColor = Drawing.Color.LightGreen Else CheckBoxIsUserTrusted.BackColor = Drawing.Color.White
+            'LabelCardSpan.Text = CInt(WMC.GetOrderSpan(OrderId, CardNumber, LabelCardSpan)).ToString
+            LabelCardSpan.Text = OrderSpanCard.ToString
+
+            If CInt(WMC.GetOrderSpan(OrderId, CardNumber)) >= 45 And Not WMC.IsCardApproved(OrderId) Then ButtonApproveCard.Visible = True : ButtonApproveCard.CommandArgument = OrderId.ToString Else ButtonApproveCard.Visible = False
+
+            If OrderSpan >= 45 And Not CardApproved Then ButtonApproveCard.Visible = True : ButtonApproveCard.CommandArgument = OrderId.ToString Else ButtonApproveCard.Visible = False
+
+            If Not CardApproved Then
+                'ButtonApproveCard.CommandArgument = OrderId.ToString
+                'ButtonApproveCard.Visible = True
+                If OrderSpanCard >= 45 Then
+                    ButtonApproveCard.BackColor = Drawing.Color.LightGreen
+                    ButtonApproveCard.CommandName = " (By CardSpan)"
+                Else
+                    ButtonApproveCard.BackColor = Drawing.Color.LightGray
+                    ButtonApproveCard.CommandName = " (By Admin)"
+                End If
+                'Else
+                '    ButtonApproveCard.Visible = False
+            End If
+
+            ButtonResetTxAttempt.CommandArgument = OrderId.ToString
+            LabelOrderSUM.Text = String.Format("{0:n0}", OrderSumTotalEUR)
+            'LabelOrderTotal.Text = String.Format("{0:n0}", WMC.GetOrderSumTotalEUR(OrderId))
+            'LabelOrder30Days.Text = String.Format("{0:n0}", WMC.GetOrderSum30DaysEUR(OrderId))
+
+            'CheckBoxIsUserTrusted.Checked = WMC.IsUserTrusted(OrderId, LabelUserIsTrusted) : LabelUserIsTrusted.Text = CheckBoxIsUserTrusted.Checked
+            CheckBoxIsUserTrusted.Checked = IsUserTrusted : LabelUserIsTrusted.Text = CheckBoxIsUserTrusted.Checked
+
+            'WMC.GetOrigin(OrderId, LabelOrigin)
+
+            LabelCards.Text = CInt(WMC.GetDistinctUsedCards(UserId, OrderId, LabelCards)).ToString
+            LabelKycDeclined.Text = WMC.GetOrdersByStatus(UserId, OrderId, "KYC Decline")
+
+
+            'LabelNames.Text = CInt(WMC.GetDifferentNameUser(OrderId, LabelNames)).ToString
+            'LabelEmails.Text = CInt(WMC.GetDifferentEmailUser(OrderId, LabelEmails)).ToString
+            'LabelKycApproved.Text = WMC.IsKycApproved(UserId, OrderId, LabelKycApproved)
+            LabelKycApproved.Text = IsKycApproved
+
+
+            'LabelPhoneCountry.Text = WMC.GetPhoneCountry(OrderId)
+
+            LabelPhoneCountry.Text = PhoneCountry
+            LabelCardCountry.Text = CardCountry
+            LabelIPCountry.Text = IpCountry
+
+
+            HyperLinkTx.NavigateUrl = "https://app.wemovecoins.com/TxSecretRequest?useridentity=" + CreditCardUserIdentity
+
+
+
+            'Dim riskscore As Decimal = WMC.TrustLevelCalculation(OrderId, LabelTrustMessageNew)
+            'Dim riskscore As Decimal = tl.TrustLevelCalculation(OrderId, LabelTrustMessageNew.Text)
+
+            'LabelTrustMessage.Text = "RISKSCORE: " + riskscore.ToString
+            Try
+                Dim TrustMessage As String = eQuote.ExecuteScalar("SELECT TOP (1) Message FROM AuditTrail WHERE OrderId = " + OrderId.ToString + " AND Status = 11 ORDER BY Created DESC")
+                Dim tstart As Integer = TrustMessage.IndexOf("TrustMessage:")
+                Dim tend As Integer = TrustMessage.IndexOf("RiskScore:")
+                LabelTrustMessage.Text = TrustMessage.Substring(tstart, tend - tstart)
+
+            Catch ex As Exception
+
+            End Try
+
+
+
+        End If
+        End If
+    End Sub
+
+    Protected Sub GridViewOrder_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridViewOrder.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            If e.Row.RowState = DataControlRowState.Edit Or e.Row.RowState = 5 Or e.Row.RowState = 6 Then
+                Dim GetMemoLogScript As String = vbNewLine + vbNewLine + String.Format(" {0:d}", Date.Now) + " at " + String.Format(" {0:t}", Date.Now) + " by " + eQuote.ExecuteScalar("SELECT Lname FROM [User] WHERE Id = " + Session("UserId").ToString) + vbNewLine + "------" + vbNewLine
+                If CType(e.Row.FindControl("TextBoxNote"), TextBox).Text.Length > 0 Then
+                    CType(e.Row.FindControl("TextBoxNote"), TextBox).Text = GetMemoLogScript + CType(e.Row.FindControl("TextBoxNote"), TextBox).Text
+                Else
+                    CType(e.Row.FindControl("TextBoxNote"), TextBox).Text = GetMemoLogScript
+                End If
+                CType(e.Row.FindControl("TextBoxNote"), TextBox).Focus()
+            ElseIf e.Row.RowState = DataControlRowState.Selected Or e.Row.RowState = DataControlRowState.Normal Or e.Row.RowState = DataControlRowState.Alternate Then
+                CType(e.Row.FindControl("ButtonApprove"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonApprove"), Button).Attributes.Add("onClick", "javascript: return confirm('Are you sure?')")
+                CType(e.Row.FindControl("ButtonReviewKYC"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonReviewKYC"), Button).Attributes.Add("onClick", "javascript: return confirm('Are you sure?')")
+                CType(e.Row.FindControl("ButtonCancelOrder"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonCancelOrder"), Button).Attributes.Add("onClick", "javascript: return confirm('Are you sure?')")
+                CType(e.Row.FindControl("ButtonKYCDeclined"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonKYCDeclined"), Button).Attributes.Add("onClick", "javascript: return confirm('Are you sure?')")
+            End If
+        End If
+    End Sub
+
+    Protected Sub GridViewUser_DataBound(sender As Object, e As EventArgs) Handles GridViewUser.DataBound
+        'https://ACd32f9f403312208a96707ec9356eb2ea:74dfe135a1259269c3a7817ffd9fd6e6@lookups.twilio.com/v1/PhoneNumbers/+447492195433?AddOns=whitepages_pro_phone_rep
+    End Sub
+
+    Protected Sub GridViewUser_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridViewUser.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            Dim lb As HyperLink = CType(e.Row.FindControl("HyperLinkTwilio"), HyperLink)
+            If lb.NavigateUrl.Length Then
+                lb.NavigateUrl = "https://www.google.dk/#q=%2B" + lb.NavigateUrl.ToString + ""
+            End If
+        End If
+    End Sub
+
+
+    Protected Sub ButtonAddNote_Click(sender As Object, e As EventArgs) Handles ButtonAddNote.Click
+        Dim nLineId As Integer = GridViewOrder.SelectedValue
+        Dim GetMemoLogScript As String = String.Format(" {0:d}", Date.Now) + " at " + String.Format(" {0:t}", Date.Now) + " by " + eQuote.ExecuteScalar("SELECT Lname FROM [User] WHERE Id = " + Session("UserId").ToString) + ":<br />" + TextBoxNote.Text + "<br />"
+        eQuote.ExecuteNonQuery("UPDATE [Order] SET Note = { fn CONCAT('" + Replace(GetMemoLogScript, Environment.NewLine, "<br/>") + "', { fn IFNULL(Note, '') }) } WHERE  Id = " + nLineId.ToString)
+        GridViewOrder.DataBind()
+        TextBoxNote.Text = ""
+    End Sub
+
+
+    Protected Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
+        Dim filePath As String = FileUpload1.PostedFile.FileName
+        Dim filename As String = Path.GetFileName(filePath)
+        Dim ext As String = Path.GetExtension(filename).ToLower
+        Dim contenttype As String = String.Empty
+        Select Case ext
+            Case ".doc"
+                contenttype = "application/vnd.ms-word"
+                Exit Select
+            Case ".docx"
+                contenttype = "application/vnd.ms-word"
+                Exit Select
+            Case ".xls"
+                contenttype = "application/vnd.ms-excel"
+                Exit Select
+            Case ".xlsx"
+                contenttype = "application/vnd.ms-excel"
+                Exit Select
+            Case ".jpeg"
+                contenttype = "image/jpg"
+                Exit Select
+            Case ".jpg"
+                contenttype = "image/jpg"
+                Exit Select
+            Case ".png"
+                contenttype = "image/png"
+                Exit Select
+            Case ".gif"
+                contenttype = "image/gif"
+                Exit Select
+            Case ".pdf"
+                contenttype = "application/pdf"
+                Exit Select
+        End Select
+        If contenttype <> String.Empty Then
+            Dim fs As Stream = FileUpload1.PostedFile.InputStream
+            Dim br As New BinaryReader(fs)
+            Dim bytes As Byte() = br.ReadBytes(fs.Length)
+            Dim strQuery As String = "INSERT INTO KycFile(UserId, [File], Type, UniqueFilename, OriginalFilename) VALUES (@UserId, @File, @Type, @UniqueFilename, @OriginalFilename)"
+            Dim cmd As New SqlCommand(strQuery)
+            Dim n As Integer = GridViewUser.DataKeys(0).Value
+            cmd.Parameters.Add("@UserId", SqlDbType.Int).Value = n
+            cmd.Parameters.Add("@File", SqlDbType.Binary).Value = bytes
+            cmd.Parameters.Add("@Type", SqlDbType.Int).Value() = DropDownListKycType.SelectedValue
+            cmd.Parameters.Add("@UniqueFilename", SqlDbType.VarChar).Value = filename
+            cmd.Parameters.Add("@OriginalFilename", SqlDbType.VarChar).Value = filename
+            eQuote.ExecuteNonQuery(cmd)
+            lblMessage.ForeColor = System.Drawing.Color.Green
+            lblMessage.Text = "File Uploaded Successfully"
+            GridViewKycFile.DataBind()
+        Else
+            lblMessage.ForeColor = System.Drawing.Color.Red
+            lblMessage.Text = "File format not recognised." & " Upload Image/Word/PDF/Excel formats"
+        End If
+    End Sub
+
+    Protected Sub GridViewKycFile_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles GridViewKycFile.RowCommand
+        On Error Resume Next
+        If e.CommandName = "Edit" Then GridViewKycFile.SelectedIndex = -1
+
+        Dim nLineId As Integer = GridViewKycFile.DataKeys(Convert.ToInt32(e.CommandArgument)).Value
+        If e.CommandName = "Reject" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Approved = NULL, ApprovedBy = NULL, Rejected = { fn NOW() }, RejectedBy = " + Session("UserId").ToString + " where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+        If e.CommandName = "UndoReject" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Approved = NULL, ApprovedBy = NULL, Rejected = NULL, RejectedBy = NULL where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+        If e.CommandName = "Approve" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Approved = { fn NOW() }, ApprovedBy = " + Session("UserId").ToString + ", Rejected = NULL, RejectedBy = NULL where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+        If e.CommandName = "UndoApprove" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Approved = NULL, ApprovedBy = NULL, Rejected = NULL, RejectedBy = NULL where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+        If e.CommandName = "Obsolete" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Obsolete = { fn NOW() }, ObsoleteBy = " + Session("UserId").ToString + " where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+        If e.CommandName = "UndoObsolete" Then
+            eQuote.ExecuteNonQuery("UPDATE KycFile SET Obsolete = NULL where Id= " + nLineId.ToString)
+            GridViewKycFile.EditIndex = -1
+        End If
+    End Sub
+
+    Protected Sub GridViewKycFile_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles GridViewKycFile.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            If e.Row.RowState = DataControlRowState.Edit Or e.Row.RowState = 5 Then
+                CType(e.Row.FindControl("ButtonReject"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonApprove"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonUndoReject"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonUndoApprove"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonObsolete"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonUndoObsolete"), Button).CommandArgument = e.Row.RowIndex
+                CType(e.Row.FindControl("ButtonReject"), Button).Attributes.Add("onClick", "javascript: return confirm('Er du sikker?')")
+                CType(e.Row.FindControl("ButtonApprove"), Button).Attributes.Add("onClick", "javascript: return confirm('Er du sikker?')")
+            ElseIf e.Row.RowState = DataControlRowState.Selected Or e.Row.RowState = DataControlRowState.Normal Or e.Row.RowState = DataControlRowState.Alternate Then
+                CType(e.Row.FindControl("LinkButtonDelete"), LinkButton).Attributes.Add("onClick", "javascript: return confirm('Er du sikker?')")
+            End If
+        End If
+    End Sub
+
+    Protected Sub ButtonDeleteSelected_Click(sender As Object, e As EventArgs) Handles ButtonDeleteSelected.Click
+        Dim OrderId As String
+        For Each item As GridViewRow In GridViewOrder.Rows
+            If TryCast(item.Cells(0).FindControl("cbSelect"), CheckBox).Checked Then
+                OrderId = item.Cells(3).Text
+                eQuote.ExecuteNonQuery("UPDATE [Order] SET Status = 23 WHERE Number = N'" + OrderId.ToString + "'")
+            End If
+        Next
+        GridViewOrder.DataBind()
+    End Sub
+End Class

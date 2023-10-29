@@ -1,0 +1,162 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.ReceiptModel
+
+<div class="page" id="formReceipt" style="font-family: SourceSansPro, sans-serif !important;" ng-init="vm.model.ViewName='Receipt'">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerId" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div class="idenfiy-box" style="color: black;margin: 10px 0 20px auto;border-radius: 5px;text-align: initial;">
+        <div class="beatling-box" style="color: white;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;padding:5px 20px;margin: 0px;">@Html.Resource("WMCResources", "PaymentSucceeded")</div>
+        <div style="padding: 10px 20px">
+            <div ng-hide="vm.model.type==2">
+                <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString0") @Model.CardHolderName</span><br /><br />
+                <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString01")</span><br /><br />
+                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString02")</p>
+                <p style="font-weight: bold;text-transform: uppercase;">@Html.Resource("WMCResources", "ReceiptPageHeaderString03")</p>
+                <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString04")</span>
+                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                <div style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString05")</div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderAmount"):</div>
+                    <div class="col-xs-7">@Model.Currency @Model.AmountStr</div>
+                </div>
+                @if (Model.OurFeeValue > 0)
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "OurFee") (@Model.OurFeeStr %):</div>
+                        <div class="col-xs-7">@Model.Currency @Model.OurFeeValueStr</div>
+                    </div>
+                }
+                @if (Model.Commission > 0)
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "CardFee") (@Model.CardFeeStr %):</div>
+                        <div class="col-xs-7">@Model.Currency @Model.CommissionStr</div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "MinersFee"):</div>
+                    <div class="col-xs-7">@Model.MinerFeeStr BTC</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "Rate"):</div>
+                    <div class="col-xs-7">@Html.Resource("WMCResources", "PaymentInstructionsPageContentString5")</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "YourBitcoinAddress"):</div>
+                    <div class="col-xs-7" style="word-break: break-all;">@Model.BitcoinAddress</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "CardholderName"):</div>
+                    <div class="col-xs-7" style="word-break: keep-all;">@Model.CardHolderName</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "CreditCardNumber"):</div>
+                    <div class="col-xs-7">@Model.CreditCardNumber</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderNumber"):</div>
+                    <div class="col-xs-7">@Model.OrderNumber</div>
+                </div>
+                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                <p>@Html.Resource("WMCResources", "PaymentInstructionsPageContentString6")</p>
+                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageFooterString5")</p>
+                @{
+                    var supportEmail = Html.Resource("WMCResources", "MailToAddress").Replace("{SiteName}", ViewBag.fSiteName);
+                }
+                <p>@Html.Resource("WMCResources", "ReceiptPageFooterString6") <a href=@supportEmail target="_top">support@monni.com</a> @Html.Resource("WMCResources", "ReceiptPageFooterString7") <a href="@Html.Resource("WMCResources", "FullSiteName", new Dictionary<string, string> { { "{SiteName}", ViewBag.fSiteName } })" target="_blank">@Html.Resource("WMCResources", "FullSiteName", new Dictionary<string, string> { { "{SiteName}", ViewBag.fSiteName } })</a></p>
+                <p>@Html.Resource("WMCResources", "ReceiptPageFooterString8")</p>
+            </div>
+
+            <div ng-show="vm.model.type==2">
+                <span>@Html.Resource("WMCResources", "SellRecieptPageheader01") @Model.CardHolderName</span><br /><br />
+                <span>@Html.Resource("WMCResources", "SellRecieptPageheader02")</span><br /><br />
+                <p style="font-weight: bold;">@Html.Resource("WMCResources", "SellRecieptPageheader03") @Model.OrderNumber</p>
+                <p>@Html.Resource("WMCResources", "SellRecieptPageheader04")&nbsp;<a href="https://tradeblock.com/bitcoin/tx/@Model.TransactionHash">@Model.TransactionHash</a></p>
+                <p style="font-weight: bold;">@Html.Resource("WMCResources", "SellRecieptPageheader05")</p>
+                <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString05"):</p>
+                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderAmount"):</div>
+                    <div class="col-xs-7">@Model.Currency @Model.AmountStr</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "Rate"):</div>
+                    <div class="col-xs-7">@Model.SellCurrency/@Model.Currency @Model.RateStr</div>
+                </div>
+                @if (Model.OurFeeValue > 0)
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "OurFee"):</div>
+                        <div class="col-xs-7">@Model.SellCurrency @Model.OurFeeStr</div>
+                    </div>
+                }
+                @if (Model.FixedFee != 0)
+                {
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "BankTransferFee"):</div>
+                        <div class="col-xs-7">@Model.SellCurrency @Model.FixedFeeStr</div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "PayoutAmount"):</div>
+                    <div class="col-xs-7">@Model.SellCurrency @Model.PayoutAmountStr</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "PayoutDestination"):</div>
+                    <div class="col-xs-7" style="word-break: keep-all;">@Model.IBAN</div>
+                </div>
+                @*<div class="row">
+                    <div class="col-xs-5">@Html.Resource("WMCResources", "OrderNumber"):</div>
+                    <div class="col-xs-7">@Model.OrderNumber</div>
+                </div>*@
+                <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                <p>@Html.Resource("WMCResources", "SellRecieptPagefooter01")</p>
+                <p>@Html.Resource("WMCResources", "SellRecieptPagefooter02")</p>
+                <p>@Html.Resource("WMCResources", "SellRecieptPagefooter03") </p>
+
+
+            </div>
+
+            <p>@Html.Resource("WMCResources", "SellRecieptPagefooter04")</p>
+            <p>@Html.Resource("WMCResources", "SellRecieptPagefooter05", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</p>
+        </div>
+    </div>
+</div>
+<div id="paymentInstructionsPageActions" class="row">
+    <div style="text-align: center;">
+        <p id="info1" style="display: none; color:black">@Html.Resource("WMCResources", "MerchantInfo")</p>
+        @{
+            var siteUrl = "'http://www." + ViewBag.fSiteName + "'";
+            if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+            {
+                siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                if (!String.IsNullOrEmpty(@Model.ReferenceId))
+                {
+                    <script>
+                        document.getElementById("info1").style.display = "block";
+                    </script>
+                    siteUrl = "'" + Session["ReturnUrl"].ToString() + "?OrderId=" + @Model.ReferenceId + "&ReferenceId=" + @Model.OrderId + "&Amount=" + @Model.Amount + "&BuyCurrency=" + @Model.Currency + "&OrderStatus=" + @Model.OrderStatus + "&Date=" + @Model.OrderDate + "&MerchantCode=Monni" + "'";
+                    <script>
+                        $(document).ready(
+                            setTimeout(
+                                function () {
+                                    document.getElementById("backButton").click();
+                                }, 30000));
+                    </script>
+                }
+            }
+
+            var rateUsUrl = "'https://www.trustpilot.com/evaluate/" + ViewBag.fSiteName + "'";
+        }
+
+        <input type="button" id="backButton" class="btn btn-back" value="@Html.Resource("WMCResources", "Back")" onclick="window.location.href = @siteUrl" />
+        @*<input type="button" class="btn green-btn" value="@Html.Resource("WMCResources", "RateUs")" onclick="window.location.href = @rateUsUrl" />*@
+    </div>
+</div>
+<script>
+    $("#orderInfoProgressBarItem").removeClass("active");
+    $("#verificationProgressBarItem").removeClass("active");
+    $("#paymentProgressBarItem").removeClass("active");
+    $("#receiptProgressBarItem").addClass("active");
+    var userLang = navigator.language.substr(0, 2);
+</script>

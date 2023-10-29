@@ -1,0 +1,177 @@
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177
+    child.send('shutdown');
+          ^
+
+TypeError: Cannot read property 'send' of null
+    at process.killkid (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177:11)
+    at emitOne (events.js:116:13)
+    at process.emit (events.js:211:7)
+    at process.exit (internal/process.js:157:15)
+    at monitor (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:99:17)
+    at ChildProcess.<anonymous> (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:170:5)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:198:12)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177
+    child.send('shutdown');
+          ^
+
+TypeError: Cannot read property 'send' of null
+    at process.killkid (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177:11)
+    at emitOne (events.js:116:13)
+    at process.emit (events.js:211:7)
+    at process.exit (internal/process.js:157:15)
+    at monitor (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:99:17)
+    at ChildProcess.<anonymous> (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:170:5)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:198:12)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+module.js:549
+    throw err;
+    ^
+
+Error: Cannot find module 'argparse'
+    at Function.Module._resolveFilename (module.js:547:15)
+    at Function.Module._load (module.js:474:25)
+    at Module.require (module.js:596:17)
+    at require (internal/module.js:11:18)
+    at Object.<anonymous> (C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express:2:22)
+    at Module._compile (module.js:652:30)
+    at Object.Module._extensions..js (module.js:663:10)
+    at Module.load (module.js:565:32)
+    at tryModuleLoad (module.js:505:12)
+    at Function.Module._load (module.js:497:3)
+C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177
+    child.send('shutdown');
+          ^
+
+TypeError: Cannot read property 'send' of null
+    at process.killkid (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:177:11)
+    at emitOne (events.js:116:13)
+    at process.emit (events.js:211:7)
+    at process.exit (internal/process.js:157:15)
+    at monitor (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:99:17)
+    at ChildProcess.<anonymous> (C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js:170:5)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:198:12)

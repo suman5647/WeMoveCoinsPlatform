@@ -1,0 +1,71 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.CryptoCurrencyPaymentInstructionModel
+<style>
+    .QRstyle .beatling-box {
+        color: #000 !important;
+    }
+    .QRstyle .beatling-box label {
+        color: #000;
+    }
+    .QRstyle .beatling-box {
+        background: #fff;
+        border: 2px solid #0ab89e;
+    }
+</style>
+<div class="page QRstyle" id="formOrder" role="form" ng-init="vm.model.ViewName='QRPage'">
+    <div class="beatling-box">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group text-center">
+                <h1 style="margin-bottom: 5px;font-size: 42px;">@Html.Resource("WMCResources", "Payment")</h1>
+                <label style="font-size: 18px;">@Html.Resource("WMCResources", "Pay"): @Model.Amount BTC @Html.Resource("WMCResources", "To") @Model.BitcoinAddress</label>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center">
+                <img id='QRCodeImage' src="@Model.QRCodeImage" alt="" title="QRCodeImage" width="150" height="150" />
+            </div>
+            <div id="paymentFrameLoading" class="col-xs-12 text-center" style="display: block;">
+                <img src="/images/loading.gif" style="width:50px;"><p> @Html.Resource("WMCResources", "WaitingForPayment") </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 text-center">
+                <br>
+                <p style="font-size: 18px;">@Html.Resource("WMCResources", "CryptoCurrencyRateInstruction1")</p>
+            </div>
+            <div class="col-xs-12 col-sm-12 form-group">
+                <br>
+                <p>@Html.Resource("WMCResources", "CryptoCurrencyRateInstruction2")</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group custom-float">
+        <button id="btn-cryptocurrency-goback" type="button" class="btn btn-back" ng-click="vm.backToOrder()">@Html.Resource("WMCResources", "GoBack")</button>
+        @*<button type="button" class="btn green-btn" autofocus ng-click="vm.SimulateWebHook(@Model.BitcoinAddress)" style="margin-right: 10px;">Simulate WebHook</button>*@
+    </div>
+</div>
+<script>
+    $("#orderInfoProgressBarItem").removeClass("active");
+    $("#verificationProgressBarItem").removeClass("active");
+    $("#paymentProgressBarItem").removeClass("active");
+    $("#receiptProgressBarItem").addClass("active");
+//Google Analytics: Function to update datalayer when cryptocurrency payment instructions page is loaded 
+    function updateDataLayerTransaction(orderNumber, amount, currencyCode, commission, googleTagManagerId) {
+        dataLayer.push({
+            'virtualPage': '/' + userLang + '/funnel/cryptocurrencypaymentinstruction',
+            'event': 'virtualPageview'
+        });
+        dataLayer.push({
+            'transactionId': orderNumber,
+            'transactionTotal': amount,
+            'transactionTax': '0',
+            'transactionShipping': commission,
+            'transactionProducts': [{
+                'name': 'SellBitcoins',
+                'price': amount,
+                'currency': currencyCode,
+                'quantity': '1'
+            }],
+            'event': 'transactionComplete'
+        });
+        //(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', googleTagManagerId);
+    }
+    updateDataLayerTransaction('@Model.OrderNumber', '@Model.Amount', '@Model.Currency', '@Model.Commission', '@Model.GoogleTagManagerId')
+</script>

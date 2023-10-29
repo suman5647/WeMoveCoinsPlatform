@@ -1,0 +1,42 @@
+﻿@using WMC.Helpers
+@model WMC.Logic.Models.TrustPayPaymentModel
+
+<div class="page" style="font-family: SourceSansPro, sans-serif !important;">
+    <div id="paymentFrameLoading" class="col-md-2 col-md-offset-5" style="display:none; margin-top: 100px;"><img src="/images/loading.gif"></div>
+    <style>
+        div.wpwl-wrapper-brand {
+            color: black
+        }
+
+        div.wpwl-wrapper-cardNumber {
+            color: black
+        }
+
+        div.wpwl-wrapper-expiry {
+            color: black
+        }
+
+        div.wpwl-wrapper-cardHolder {
+            color: black
+        }
+
+        div.wpwl-wrapper-cvv {
+            color: black
+        }
+    </style>
+    <script>
+        $.get("@Url.Content(Model.Source)", function (response) {
+            var code = $('<script>' + response + '<\/script>');
+            $('.page').append(code);
+        });
+        var wpwlOptions = {
+            onReady: function () {
+                $('[name="card.holder"]').val("@Model.CardHolderName");
+            },
+            maskCvv: true
+        }
+    </script>
+    @*<script src="@Url.Content(Model.Source)" type="application/javascript" defer></script>*@
+    <form action="@Model.Destination" method="POST" class="paymentWidgets" data-brands="VISA MASTER AMEX"></form>
+    @*<iframe id="myCustomIframe" seamless style="border:none;height: 800px;width: 100%;overflow:hidden" scrolling="no"></iframe>*@
+</div>

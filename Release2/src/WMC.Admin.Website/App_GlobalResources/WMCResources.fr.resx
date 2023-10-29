@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>ACCEPTER </value>
+  </data>
+  <data name="AccountholderName" xml:space="preserve">
+    <value>Nom du tenant du compte </value>
+  </data>
+  <data name="AccountNumber" xml:space="preserve">
+    <value>Numéro de compte </value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Montant </value>
+  </data>
+  <data name="AmountCannotBeEmpty" xml:space="preserve">
+    <value>Le montant ne peut pas être vide </value>
+  </data>
+  <data name="AmountShouldBeBetween" xml:space="preserve">
+    <value>Le montant doit être compris entre </value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>et </value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>RETOUR</value>
+  </data>
+  <data name="Bank" xml:space="preserve">
+    <value>Banque </value>
+  </data>
+  <data name="BitcoinAddress" xml:space="preserve">
+    <value>ADRESSE BITCOIN </value>
+  </data>
+  <data name="BitcoinAddressCannotBeEmpty" xml:space="preserve">
+    <value>L'addresse ne peut pas être vide </value>
+  </data>
+  <data name="BitcoinAddressHelpContentBreadwalletSiteUrl" xml:space="preserve">
+    <value>https://mycoins.fr/ressources/tutoriels/portefeuille-tutoriel/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentElectrumSiteUrl" xml:space="preserve">
+    <value>https://mycoins.fr/ressources/tutoriels/Electrum-tutoriel/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentJaxxSiteUrl" xml:space="preserve">
+    <value>https://mycoins.fr/ressources/tutoriels/jaxx-tutoriel/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentMycelium" xml:space="preserve">
+    <value>https://mycoins.fr/tutoriels/mycelium-tutoriel/</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString1" xml:space="preserve">
+    <value>Une adresse bitcoin est automatiquement créée par votre portfeuille bitcoins. Si vous possédez déjà un portefeuille bitcoin, allez dans la section reçu puis copiez et collez l'adresse dans le champ prévu à cet effet. </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString2" xml:space="preserve">
+    <value>Voici un example d'adresse Bitcoin : 13fyJo4nCkMBs7fd984kw9DBZjVVwwCn4v</value>
+  </data>
+  <data name="BitcoinAddressHelpContentString3" xml:space="preserve">
+    <value>Si vous ne possédez pas encore de portefeuille bitcoin, trouvez dans nos tutoriels toutes les informations dont vous aurez besoin pour en créer un.  </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString4" xml:space="preserve">
+    <value>Voici une liste des différents portefeuilles que nous vous conseillons en fonction des différents supports: </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString5" xml:space="preserve">
+    <value>Iphone et iOS </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString6" xml:space="preserve">
+    <value>Android </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString7" xml:space="preserve">
+    <value>Ordinateurs </value>
+  </data>
+  <data name="BitcoinAddressHelpContentString8" xml:space="preserve">
+    <value>Advanced wallet</value>
+  </data>
+  <data name="BitcoinAddressInvalid" xml:space="preserve">
+    <value>L'adresse Bitcoin n'est pas valide. </value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>ACHETER</value>
+  </data>
+  <data name="CardholderName" xml:space="preserve">
+    <value>Nom du titulaire de la carte </value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>FERMER</value>
+  </data>
+  <data name="CodeNotReceiving" xml:space="preserve">
+    <value>Vous n'avez pas reçu de code ? Merci de contactez le service client </value>
+  </data>
+  <data name="Commission" xml:space="preserve">
+    <value>Commision </value>
+  </data>
+  <data name="ConfirmTermsAndConditions" xml:space="preserve">
+    <value>Je confirme que j'ai lu et que je suis d'accord avec </value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Nous contacter </value>
+  </data>
+  <data name="CreditCardNumber" xml:space="preserve">
+    <value>Numéro de la carte </value>
+  </data>
+  <data name="DomesticInstantTransfer" xml:space="preserve">
+    <value>Transfert immédiat </value>
+  </data>
+  <data name="DragAndDropFile" xml:space="preserve">
+    <value>Déposer votre fichier </value>
+  </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>MODIFIER LA COMMANDE</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail </value>
+  </data>
+  <data name="EmailEmptyMessage" xml:space="preserve">
+    <value>L'adresse e-mail ne peut pas être vide </value>
+  </data>
+  <data name="EmailInvalidMessage" xml:space="preserve">
+    <value>L'adresse e-mail n'est pas valide. </value>
+  </data>
+  <data name="EmailTooLongMessage" xml:space="preserve">
+    <value>L'adresse e-mail est trop longue. Maximum 50 caractères.</value>
+  </data>
+  <data name="ExactRateMessage" xml:space="preserve">
+    <value>Le taux de conversion exact est établi au moment de la finalisation de la commande, dans un délai maximum de 12 heures après votre demande. </value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>Commission</value>
+  </data>
+  <data name="FirstNameSurNameEmptyMessage" xml:space="preserve">
+    <value>Veuillez remplir votre nom et prénom </value>
+  </data>
+  <data name="FirstNameSurNameTooLongMessage" xml:space="preserve">
+    <value>Le nom est trop long. Maximum 50 caractères. </value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>POUR </value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>NOM </value>
+  </data>
+  <data name="FullNameEmptyMessage" xml:space="preserve">
+    <value>Le nom ne peut pas être vide.</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>RETOUR</value>
+  </data>
+  <data name="IsThisYourBitcoinAddressString" xml:space="preserve">
+    <value>Etes-vous certain qu'il s'agit de votre adresse Bitcoin ? </value>
+  </data>
+  <data name="MailToAddress" xml:space="preserve">
+    <value>Envoyer un mail à : support@mycoins.fr/</value>
+  </data>
+  <data name="MessageToReceiver" xml:space="preserve">
+    <value>Votre message</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>TELEPHONE PORTABLE </value>
+  </data>
+  <data name="MobileEmptyMessage" xml:space="preserve">
+    <value>Le téléphone portable ne peut pas être vide </value>
+  </data>
+  <data name="MobileNumber" xml:space="preserve">
+    <value>Numéro de téléphone portable </value>
+  </data>
+  <data name="MobileNumberHelpContent" xml:space="preserve">
+    <value>Durant la procédure d'achat nous allons vérifier votre numéro de téléphone pour prévenir toute tentative de fraude. Merci de vous réferrer à nos termes et conditions ainsi que notre politique de confidentialité pour plus d'informations.</value>
+  </data>
+  <data name="NoGoBack" xml:space="preserve">
+    <value>NON, RETOUR</value>
+  </data>
+  <data name="OrderInfo" xml:space="preserve">
+    <value>Informations sur la commande </value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Numéro de commande </value>
+  </data>
+  <data name="OrderSize" xml:space="preserve">
+    <value>MONTANT DE LA COMMANDE</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Paiement </value>
+  </data>
+  <data name="PaymentInformation" xml:space="preserve">
+    <value>INFORMATION SUR LE PAIEMENT </value>
+  </data>
+  <data name="PaymentInstructions" xml:space="preserve">
+    <value>INSTRUCTIONS DE PAIEMENT </value>
+  </data>
+  <data name="PaymentInstructionsPageContentString1" xml:space="preserve">
+    <value>Merci pour votre achat, {UserName}!</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString2" xml:space="preserve">
+    <value>Merci de faire un transfert vers notre compte à partir des informations ci-dessous:</value>
+  </data>
+  <data name="PaymentInstructionsPageContentString3" xml:space="preserve">
+    <value>Nous vous garantissons de vous envoyer vos bitcoins dans un délai maximum de 12h après réception de votre transfert. </value>
+  </data>
+  <data name="PaymentInstructionsPageContentString4" xml:space="preserve">
+    <value>Si des informations ne sont pas correctes, merci de bien vouloir simplement renvoyer un nouvel ordre de commande en cliquant sur le bouton "retour". Si les informations présentées ci-dessus et dans le cadre ci-dessous sont correctes, nous vous prions de bien vouloir effectuer un virement sur notre compte en suivant les indications fournies. </value>
+  </data>
+  <data name="PaymentInstructionsPageContentString5" xml:space="preserve">
+    <value>Le taux de conversion lors de la finalisation de la commande </value>
+  </data>
+  <data name="PaymentInstructionsPageContentString6" xml:space="preserve">
+    <value>Pour plus d'informations, veuillez lire nos termes et conditions. </value>
+  </data>
+  <data name="PaymentInstructionsPageContentString7" xml:space="preserve">
+    <value>Si vous avez des questions, vous pouvez directement répondre à ce mail ou nous contacter sur notre discussion en ligne. Nous nous ferons un plaisir de vous aider !</value>
+  </data>
+  <data name="PaymentSucceeded" xml:space="preserve">
+    <value>Paiement accepté</value>
+  </data>
+  <data name="PhoneNumberVerifiedSuccessfully" xml:space="preserve">
+    <value>Votre numéro de téléphone a été vérifié avec succès. </value>
+  </data>
+  <data name="PhotoIDString1" xml:space="preserve">
+    <value>Photo d'identité aux normes nationales (Passeport ou carte d'identite) </value>
+  </data>
+  <data name="PhotoIDString2" xml:space="preserve">
+    <value>ID-selfie (tenez votre carté d'identité à côté de votre visage) </value>
+  </data>
+  <data name="PlaceOrder" xml:space="preserve">
+    <value>Lieu de la commande </value>
+  </data>
+  <data name="PleaseInputSixDigitCode" xml:space="preserve">
+    <value>Merci de saisir le code à 6 chiffres que nous venons de vous envoyer.</value>
+  </data>
+  <data name="ProofOfResidencyString1" xml:space="preserve">
+    <value>Justificatif de domicile </value>
+  </data>
+  <data name="ProofOfResidencyString2" xml:space="preserve">
+    <value>(facture EDF de moins de 3 mois)</value>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Taux de conversion </value>
+  </data>
+  <data name="RateUs" xml:space="preserve">
+    <value>Notez-nous sur Trustpilot </value>
+  </data>
+  <data name="Receipt" xml:space="preserve">
+    <value>Reçu </value>
+  </data>
+  <data name="ReceiptPageFooterString1" xml:space="preserve">
+    <value>Si vous avez des questions, merci</value>
+  </data>
+  <data name="ReceiptPageFooterString2" xml:space="preserve">
+    <value>Nous vous recontacterons ! </value>
+  </data>
+  <data name="ReceiptPageFooterString3" xml:space="preserve">
+    <value>Cordialement,</value>
+  </data>
+  <data name="ReceiptPageFooterString4" xml:space="preserve">
+    <value>L'équipe Mycoins !</value>
+  </data>
+  <data name="ReceiptPageHeaderString1" xml:space="preserve">
+    <value>Merci d'avoir utilisé Mycoins ! </value>
+  </data>
+  <data name="ReceiptPageHeaderString2" xml:space="preserve">
+    <value>Votre commande et votre paiement ont bien été reçus.</value>
+  </data>
+  <data name="ReceiptPageHeaderString3" xml:space="preserve">
+    <value>Nous allons traiter votre commande dans les plus brefs délais puis nous vous enverrons un email de confirmation. </value>
+  </data>
+  <data name="ReceiptPageHeaderString4" xml:space="preserve">
+    <value>Veuillez trouver ci-dessous les détails de votre commande : </value>
+  </data>
+  <data name="RegistrationNumber" xml:space="preserve">
+    <value>Numéro de registration </value>
+  </data>
+  <data name="ResendCode" xml:space="preserve">
+    <value>RESEND CODE</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Envoyer</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Termes et Conditions </value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value> Mycoins : Acheter des bitcoincs</value>
+  </data>
+  <data name="TransferType" xml:space="preserve">
+    <value>Type de transfert </value>
+  </data>
+  <data name="UploadYourFile" xml:space="preserve">
+    <value>Télécharger votre document </value>
+  </data>
+  <data name="Using" xml:space="preserve">
+    <value>USING</value>
+  </data>
+  <data name="Verification" xml:space="preserve">
+    <value>Vérification </value>
+  </data>
+  <data name="VerificationCodeIncorrect" xml:space="preserve">
+    <value>Votre code de vérification est incorrect.</value>
+  </data>
+  <data name="VerificationCodeSent" xml:space="preserve">
+    <value>Code de vérification envoyé. </value>
+  </data>
+  <data name="VerificationOfIdentity" xml:space="preserve">
+    <value>Vérification de votre identité </value>
+  </data>
+  <data name="VerificationOfIdentityMessageString1" xml:space="preserve">
+    <value>Votre commande a été selectionnée pour un contrôle d'identité </value>
+  </data>
+  <data name="VerificationOfIdentityMessageString2" xml:space="preserve">
+    <value>Ce contrôle d'identité à pour objectif de prévenir tout usage frauduleux de notre plateforme. C'est une demande de la part de nos partenaires bancaires et de la réglementation en vigueur. </value>
+  </data>
+  <data name="VerificationOfIdentityMessageString3" xml:space="preserve">
+    <value>Merci de bien vouloir télécharger une copie en haute résolution de : </value>
+  </data>
+  <data name="VerificationOfMobileNumber" xml:space="preserve">
+    <value>Verification de votre numéro de téléphone </value>
+  </data>
+  <data name="VerifyMe" xml:space="preserve">
+    <value>Vérifier mon identité </value>
+  </data>
+  <data name="WhatIsABitcoinAddress" xml:space="preserve">
+    <value>Qu'est ce qu'une adresse bitcoin ? </value>
+  </data>
+  <data name="WhyMyMobileNumber" xml:space="preserve">
+    <value>Pourquoi utiliser mon téléphone portable ? </value>
+  </data>
+  <data name="YesThatIsCorrect" xml:space="preserve">
+    <value>Oui, c'est correct </value>
+  </data>
+  <data name="YouPay" xml:space="preserve">
+    <value>Vous payez </value>
+  </data>
+  <data name="YourBitcoinAddress" xml:space="preserve">
+    <value>Votre adresse bitcoin</value>
+  </data>
+  <data name="YouReceive" xml:space="preserve">
+    <value>Vous recevez </value>
+  </data>
+  <data name="YourOrderHasBeenSelectedForIDControl" xml:space="preserve">
+    <value>Votre commande a été sélectionnée pour un contrôle d'identité</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Kreditkort</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>jens@jensen.dk</value>
+  </data>
+  <data name="NamePlaceholder" xml:space="preserve">
+    <value>Fornavn Efternavn</value>
+  </data>
+</root>

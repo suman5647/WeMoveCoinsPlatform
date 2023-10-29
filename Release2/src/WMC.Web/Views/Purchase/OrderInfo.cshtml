@@ -1,0 +1,450 @@
+﻿@using WMC.Helpers
+<style>
+    .loaded {
+        transition: opacity 1s ease-in-out;
+        -webkit-transition: opacity 1s ease-in-out;
+        -moz-transition: opacity 1s ease-in-out;
+    }
+
+    .loader {
+        display: none;
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transform: -webkit-translate(-50%, -50%);
+        transform: -moz-translate(-50%, -50%);
+        transform: -ms-translate(-50%, -50%);
+        color: darkred;
+    }
+
+    select#forCryptoCurrency option[value="BTC"] {
+        background-image: url(/images/loading.gif);
+    }
+</style>
+
+<script>
+    var userLang = navigator.language.substr(0, 2);
+    dataLayer.push({
+        'virtualPage': '/' + userLang + '/funnel/order-info',
+        'event': 'virtualPageview'
+    });
+</script>
+<script src="https://www.google.com/recaptcha/api.js?render=@Session["GoogleCaptchaSiteKey"].ToString()"></script>
+<script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@Session["GoogleCaptchaSiteKey"]', { action: 'orderform' }).then(function (token) {
+                document.getElementById("recaptcha").value = token;
+            });
+        });
+</script>
+
+
+<div class="loader" id="loader">
+    <img src="~/images/loading.gif" class="preview" alt="image" />
+</div>
+<div id="orderForm">
+    <div class="page loaded" id="formOrder" data-toggle="validator" role="form" style="opacity: 0" opacity=1>
+        <div class="alert alert-success alert-dismissable fade in" ng-if='@(Html.StringResource("WMCResources", "AlertMessage1").IsEmpty() == false ? "true": "false")'>
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <ul class="list-disc" style="padding: 0px 10px;">
+                <span style="margin-left: -15px;"> @Html.Resource("WMCResources", "AlertMessage1")</span>
+                <li> @Html.Resource("WMCResources", "AlertMessage2")</li>
+                <li> @Html.Resource("WMCResources", "AlertMessage3")</li>
+            </ul>
+
+        </div>
+        <div class="beatling-box" style="margin-bottom: 0px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 custom-pading-right  form-group no-bottom-margin">
+                    <span>
+                        <span ng-class="vm.model.operationalStatus == 'opensellclosebuy' ? 'disableBuySell buyselllabel' : 'buyselllabel' " @*class="buyselllabel"*@>
+                            <label ng-class="vm.model.type==1 ? 'makeBoldnImp' : ''" style="display: inline;">@Html.Resource("WMCResources", "Buy")</label>
+                        </span>
+
+                        <label ng-class="vm.model.operationalStatus == 'openservice' ? 'disableSlider switch' : 'switch'" style="display: inline-block;">
+                            <input id="cbBuySellSlider" type="checkbox" ng-click="vm.buySellSelect()" ng-model="vm.buySell" />
+                            <span id="spBuySellSlider" class="slider round"></span>
+                        </label>
+                        <span ng-class="vm.model.operationalStatus == 'closesellopenbuy' ? 'disableBuySell buyselllabel' : 'buyselllabel' " @*class="buyselllabel"*@>
+
+                            <label ng-class="vm.model.type==2 ? 'makeBoldnImp' : ''" style="display: inline;">@Html.Resource("WMCResources", "Sell")</label>
+                        </span>
+                    </span>
+
+                    <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="forCryptoCurrency" name="forCryptoCurrency" class="form-control" ng-model="vm.model.forDigitalCurrency" ng-change="vm.cryptoCurrencyChanged()">
+                        <option ng-repeat="option in vm.model.digitalCurrencies" value="{{option}}"><span ng-if="false">&#xf15a;</span> {{option}}</option>
+                    </select>
+                </div>
+                <div ng-if="vm.model.type==1">
+                    <div class="col-xs-12 col-sm-6 custom-pading-right custom-pading-left  form-group no-bottom-margin">
+                        <label>@Html.Resource("WMCResources", "For")</label>
+                        <div class="input-group" style="width: 100%;">
+                            <input type="number" ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="txtBuyAmount" class="form-control" style="width: 70%;text-align:right" placeholder="@Html.Resource("WMCResources", "Amount")" ng-model="vm.model.buyAmount" autofocus buy-amount required>
+                            <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="cbbForCurrency" name="cbbForCurrency" class="form-control" style="width: 30%;border-radius: 0px 4px 4px 0px;" ng-model="vm.model.forCurrency" ng-change="vm.currencyChanged()"
+                                    ng-options="option for option in vm.filterCurrencies track by option"></select>
+                            <div class="text-center hideonbig">
+                                <span id="showBuyAmountNullError" style="color: red;display: none;">
+                                    @Html.Resource("WMCResources", "AmountCannotBeEmpty")
+                                </span>
+                                <span id="showBuyAmountInvalidError" style="color: red;display: none;">
+                                    @Html.Resource("WMCResources", "AmountShouldBeBetween") {{vm.model.orderSizeBoundary.minStr}}
+                                    @Html.Resource("WMCResources", "And") {{vm.model.orderSizeBoundary.maxStr}}.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 custom-pading-left form-group no-bottom-margin">
+                        <label for="cbbPaymentType">@Html.Resource("WMCResources", "Using")</label>
+                        <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="cbbPaymentType" name="cbbPaymentType" class="form-control" ng-model="vm.paymentMethod" ng-change="vm.paymentMethodChanged()"
+                                ng-options="option.displayName for option in vm.paymentMethods track by option.name"></select>
+                    </div>
+                </div>
+                <div ng-if="vm.model.type==2">
+                    <div class="col-xs-12 col-sm-5 custom-pading-right custom-pading-left  form-group no-bottom-margin">
+                        <label>@Html.Resource("WMCResources", "Worth")</label>
+                        <div class="input-group" style="width: 100%;">
+                            <input type="number" ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="txtBuyAmount" class="form-control" style="width: 70%;text-align:right;border-right: 0px;" placeholder="@Html.Resource("WMCResources", "Amount")" ng-model="vm.model.buyAmount" autofocus buy-amount required>
+                            <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="cbbForSellCurrency" name="cbbForSellCurrency" class="form-control" style="width: 30%;border-radius: 0px 4px 4px 0px;" ng-model="vm.forSellCurrency" ng-change="vm.currencyChanged()"
+                                    ng-options="option for option in vm.model.updatedSellCurrencies track by option"></select>
+                            <div class="text-center hideonbig">
+                                <span id="showBuyAmountNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "AmountCannotBeEmpty")</span>
+                                <div id="showBuyAmountInvalidError" style="color: red;display: none;">
+                                    @Html.Resource("WMCResources", "AmountShouldBeBetween") <span>{{vm.model.orderSizeBoundary.minStr}}</span>
+                                    @Html.Resource("WMCResources", "And") {{vm.model.orderSizeBoundary.maxStr}}.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 custom-pading-left form-group no-bottom-margin">
+                        <label for="cbbPaymentType">@Html.Resource("WMCResources", "Payto")</label>
+                        <div class="col-xs-12 col-sm-8" style="width: 65%;padding-left: 0px;padding-right: 0px;">
+                            <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="cbbPaymentType" name="cbbPaymentType" class="form-control" style="padding-left: 5px;padding-right: 0px;border-radius: 4px 0px 0px 4px;" ng-model="vm.sellPaymentMethod" ng-change="vm.paymentMethodChanged()"
+                                    ng-options="option.displayName for option in vm.sellPaymentMethods track by option.name"></select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4" style="width: 35%;padding-left: 0px;padding-right: 0px;">
+                            <select ng-disabled="vm.model.showOnlyBottomOfOrderForm" id="cbbForCurrency" name="cbbForCurrency" class="form-control" style="border-radius: 0px 4px 4px 0px;padding-left: 3px;padding-right: 0px;" ng-model="vm.model.forCurrency" ng-change="vm.currencyChanged()"
+                                    ng-options="option for option in vm.filterCurrencies track by option"></select>
+                        </div>
+                    </div>
+                </div>
+                <!-- #region SMALL VIEW -->
+                <div class="col-sm-12 col-xs-12 text-center hideonsmall">
+                    <span id="showBuyAmountNullError" style="color: red;display: none;">
+                        @Html.Resource("WMCResources", "AmountCannotBeEmpty")
+                    </span>
+                    <span id="showBuyAmountInvalidErrorBuy" style="color: red;display: none;">
+                        @Html.Resource("WMCResources", "AmountShouldBeBetween") {{vm.model.orderSizeBoundary.minStr }}
+                        @Html.Resource("WMCResources", "And") {{vm.model.orderSizeBoundary.maxStr}}.
+                    </span>
+                    <span id="showBuyAmountInvalidErrorSell" style="color: red;display: none;">
+                        @Html.Resource("WMCResources", "AmountShouldBeBetween") {{vm.model.orderSizeBoundary.minStr}}
+                        @Html.Resource("WMCResources", "And") {{vm.model.orderSizeBoundary.maxStr}}.
+                    </span>
+                </div>
+                <!-- #endregion -->
+            </div>
+        </div>
+        <div id="buyAmountDetail" ng-if="!vm.model.showOnlyBottomOfOrderForm" class="popover fade bottom in" style="position: initial; display: inherit;max-width: inherit;border: 1px solid #0ab89e;border-radius: 5px;color: black;opacity: 0;display: none;">
+            <div class="arrow" style="border-bottom-color: #0ab89e;position: relative;top: -12px;"></div>
+            <div class="row" style="margin-left:0px;margin-right:0px;">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-12" style="padding-bottom: 12px;">
+                            <div class="row">
+                                <div class="col-xs-5" ng-if="vm.model.type==1">
+                                    <span>@Html.Resource("WMCResources", "YouPay"):</span>
+                                </div>
+                                <div class="col-xs-5" ng-if="vm.model.type==2">
+                                    <span>@Html.Resource("WMCResources", "YouSend"):</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.youPayBuyAmount}}</span>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="(vm.paymentMethodCommision > 0)">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "OurFee") ({{(vm.paymentMethodCommision * (1-vm.discountPercentage/100)).toFixed(2)}}%)</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.commision}}</span>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="((vm.model.type === 1 && vm.paymentMethod.name === 'CreditCard' && vm.cardFee > 0) || (vm.model.type === 2 && vm.sellPaymentMethod.name === 'CreditCard' && vm.cardFee > 0))">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "CardFee") ({{(vm.paymentMethodFee)}}%)</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.fee}}</span>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="false">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "Discount") ({{vm.discountPercentage}}%)</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.discountAmount}}</span>
+                                </div>
+                            </div>
+                            <div class="row" ng-if="vm.model.type==1">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "MinersFee")</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.minersFee}}</span>
+                                </div>
+                            </div>
+                            <div id="fixedFee" class="row" ng-if="(vm.model.type==2 && vm.sellPaymentMethod.name == 'Bank')?true:false">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "FixedFee")</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.fixedFeeLocalCurrency}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr style="border-color: #0ab89e;margin: 2px;">
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <span>@Html.Resource("WMCResources", "YouReceive") *</span>
+                                </div>
+                                <div class="col-xs-7">
+                                    <span style="float:right">{{vm.youReceiveBitcoins }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <hr style="border-color: #0ab89e;margin: 2px;">
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-if="vm.model.type==1" style="padding-bottom:12px;">
+                            * @Html.Resource("WMCResources", "ExactRateMessage")
+                        </div>
+                        <div class="col-md-12" ng-if="vm.model.type==2" ng-bind="vm.sellMessage" style="padding-bottom:12px;">
+                            @** @Html.Resource("WMCResources", "ExactRateMessageSell")*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+        <div class="beatling-box" ng-if="!vm.model.showOnlyTopOfOrderForm">
+            <form autocomplete="on">
+                <div class="form-group" ng-if="vm.model.type==1">
+                    <label for="txtBitcoinAddress">
+                        @Html.Resource("WMCResources", "BitcoinAddress")
+                        <a href="javascript:void(0);" id="bitcoinAddressHelp" title="@Html.Resource("WMCResources", "WhatIsABitcoinAddress")" tabindex="-1">
+                            <img id="imgquestion" src="images/question.png" height="20px">
+                        </a>
+                    </label>
+                    <div id="bitcoinAddressHelpContent" class="hide">
+                        <div style="width:400px">
+                            @Html.Resource("WMCResources", "BitcoinAddressHelpContentString1")
+                            <br>
+                            <br>
+                            @Html.Resource("WMCResources", "BitcoinAddressHelpContentString2")
+                            <br>
+                            <br>
+                            @Html.Resource("WMCResources", "BitcoinAddressHelpContentString3")
+                            <br>
+                            <hr style="margin-top: 5px;margin-bottom: 5px;" />
+                            @Html.Resource("WMCResources", "BitcoinAddressHelpContentString4")
+                            <ul>
+                                @{
+                                    var breadwalletSiteUrl = Html.StringResource("WMCResources", "BitcoinAddressHelpContentBreadwalletSiteUrl").Replace("{SiteName}", ViewBag.fSiteName);
+                                    var myceliumSiteUrl = Html.StringResource("WMCResources", "BitcoinAddressHelpContentMycelium").Replace("{SiteName}", ViewBag.fSiteName);
+                                    var electrumSiteUrl = Html.StringResource("WMCResources", "BitcoinAddressHelpContentElectrumSiteUrl").Replace("{SiteName}", ViewBag.fSiteName);
+                                    var jaxxSiteUrl = Html.StringResource("WMCResources", "BitcoinAddressHelpContentJaxxSiteUrl").Replace("{SiteName}", ViewBag.fSiteName);
+                                }
+                                <li>@Html.Resource("WMCResources", "BitcoinAddressHelpContentString5"): <a target="_blank" href=@breadwalletSiteUrl>Breadwallet</a></li>
+                                <li>@Html.Resource("WMCResources", "BitcoinAddressHelpContentString6"): <a target="_blank" href=@myceliumSiteUrl>Mycelium</a></li>
+                                <li>@Html.Resource("WMCResources", "BitcoinAddressHelpContentString7"): <a target="_blank" href=@electrumSiteUrl>Electrum</a></li>
+                                <li>@Html.Resource("WMCResources", "BitcoinAddressHelpContentString8"): <a target="_blank" href=@jaxxSiteUrl>Jaxx</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <input type="text" id="txtBitcoinAddress" autocomplete="bitcoinAddress" name="bitcoinAddress" class="form-control has-error" ng-model-options="{ updateOn: 'blur' }" ng-model="vm.model.bitcoinAddress" data-ng-minlength="3" placeholder="18DmrDjMwqHZaSVeWtaz7VjhsEkr5J2D18" required bitcoin-address>
+                    <span id="showBitcoinAddressNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "BitcoinAddressCannotBeEmpty")</span>
+                    <span id="showBitcoinAddressInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "BitcoinAddressInvalid")</span>
+                </div>
+                <div class="form-group">
+                    <label for="txtFullName">@Html.Resource("WMCResources", "FullName")</label>
+                    <input type="text" id="txtFullName" autocomplete="on" name="fullName" class="form-control has-error" ng-model-options="{ updateOn: 'blur' }" ng-model="vm.model.fullName" placeholder="@Html.Resource("WMCResources", "NamePlaceholder")" required full-name>
+                    <span id="showFullNameNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "FullNameEmptyMessage")</span>
+                    <span id="showFullNameInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "FirstNameSurNameEmptyMessage")</span>
+                    <span id="showFullNameTooLongError" style="color: red;display: none;">@Html.Resource("WMCResources", "FirstNameSurNameTooLongMessage")</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEmail">@Html.Resource("WMCResources", "Email")</label>
+                    <input id="txtEmail" type="email" autocomplete="on" name="email" class="form-control" style="width:100%" ng-model-options="{ updateOn: 'blur' }" ng-model="vm.model.eMail" placeholder="@Html.Resource("WMCResources", "EmailPlaceholder")" required email>
+                    <span id="showEmailAddressNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "EmailEmptyMessage")</span>
+                    <span id="showEmailAddressInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "EmailInvalidMessage")</span>
+                    <span id="showEmailAddressTooLongError" style="color: red;display: none;">@Html.Resource("WMCResources", "EmailTooLongMessage")</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 form-group" style="margin: 0px;">
+                        <label for="cbbPhoneCode">
+                            @Html.Resource("WMCResources", "Mobile")
+                            <a href="javascript:void(0);" id="phoneNumberHelp" title="@Html.Resource("WMCResources", "WhyMyMobileNumber")" tabindex="-1">
+                                <img id="imgquestion" src="images/question.png" height="20px">
+                            </a>
+                        </label>
+                        <div id="phoneNumberHelpContent" class="hide">@Html.Resource("WMCResources", "MobileNumberHelpContent")</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 custom-pading-right2 form-group">
+                        @*<label for="cbbPhoneCode">
+                            @Html.Resource("WMCResources", "Mobile")
+                            <a href="javascript:void(0);" id="phoneNumberHelp" title="@Html.Resource("WMCResources", "WhyMyMobileNumber")" tabindex="-1">
+                                <img id="imgquestion" src="images/question.png" height="20px">
+                            </a>
+                        </label>
+                        <div id="phoneNumberHelpContent" class="hide">@Html.Resource("WMCResources", "MobileNumberHelpContent")</div>*@
+                        @*<span class="select-value"></span>*@
+                        <select name="cbbPhoneCode" id="cbbPhoneCode" class="form-control" ng-model="vm.model.phoneCodeId" ng-change="vm.phoneCodeChanged()"
+                                @*ng-options="option.item1 as option.item3 for option in vm.model.phoneCodes"></select>*@
+                                ng-options="option.item1 as (option.item2 + ' ' + option.item3) for option in vm.filterPhoneCodes"></select>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 custom-pading-left2 form-group has-feedback">
+                        @*<label for="txtMobileNumber" style="color: transparent;height: 22px;">@Html.Resource("WMCResources", "MobileNumber")</label>*@
+                        <input type="tel" id="txtMobileNumber" autocomplete="on" ng-model-options="{ updateOn: 'blur' }" ng-model="vm.model.mobile" input-mask="{mask: vm.model.mobileNumberFormat, greedy: false}" class="form-control" placeholder="{{vm.model.mobileNumberFormat}}" mobile required> @*@Html.Resource("WMCResources", "PhoneNumberOverlay")*@
+                        <span id="showMobileNumberNullError" style="color: red;display: none;">@Html.Resource("WMCResources", "MobileEmptyMessage")</span>
+                        <span id="showMobileNumberInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "MobileInvalidMessage")</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group" style="margin-bottom:0px;">
+                        <div class="form-group col-xs-12" style="margin-bottom:0px;">
+                            <label for="couponCode" ng-click="showCoupon = !showCoupon" style="text-decoration:  underline;cursor:  pointer;">@Html.Resource("WMCResources", "CouponCodeLabel")</label>
+                        </div>
+                        <div ng-if="showCoupon">
+                            <div class="form-group col-xs-9 custom-pading-right2" style="margin-bottom:0px;">
+                                <input ng-if="showCoupon" id="couponCode" type="text" name="couponCode" ng-model-options="{ updateOn: 'blur' }" ng-model="vm.model.couponCode" class="form-control" style="width:100%" placeholder="@Html.Resource("WMCResources", "CouponCodePlaceHolder")" required coupon-code>
+                            </div>
+                            <div class="form-group col-xs-3 custom-pading-left2">
+
+                                <button type="button" id="couponbtn" class="btn btn-success form-control " style="color: white !important;"><i id="couponicon"></i>&nbsp;&nbsp;<span id="coupontext">@Html.Resource("WMCResources", "Redeem")</span></button>
+                            </div>
+                            <span id="showCouponCodeExpiredError" style="color: red;display: none;">@Html.Resource("WMCResources", "CouponCodeExpiredMessage")</span>
+                            <span id="showCouponCodeInvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", "CouponCodeInvalidMessage")</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <label style="color: black;text-transform: none;font-weight: normal;">@Html.HtmlStringResource("WMCResources", "TermsAndConditionsText")</label>
+        <div class="checkbox">
+            <input id="checkbox" class="styled" type="checkbox" ng-model="vm.acceptedTAndC" tc required>
+            <label for="checkbox" style="color: black;text-transform: none;">
+                @Html.Resource("WMCResources", "ConfirmTermsAndConditions01") <a data-toggle="modal" data-target="#myModal" style="text-decoration: underline;">@Html.Resource("WMCResources", "TermsAndConditions")</a>
+                @Html.Resource("WMCResources", "And") <a data-toggle="modal" data-target="#myModal2" style="text-decoration: underline;">@Html.Resource("WMCResources", "PrivacyPolicy")</a>.
+            </label>
+            <!-- Terms and Conditions Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">@Html.Resource("WMCResources", "TermsAndConditions")</h4>
+                        </div>
+                        <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                            <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.TC_url"></iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                            <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Privacy Policy Modal -->
+            <div class="modal fade" id="myModal2" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header" style="background: rgba(10, 184, 158, 0.76); border-top-left-radius: 6px; border-top-right-radius: 6px;">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Privacy Policy</h4>
+                        </div>
+                        <div class="modal-body" style="background: rgba(10, 184, 158, 0.19);color: black;">
+                            <iframe seamless style="border:none;height: 500px;width: 100%;overflow:hidden" src="@ViewBag.PP_url"></iframe>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-back" data-dismiss="modal">@Html.Resource("WMCResources", "Close")</button>
+                            <button class="btn green-btn" data-dismiss="modal" ng-click="vm.acceptTAndC()">@Html.Resource("WMCResources", "Accept")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <input type="hidden" id="recaptcha" name="recaptcha" />
+        </div>
+        <div class="checkbox">
+            <input id="recieveNewslettersCheckbox" class="styled" type="checkbox" ng-model="vm.recieveNewsletters">
+            <label for="recieveNewslettersCheckbox" style="color: black;text-transform: none;">@Html.Resource("WMCResources", "RecieveNewsletters")</label>
+        </div>
+        <label style="color: black;text-transform: none;font-weight: normal;">@Html.Resource("WMCResources", "TermsAndConditionsText2")</label>
+
+        <div class="form-group custom-float">
+            @{
+
+                var currentUrl = ViewBag.fSiteName;
+                var requesterUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                var siteUrl = "'http://www." + ViewBag.fSiteName + "'";
+                var hasReturnUrl = !string.IsNullOrEmpty(Session["ReturnUrl"] as string);
+                var isNullReturnUrl = !hasReturnUrl;
+                var hasCryptoAddress = !string.IsNullOrEmpty(Session["BitcoinAddress"] as string);
+                if (hasReturnUrl)
+                {
+                    siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                }
+            }
+
+            @if (!hasReturnUrl) { requesterUrl = siteUrl; }
+
+            @if (hasReturnUrl) { siteUrl = "'" + Session["ReturnUrl"].ToString() + "'"; }
+
+            <input type="button" id="btnSubmit" class="btn green-btn custom-button " style="float: right;" ng-click="vm.submitOrder(true)" ng-disabled="vm.placeOrderButtonDisabled" value="@Html.Resource("WMCResources", "PlaceOrder")" />
+            <input type="button" class="btn btn-back custom-button " value="@Html.Resource("WMCResources", "Back")" onclick="window.location.href = @siteUrl" style="margin-right: 10px;" />
+        </div>
+
+        <div id="refererAlertBox" style='background-color: #f9f9f9ba;width: 100%;height: 100%;position: absolute;top: 0;bottom: 0;left: 0;z-index: 1032;display:@string.Format("{0}", (ViewBag.IsExternalReferer == null || ViewBag.IsExternalReferer == false)  ? "none" : "block" )'>
+            <div style="max-width: 500px;width: 100%;margin: 0;position: absolute;top: 30%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);background-color: #fff;z-index: 999;">
+                <div style="border: 1px solid #0ab89e;margin: 5px;color: black;text-align: center;padding: 5px;">
+                    <p style="font-size: 32px;margin-top: 14px;margin-bottom: 0px;text-transform: capitalize;">
+                        @Html.Resource("WMCResources", "Welcometo") @currentUrl
+                    </p>
+                    <hr style="border-bottom: 1px solid #0ab89e;margin-right: 60px;margin-left: 60px;margin-top: 0px;margin-bottom: 10px;">
+                    <p style="font-style: italic;font-size: 15px;padding-right: 45px;padding-left: 45px;">
+                        @Html.Resource("WMCResources", "AlertTitle1")
+                    </p>
+                    <div style="background-color: #fed766;margin-left: 20px;margin-right: 20px;padding: 20px 16px;border-radius: 4px;margin-top: 15px;margin-bottom: 15px;">
+                        <p ng-if='@(!hasCryptoAddress ? "true" : "false")'>@Html.Resource("WMCResources", "AlertParaNoPrefill1")</p>
+                        <p ng-if='@(!hasCryptoAddress ? "true" : "false")' style="font-style: italic;">@Html.Resource("WMCResources", "AlertParaNoPrefill2")</p>
+                        <p ng-if='@(hasCryptoAddress ? "true" : "false")'>@Html.Resource("WMCResources", "AlertParaPrefill1")</p>
+                        <p ng-if='@(hasCryptoAddress ? "true" : "false")'>@Html.Resource("WMCResources", "AlertParaPrefill2.1") <b>@ViewBag.UrlExternal</b> @Html.Resource("WMCResources", "AlertParaPrefill2.2").</p>
+                        <p ng-if='@(hasCryptoAddress ? "true" : "false")'>@Html.Resource("WMCResources", "AlertParaPrefill3") <b>@ViewBag.UrlExternal</b></p>
+                    </div>
+                    <div style="text-align: left;margin-left: 20px;margin-right: 20px;margin-bottom: 10px;">
+                        <input type="checkbox" style="zoom:1.5" ng-model="alertYesButton" /><span style="text-align:center"> @Html.Resource("WMCResources", "AlertDeclaration")</span>
+                    </div>
+                    <button class="btn btn-back" style="min-width: 220px;margin-bottom: 10px;" onclick="window.location.href = @requesterUrl">@Html.Resource("WMCResources", "AlertButtonNo")</button>
+                    <button id="hideAlertBox" style="min-width: 220px;margin-bottom: 10px;" ng-disabled="!alertYesButton" class="btn green-btn">@Html.Resource("WMCResources", "AlertButtonYes")</button>
+                    <img src="images/cards.jpg" style="display: block;margin-left: auto;margin-right: auto;margin-bottom: 15px;margin-top: 10px;" />
+                    <p style="font-size: 10px;color: darkgrey;margin-top: 15px;">
+                        @ViewBag.fSiteName @Html.Resource("WMCResources", "AlertFooter")
+                        </br> @ViewBag.fSiteName © | Monni ™ | 2020
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

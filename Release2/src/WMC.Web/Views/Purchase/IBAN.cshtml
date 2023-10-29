@@ -1,0 +1,56 @@
+﻿@using WMC.Helpers
+@model WMC.Logic.SellPaymentDetails
+<style>
+
+    .loader {
+        display: none;
+        position: fixed;
+        width: 150px;
+        height: 150px;
+        z-index: 9999;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transform: -webkit-translate(-50%, -50%);
+        transform: -moz-translate(-50%, -50%);
+        transform: -ms-translate(-50%, -50%);
+        color: darkred;
+    }
+</style>
+
+<div class="loader" id="loader">
+    <img src="/images/loading.gif" class="preview" alt="image" />
+</div>
+<div id="orderForm">
+    <div class="page" id="formOrder" role="form" ng-init="vm.model.ViewName = 'IBAN';vm.Value1 = '@Model.Value1';vm.Value2 = '@Model.Value2';vm.Value1LabelResourceName = '@Model.Value1LabelResourceName' ;vm.Value2LabelResourceName ='@Model.Value2LabelResourceName';">
+        <div class="beatling-box">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 form-group ">
+                    <label>@Html.Resource("WMCResources", Model.Value1LabelResourceName)</label>
+                    <input id="txtBankVal1" name="BankVal1" type="text" ng-model-options="{ debounce: 1000 }" ng-model="vm.Value1" class="form-control" placeholder="@Html.Resource("WMCResources",  Model.Value2LabelResourceName)" autofocus required validbankval1>
+                </div>
+                <div class="col-xs-12 col-sm-8 form-group ">
+                    <label>@Html.Resource("WMCResources", Model.Value2LabelResourceName)</label>
+                    <input id="txtBankVal2" name="BankVal2" type="text" ng-model-options="{ debounce: 1000 }" ng-model="vm.Value2" class="form-control" placeholder="@Html.Resource("WMCResources",  Model.Value2LabelResourceName)" autofocus required validbankval2>
+                </div>
+                <div class="col-xs-12 col-sm-12">
+                    <span id="showVal1NullError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value1LabelResourceName + "NullMessage")</span>
+                    <span id="showVal2NullError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value2LabelResourceName + "NullMessage")</span>
+                    <span id="showVal1TooShortError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value1LabelResourceName + "TooShortMessage")</span>
+                    <span id="showVal2TooShortError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value2LabelResourceName + "TooShortMessage")</span>
+                    <span id="showVal1TooLongError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value1LabelResourceName + "TooLongMessage")</span>
+                    <span id="showVal2TooLongError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value2LabelResourceName + "TooLongMessage")</span>
+                    <span id="showVal1InvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value1LabelResourceName + "InValidMessage")</span>
+                    <span id="showVal2InvalidError" style="color: red;display: none;">@Html.Resource("WMCResources", Model.Value2LabelResourceName + "InValidMessage")</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group custom-float">
+            <button id="btn-IBAN-goback" type="button" class="btn btn-back" ng-click="vm.backToOrder()">@Html.Resource("WMCResources", "GoBack")</button>
+            <button type="button" class="btn green-btn" autofocus ng-click="vm.SaveIBAN();" ng-disabled="vm.IBANButtonDisabled" style="margin-right: 10px;">@Html.Resource("WMCResources", "PayBitCoin")</button>
+        </div>
+        @*<div id="QRLoading" class="col-xs-12 text-center" style="display:none">
+                <img src="/images/loading.gif" style="width:50px;">
+            </div>*@
+    </div>
+</div>

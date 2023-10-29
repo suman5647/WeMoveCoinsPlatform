@@ -1,0 +1,62 @@
+[
+  {
+    "outputFileName": "Scripts/BigInt.min.js",
+    "inputFiles": [
+      "Scripts/BigInt.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/bitcoin-validator.min.js",
+    "inputFiles": [
+      "Scripts/bitcoin-validator.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/sha256.min.js",
+    "inputFiles": [
+      "Scripts/sha256.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/app/purchase.min.js",
+    "inputFiles": [
+      "Scripts/app/purchase.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.glob.all.min.js",
+    "inputFiles": [
+      "Scripts/jquery.glob.all.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/jquery.global.min.js",
+    "inputFiles": [
+      "Scripts/jquery.global.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/app/kycfileupload.min.js",
+    "inputFiles": [
+      "Scripts/app/kycfileupload.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/bootstrap.min.css",
+    "inputFiles": [
+      "Content/bootstrap.css"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/app/creditcard-verification.min.js",
+    "inputFiles": [
+      "Scripts/app/creditcard-verification.js"
+    ]
+  },
+  {
+    "outputFileName": "Scripts/app/creditcardkycfileupload.min.js",
+    "inputFiles": [
+      "Scripts/app/creditcardkycfileupload.js"
+    ]
+  }
+]

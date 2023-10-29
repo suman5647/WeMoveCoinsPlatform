@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <base href="/">
+  <title>ZoOm SDK - Angular Sample App</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- Add iOS meta tags and icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ZoOm SDK - Sample App">
+  <style>
+   
+
+    #zoom-screen-container {
+      border: 2px solid black;
+      filter: blur(0px);
+    }
+  </style>
+</head>
+
+<body style="background-color: rgb(76, 216, 48);">
+  <facetec-element button-heading="PhotoID"></facetec-element>
+  <script type="text/javascript" src="./facetec-element.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>
+    window.addEventListener("OnSucccess", function (evt) {
+      console.log('Onsucess', evt.detail);
+    }, false);
+  </script>
+</body>
+
+</html>

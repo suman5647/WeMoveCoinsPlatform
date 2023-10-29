@@ -1,0 +1,257 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.TxSecretModel
+@{
+    var payment = Html.Angular().ModelFor("payment.model");
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html data-ng-app="wmc">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@Html.Resource("WMCResources", "Title", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Sites/@ViewBag.SiteName/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="~/Sites/@ViewBag.SiteName/images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/Sites/@ViewBag.SiteName/images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="~/Sites/@ViewBag.SiteName/images/favicon/manifest.json">
+    <link rel="mask-icon" href="~/Sites/@ViewBag.SiteName/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/flaticon.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/glyphicons.css" rel="stylesheet" type="text/css">
+    <link href="~/Sites/@ViewBag.SiteName/css/style.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/theme-colors.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/responsive.css" rel="stylesheet">
+    <link href="~/Content/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Scripts/toast/ngToast.min.css" rel="stylesheet" />
+    <link href="~/Content/build.css" rel="stylesheet">
+</head>
+
+<body id="page-top" data-spy="scroll" class="tabbing-pages" data-target=".navbar-fixed-top" ng-controller="vm.creditcardVerificationController as vm" key-pressed>
+    <toast></toast>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="position: initial">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <ul class="nav navbar-nav">
+                    <li style="opacity: 1; margin-left: 0px;">
+                        @{
+                            var siteUrl = "http://www." + ViewBag.fSiteName;
+                            if (!string.IsNullOrEmpty(Session["ReturnUrl"] as string))
+                            {
+                                siteUrl = "'" + Session["ReturnUrl"].ToString() + "'";
+                            }
+                        }
+                        <a href="@siteUrl" class="navbar-brand page-scroll">
+                            <img src="Sites/@ViewBag.SiteName/images/logo.png" style="height:100%" alt="">
+                        </a>
+                        <input type="hidden" id="siteUrl" value=@siteUrl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="tab-pages" style="padding-top: 0px">
+        <div class="container">
+            <div id="tabContent" style="height: 100%;">
+                <div class="page">
+                    <div id="verifyTxtSecret-box" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;">
+                        <div style="padding: 15px;">
+
+                            <h4 style="color:black">@Html.Resource("WMCResources", "PleaseVerifyYourCreditCard", new Dictionary<string, string> { { "{Name}", Model.Name } })</h4>
+                            <div style="padding:50px;padding-top:0px;padding-bottom:10px; text-align:justify">
+                                <p style="color:black">@Html.Resource("WMCResources", "WhatToD0Line1")</p>
+                                <p style="color:black">@Html.Resource("WMCResources", "WhatToD0Line2")</p>
+                                <p style="color:black">@Html.Resource("WMCResources", "WhatToD0Line3", new Dictionary<string, string> { { "{OrderDate}", Model.OrderDate }, { "{OrderAmount}", Model.Amount.ToString() }, { "{OrderCurrency}", Model.Currency }, { "{CreditCard}", Model.CardNumber } })</p>
+                                <p style="color:black">@Html.Resource("WMCResources", "WhatToD0Line4")</p>
+                            </div>
+                            <p></p>
+                            <div class="tel-box">
+                                <input id="txt-verifypasscode" type="text" class="form-control" required maxlength="4" autocomplete="off" ng-model="vm.verificationCode" style="text-align: center;font-size: 20px;">
+                            </div>
+                            <p class="big-butn">
+                                <button id="btn-verifypasscode" type="button" ng-disabled="!vm.verificationCode" class="btn green-btn" ng-click="vm.verifyTxtSecrete()">@Html.Resource("WMCResources", "VerifyMe")</button>
+                            </p>
+                            <p></p>
+                            <p style="color: #000;padding-top: 10px;">@Html.Resource("WMCResources", "UploadDocumentsInstead")</p>
+                            <div>
+                                <button type="button" class="btn btn-back" ng-click="vm.enableDocumentUploadView()">@Html.Resource("WMCResources", "UploadDocuments")</button>
+                                <button type="button" class="btn btn-back" ng-click="vm.cancelOrder()">@Html.Resource("WMCResources", "CancelOrder")</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="documentUpload-box" class="disable" style="width: 100%;border: 1px #0ab89e solid;text-align: center;margin-bottom: 20px;float: left;color:black">
+                        <div style="padding: 15px;float: left;width: 100%;">
+                            <h4 style="color:black">@Html.Resource("WMCResources", "UploadDocumentsIdentifyingYourselfAndTheCreditCard")</h4>
+                            <p style="color:black">@Html.Resource("WMCResources", "UploadPersonalInformationAndCopiesOfDocuments")</p>
+                            <div style="height:auto; width: 100%;padding-left: 20%;padding-right: 20%;">
+                                @*<div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-6">
+                                    <div id="dragdrophandlerfilePhotoID" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                        <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                            <p style="margin: 0;">@Html.Resource("WMCResources", "DrivingLicenseOrPassport")</p>
+                                            <p style="margin: 0;">@Html.Resource("WMCResources", "SelfieWithIDNextToYourFace")</p>
+                                    </div>
+                                    <div class="button-green">
+                                            <input id="FileUpload" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfilePhotoID'), 'PhotoID', '@Model.UserIdentity')" />
+                                        <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                    </div>
+                                    <div id="photoIDUploadedFiles"></div>
+                                    </div>*@
+                                <div style="height:auto;border: 1px solid #ccc;border-radius: 4px;box-shadow: inset 0 1px 1px rgba(0,0,0,.075);" class="col-xs-12">
+                                    <div id="dragdrophandlerfileProofOfRecidency" style="height:130px;border: 2px dashed #92AAB0;padding: 20px;margin-bottom: 10px;margin-top: 10px;cursor: default;">
+                                        <p style="font-weight: bold;">@Html.Resource("WMCResources", "DragAndDropFile")</p>
+                                        <p style="margin: 0;">@Html.Resource("WMCResources", "PhotoOfCreditCard")</p>
+                                        <p style="margin: 0;">@Html.Resource("WMCResources", "SelfieWithCreditCard")</p>
+                                    </div>
+                                    <div class="button-green">
+                                        <input id="FileUpload" class="file-upload" type="file" accept=".PNG,.JPG,.JPEG" style="cursor: pointer;" onchange="handleMultipleFileUpload(this.files, $('#dragdrophandlerfileProofOfRecidency'), 'ProofOfRecidency', '@Model.UserIdentity')" />
+                                        <img src="images/upload.png" style="height: 20px;" alt="">@Html.Resource("WMCResources", "UploadYourFile")
+                                    </div>
+                                    <div id="proofOfRecidencyUploadedFiles"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="margin-bottom: 10px;float: left;width: 100%;">
+                            <button type="button" class="btn btn-back" ng-click="vm.backToVerifyTxtSecrete()">@Html.Resource("WMCResources", "Return")</button>
+                            <button type="button" id="btn-submit" class="btn green-btn" ng-click="vm.submitDocumentUpload()" disabled>@Html.Resource("WMCResources", "Send")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Verify Modal -->
+        <div class="modal fade" id="verifyModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="modalContent"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="vm.closeWindowTab()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--TxSecrete Attempts Exceeded Modal  -->
+        <div class="modal fade" id="TxSecreteAttemptsExceededModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="modalContent"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--TxSecreteAttempts Modal -->
+        <div class="modal fade" id="TxSecreteAttemptsModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>@Html.Resource("WMCResources", "TxAttemptMaxReached")</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="vm.closeWindowTab()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Cancel Order Modal -->
+        <div class="modal fade" id="cancelOrderModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>@Html.Resource("WMCResources", "CancelOrderModelWindowText")</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="vm.cancelOrderCloseWindowTab()">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Cancel Order Modal -->
+        <div class="modal fade" id="documentUploadModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>@Html.Resource("WMCResources", "DocumentUploadModelWindowText")</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" ng-click="vm.closeWindowTab()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="KYCFileTypeErrorModal" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p id="modalContent"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Scripts/jquery-2.2.3.min.js"></script>
+    @*<script src="~/Scripts/jquery.maskedinput.min.js"></script>*@
+    <script src="~/Scripts/jquery.inputmask.bundle.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-sanitize.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/scrolling-nav.js"></script>
+    <script src="~/Scripts/BigInt.min.js"></script>
+    <script src="~/Scripts/jquery.global.min.js"></script>
+    <script src="~/Scripts/jquery.glob.all.min.js"></script>
+    <script src="~/Scripts/toast/ngToast.min.js"></script>
+    <script src="~/Scripts/angular-recaptcha.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/app/creditcard-verification.js"></script>
+    <script src="~/Scripts/app/creditcardkycfileupload.js"></script>
+    <script src="~/Scripts/ng-onload.js"></script>
+    <script>
+        $('.navbar-toggle').click(function () {
+            $("#navbar-ticker").toggleClass('in');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+    <script>
+        window.app.constant('model', @Html.JsonFor(Model));
+    </script>
+    <script>
+        if ('@Model.TxSecreteAttempts' >= '@Model.TxSecreteAttemptsFromDB')
+        {
+            $('#TxSecreteAttemptsModal').modal('show');
+        }
+        if ('@Model.IsVerified' == 'True'){
+            $('#verifyModal').find('#modalContent').html('@Model.TxSecreteMessage');
+            $('#verifyModal').modal('show');
+        }
+        initkycFileUpload('@Model.UserIdentity')
+    </script>
+</body>
+</html>

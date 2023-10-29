@@ -1,0 +1,51 @@
+2018-07-13 11:31:43 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 11:31:43 - Started 6624
+2018-07-13 11:32:04 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 11:32:04 - Started 7940
+2018-07-13 11:32:48 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 11:32:48 - Started 6016
+2018-07-13 12:04:19 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 12:04:19 - Started 6276
+2018-07-13 12:24:40 - Stopping bitgojstest.exe
+2018-07-13 12:24:40 - ProcessKill 6276
+2018-07-13 12:24:41 - Found child process: 7716 Name: conhost.exe
+2018-07-13 12:24:41 - Found child process: 5668 Name: node.exe
+2018-07-13 12:24:41 - Stopping process 7716
+2018-07-13 12:24:41 - Send SIGINT 7716
+2018-07-13 12:24:41 - SIGINT to 7716 failed - Killing as fallback
+2018-07-13 12:24:41 - Stopping process 5668
+2018-07-13 12:24:41 - Send SIGINT 5668
+2018-07-13 12:24:41 - SIGINT to 5668 failed - Killing as fallback
+2018-07-13 12:24:41 - Stopping process 6276
+2018-07-13 12:24:41 - Send SIGINT 6276
+2018-07-13 12:24:41 - SIGINT to 6276 failed - Killing as fallback
+2018-07-13 12:24:41 - Finished bitgojstest.exe
+2018-07-13 12:53:03 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 12:53:03 - Started 1940
+2018-08-21 09:31:12 - Stopping bitgojstest.exe
+2018-08-21 09:31:12 - Finished bitgojstest.exe
+2018-08-21 09:35:57 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-08-21 09:35:57 - Started 1620
+2018-08-22 09:41:38 - Stopping bitgojstest.exe
+2018-08-22 09:41:38 - ProcessKill 1620
+2018-08-22 09:41:44 - Shutdown exception
+Message:A system shutdown is in progress. (Exception from HRESULT: 0x8007045B)
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2018-08-22 09:50:18 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-08-22 09:50:18 - Started 1240
+2018-10-05 06:59:38 - Stopping bitgojstest.exe
+2018-10-05 06:59:38 - Finished bitgojstest.exe
+2018-10-05 07:03:24 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-10-05 07:03:24 - Started 1308
+2018-11-21 07:24:43 - Stopping bitgojstest.exe
+2018-11-21 07:24:44 - Finished bitgojstest.exe
+2018-11-21 07:28:55 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-masterTest\bin\bitgo-express --log "BitGoJsTest wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-11-21 07:28:56 - Started 1544

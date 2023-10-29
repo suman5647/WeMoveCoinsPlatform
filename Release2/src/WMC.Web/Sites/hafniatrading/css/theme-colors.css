@@ -1,0 +1,67 @@
+.top-nav-collapse {
+    background-color: #337ab7 !important;
+}
+
+.bottom-butns .custm-black-butn {
+    background-color: #000 !important;
+}
+
+.custm-black-butn {
+    background-color: #000 !important;
+}
+
+.blue-sec {
+    background: rgba(63, 138, 214, 0.66);
+}
+
+.grey-sec {
+    background: #f0f0f1;
+    color: #337ab7;
+}
+
+.white-sec {
+    background: #fff;
+    color: #000000;
+}
+
+.blue-bg {
+    background: #241c40;
+}
+
+.panel-info > .panel-heading {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
+}
+
+.progressbar li.active::before, .progressbar li.active::after {
+    background: #000;
+    color: #f0f0f1;
+}
+
+.panel-title {
+    color: #337ab7;
+}
+
+.beatling-box .modal-footer {
+    background: #337ab7;
+}
+
+.custm-green-butn:hover {
+    opacity: 0.8;
+    color: #333;
+}
+
+.betal-sec {
+    background-color: #337ab7 !important;
+    border-color: rgba(0, 0, 0, 0) !important;
+}
+
+.main-top-part .navbar {
+    background: #141414 !important;
+    margin-bottom: 0;
+}
+
+.btn-back.btn:hover, .btn-back.btn:focus {
+    color: #fff;
+}

@@ -1,0 +1,33 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPageAdmin.master.vb" Inherits="MasterPageAdmin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="shortcut icon" href="image/favicon.ico"/>
+    <link href="StyleSheets/TGM_Styles.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">       
+        <table width="100%">
+            <tr>
+                <td align="center" valign="top">
+                    <table width="1024">
+                        <tr>
+                            <td>
+                                <div id="mapholder">
+                                </div>
+                                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                </asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

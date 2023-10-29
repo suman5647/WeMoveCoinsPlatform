@@ -1,0 +1,29 @@
+2018-07-13 14:14:19 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-master\bin\bitgo-express --log "BitGoJs wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-07-13 14:14:19 - Started 5556
+2018-08-21 09:31:12 - Stopping bitgojs.exe
+2018-08-21 09:31:12 - Finished bitgojs.exe
+2018-08-21 09:35:56 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-master\bin\bitgo-express --log "BitGoJs wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-08-21 09:35:56 - Started 1260
+2018-08-22 09:41:38 - Stopping bitgojs.exe
+2018-08-22 09:41:38 - ProcessKill 1260
+2018-08-22 09:41:44 - Shutdown exception
+Message:A system shutdown is in progress. (Exception from HRESULT: 0x8007045B)
+Stacktrace:   at System.Runtime.InteropServices.Marshal.ThrowExceptionForHRInternal(Int32 errorCode, IntPtr errorInfo)
+   at System.Management.ManagementScope.InitializeGuts(Object o)
+   at System.Management.ManagementScope.Initialize()
+   at System.Management.ManagementObjectSearcher.Initialize()
+   at System.Management.ManagementObjectSearcher.Get()
+   at winsw.WrapperService.GetChildPids(Int32 pid)
+   at winsw.WrapperService.StopProcessAndChildren(Int32 pid)
+   at winsw.WrapperService.StopIt()
+   at winsw.WrapperService.OnShutdown()
+2018-08-22 09:50:18 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-master\bin\bitgo-express --log "BitGoJs wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-08-22 09:50:18 - Started 1180
+2018-10-05 06:59:38 - Stopping bitgojs.exe
+2018-10-05 06:59:38 - Finished bitgojs.exe
+2018-10-05 07:03:24 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-master\bin\bitgo-express --log "BitGoJs wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-10-05 07:03:24 - Started 1248
+2018-11-21 07:24:43 - Stopping bitgojs.exe
+2018-11-21 07:24:44 - Finished bitgojs.exe
+2018-11-21 07:28:54 - Starting C:\Program Files\nodejs\node.exe  --harmony C:\Users\TgmSuperuser\AppData\Roaming\npm\node_modules\node-windows\lib\wrapper.js --file C:\Apps\Bitgo\BitGoJS-master\bin\bitgo-express --log "BitGoJs wrapper" --grow 0.25 --wait 1 --maxrestarts 3 --abortonerror n --stopparentfirst undefined
+2018-11-21 07:28:54 - Started 1256

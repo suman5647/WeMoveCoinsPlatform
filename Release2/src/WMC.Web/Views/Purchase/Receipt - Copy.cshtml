@@ -1,0 +1,86 @@
+﻿@using WMC.Helpers
+@model WMC.Web.Models.ReceiptModel
+<html>
+<head>
+    <title>@Html.Resource("WMCResources", "Title", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/flaticon.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/glyphicons.css" rel="stylesheet" type="text/css">
+    <link href="~/Sites/@ViewBag.SiteName/css/style.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/theme-colors.css" rel="stylesheet">
+    <link href="~/Sites/@ViewBag.SiteName/css/responsive.css" rel="stylesheet">
+    <link href="~/Content/scrolling-nav.css" rel="stylesheet">
+    <link href="~/Content/build.css" rel="stylesheet">
+</head>
+<body style="font-family: SourceSansPro, sans-serif !important;">
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerId" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager -->
+    <div class="page" id="formReceipt" style="font-family: SourceSansPro, sans-serif !important;">
+        <div class="idenfiy-box" style="color: black;margin: 10px 0 20px auto;border-radius: 5px;text-align: initial;">
+            <div class="beatling-box" style="color: white;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;padding:5px 20px;margin: 0px;">@Html.Resource("WMCResources", "PaymentSucceeded")</div>
+            <div style="padding: 10px 20px">
+                <div ng-hide="vm.model.direction">
+
+
+                    <span>@Html.Resource("WMCResources", "ReceiptPageHeaderString1", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</span><br /><br />
+                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString2")</p>
+                    <p>@Html.Resource("WMCResources", "ReceiptPageHeaderString3")</p>
+                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "ReceiptPageHeaderString4")</p>
+                    <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "Amount"):</div>
+                        <div class="col-xs-7">@Model.Currency @Model.Amount</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "Commission"):</div>
+                        <div class="col-xs-7">@Model.Currency @Model.Commission</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "Rate"):</div>
+                        <div class="col-xs-7">@Html.Resource("WMCResources", "PaymentInstructionsPageContentString5")</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "YourBitcoinAddress"):</div>
+                        <div class="col-xs-7" style="word-break: break-all;">@Model.BitcoinAddress</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "CardholderName"):</div>
+                        <div class="col-xs-7" style="word-break: keep-all;">@Model.CardHolderName</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "CreditCardNumber"):</div>
+                        <div class="col-xs-7">@Model.CreditCardNumber</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5">@Html.Resource("WMCResources", "OrderNumber"):</div>
+                        <div class="col-xs-7">@Model.OrderNumber</div>
+                    </div>
+                    <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                </div>
+
+                <div ng-show="vm.model.direction">
+
+
+                    <span>@Html.Resource("WMCResources", "SellReceiptPageHeaderString1", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</span><br /><br />
+                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "SellReceiptPageHeaderString2")</p>
+                    <p>@Html.Resource("WMCResources", "SellReceiptPageHeaderString3")</p>
+                    <p style="font-weight: bold;">@Html.Resource("WMCResources", "SellReceiptPageHeaderString4")</p>
+                    <hr class="idenfiy-box" style="margin-top: 5px;margin-bottom: 5px;" />
+                    
+                </div>
+
+
+                @{
+                    var supportEmail = Html.Resource("WMCResources", "MailToAddress").Replace("{SiteName}", ViewBag.fSiteName);
+                }
+                <p>@Html.Resource("WMCResources", "SellReceiptPageFooterString1") <a href=@supportEmail target="_top">@Html.Resource("WMCResources", "ContactUs")</a>.</p>
+                <p>@Html.Resource("WMCResources", "SellReceiptPageFooterString2")</p>
+                <p>@Html.Resource("WMCResources", "SellReceiptPageFooterString3")</p>
+                <p>@Html.Resource("WMCResources", "SellReceiptPageFooterString4", new Dictionary<string, string> { { "{SiteName}", ViewBag.SiteName } })</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
